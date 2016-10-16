@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LearnWords</string>
+    <string name="new_word">New word</string>
+    <string name="edit_word">Edit word</string>
+</resources>
