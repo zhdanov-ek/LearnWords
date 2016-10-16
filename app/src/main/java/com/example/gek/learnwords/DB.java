@@ -5,6 +5,9 @@ package com.example.gek.learnwords;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
 
+        import java.util.ArrayList;
+        import java.util.Random;
+
 class DB {
 
     private static final String DB_NAME = "learnwords";
@@ -53,6 +56,19 @@ class DB {
     // закрыть подключение
     public void close() {
         if (mDBHelper!=null) mDBHelper.close();
+    }
+
+    /** Ищем в базе английское слово и если находим, что-то возвращаем TRUE*/
+    public boolean checkIsPresentWord(String eng){
+        String selection = COLUMN_ENG + " LIKE ?";            // условие отбора
+        String[] selectionArgs =  new String[] {eng};
+
+        // Если что-то нашли то возвращаем TRUE, иначе - FALSE
+        Cursor c = mDB.query(DB_TABLE, null, selection, selectionArgs, null, null, null);
+        if  (c.moveToFirst())
+            return true;
+        else
+            return false;
     }
 
     /** получить данные из таблицы DB_TABLE */
@@ -133,6 +149,8 @@ class DB {
 
     /** добавить запись в DB_TABLE */
     public void addRec(String eng, String rus) {
+
+
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ENG, eng);
         cv.put(COLUMN_RUS, rus);
@@ -150,6 +168,34 @@ class DB {
     public void delAllRec() {
         mDB.delete(DB_TABLE, null, null);
     }
+
+    /** Формируем рандомный список ID элементов БД*/
+    public ArrayList<Integer> getFullRandomListID(Cursor cursor){
+        // сначала получаем весь список ID из курсора
+        ArrayList<Integer> fullList = new ArrayList<>();
+        cursor.moveToFirst();
+        do {
+            fullList.add(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_ID)));
+        } while (cursor.moveToNext());
+        // тут уже перемешиваем эти значения и получаем рандомный список
+        return makeRandomList(fullList);
+    }
+
+    /** Перемещиваем список */
+    public ArrayList<Integer> makeRandomList(ArrayList<Integer> wordsID){
+        ArrayList<Integer> wordsIDRandom = new ArrayList<>();
+        int size = wordsID.size();
+        Random random = new Random();
+        int r;
+        for (int i = 0; i < size; i++) {
+            r = random.nextInt(size - i);
+            wordsIDRandom.add(wordsID.get(r));
+            wordsID.remove(r);
+        }
+        return wordsIDRandom;
+    }
+
+
 
     // Создадим наш класс по созданию и управлению БД на основе базового SQLiteOpenHelper
     private class DBHelper extends SQLiteOpenHelper {

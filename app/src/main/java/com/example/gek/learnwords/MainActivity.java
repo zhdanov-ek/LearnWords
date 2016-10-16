@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btnLearn:
+                Intent intentLearn = new Intent(getBaseContext(), LearnActivity.class);
+                startActivity(intentLearn);
+                break;
             case R.id.btnAddWord:
                 Intent intentAddWord = new Intent(getBaseContext(), WordActivity.class);
                 intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_NEW);
@@ -47,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentList = new Intent(getBaseContext(), ListWordsActivity.class);
                 startActivity(intentList);
                 break;
+            case R.id.btnImportExport:
+                Intent intentIE = new Intent(getBaseContext(),IEActivity.class);
+                startActivity(intentIE);
+                break;
+
 
         }
 

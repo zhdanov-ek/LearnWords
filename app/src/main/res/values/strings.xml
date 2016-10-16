@@ -2,4 +2,12 @@
     <string name="app_name">LearnWords</string>
     <string name="new_word">New word</string>
     <string name="edit_word">Edit word</string>
+    <string name="hint_local_load_words">Name of file on SD card for load</string>
+    <string name="name_file_load_words">new_words.txt</string>
+    <string name="load_file_sd">Load new words from .txt file on SD card with delimiter TAB</string>
+    <string name="load_button_new_words">Load new words</string>
+
+    <string name="know">Know</string>
+    <string name="dont_know">Don\'t know</string>
+    <string name="next">Next</string>
 </resources>

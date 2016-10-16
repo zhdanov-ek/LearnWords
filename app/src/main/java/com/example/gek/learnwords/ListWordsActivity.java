@@ -32,9 +32,9 @@ public class ListWordsActivity extends Activity {
     private void loadListView(){
         cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
         // массив имен атрибутов, из которых будут читаться данные
-        String[] from = {DB.COLUMN_ENG, DB.COLUMN_RUS};
+        String[] from = {DB.COLUMN_ENG, DB.COLUMN_RUS, DB.COLUMN_TRUE, DB.COLUMN_FALSE};
         // массив ID View-компонентов, в которые будут вставлять данные
-        int[] to = {R.id.tvListEng, R.id.tvListRus};
+        int[] to = {R.id.tvListEng, R.id.tvListRus, R.id.tvListAnswerTrue, R.id.tvListAnswerFalse};
         // создаем адаптер
         scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
         // определяем список и присваиваем ему адаптер
