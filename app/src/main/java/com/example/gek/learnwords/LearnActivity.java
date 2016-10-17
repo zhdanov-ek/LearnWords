@@ -59,7 +59,7 @@ public class LearnActivity extends Activity implements View.OnClickListener{
                 registrationAnswer(false);
                 break;
             case R.id.btnNext:
-                showNextWord(nextID);
+                showNextWord(wordsIDList.get(nextID));
                 break;
             case R.id.btnKnow:
                 registrationAnswer(true);
@@ -69,7 +69,7 @@ public class LearnActivity extends Activity implements View.OnClickListener{
     }
 
 
-    // TODO: 16.10.16 Пропускает предпоследнее слово при переборе списка 
+
     /** Выводим следующее слово на экран */
     private void showNextWord(int idWord){
         ContentValues cv = db.getItem(idWord);
