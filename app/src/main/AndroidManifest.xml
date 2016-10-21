@@ -28,6 +28,9 @@
 
         <activity android:name=".LearnActivity">
         </activity>
+
+        <activity android:name=".TestActivity">
+        </activity>
     </application>
 
 </manifest>

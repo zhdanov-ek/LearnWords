@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnLearn, btnWords, btnAddWord, btnImportExport;
-    public DB db;
+    private TextView tv_number_words;
+    private Button btnLearn, btnTest, btnWords, btnAddWord, btnImportExport;
+    private DB db;
 
 
     @Override
@@ -17,8 +19,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tv_number_words = (TextView)findViewById(R.id.tv_number_words);
+
         btnLearn = (Button)findViewById(R.id.btnLearn);
         btnLearn.setOnClickListener(this);
+
+
+        btnTest = (Button)findViewById(R.id.btnTest);
+        btnTest.setOnClickListener(this);
 
         btnWords = (Button)findViewById(R.id.btnWords);
         btnWords.setOnClickListener(this);
@@ -33,6 +41,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db = new DB(this);
         db.open();
 
+
+    }
+
+    // перед отрисовкой основного меню (при запуске или при закрытии других активити программы)
+    // выводим кол-во слов в словаре, а также блокируем режим тестирования если слов мало
+    @Override
+    public void onResume(){
+        super.onResume();
+        int num = db.getNumberWords();
+        if (num < 5)
+            btnTest.setEnabled(false);
+        else btnTest.setEnabled(true);
+
+        tv_number_words.setText("In dictionary " + num + " words" );
     }
 
     @Override
@@ -42,6 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentLearn = new Intent(getBaseContext(), LearnActivity.class);
                 startActivity(intentLearn);
                 break;
+
+            case R.id.btnTest:
+                // TODO: 21.10.16 Позволять запускать этот режим только при наличии 4 слов и более
+                Intent intentTest = new Intent(getBaseContext(), TestActivity.class);
+                startActivity(intentTest);
+                break;
+
             case R.id.btnAddWord:
                 Intent intentAddWord = new Intent(getBaseContext(), WordActivity.class);
                 intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_NEW);

@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Класс содержит все глобальные константы
@@ -51,6 +54,25 @@ public final class Consts {
             e.printStackTrace();
         }
         return line;
+    }
+
+    public static int[] getThreeId(int exclusionId,  ArrayList<Integer> listId){
+        Random r = new Random();
+        int num1, num2, num3;
+        do {
+            num1 = listId.get(r.nextInt(listId.size()-1));
+        } while (exclusionId == num1);
+
+        do {
+            num2 = listId.get(r.nextInt(listId.size()-1));
+        } while ((exclusionId == num2) || (num1 == num2));
+
+        do {
+            num3 = listId.get(r.nextInt(listId.size()-1));
+        } while ((exclusionId == num3) || (num1 == num3) || (num2 == num3));
+
+        return new int[]{num1, num2, num3};
+
     }
 
 }

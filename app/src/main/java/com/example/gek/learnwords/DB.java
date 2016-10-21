@@ -113,6 +113,11 @@ class DB {
                 orderBy);
     }
 
+    /** Возвращает количество записей в словаре */
+    public int getNumberWords(){
+        return getAllData(Consts.LIST_TYPE_ALL, null).getCount();
+
+    }
     /** Получить одну конкретную запись из таблицы DB_TABLE */
     public ContentValues getItem(int id){
         // стандартные переменные для query где задаются все ключи запроса
