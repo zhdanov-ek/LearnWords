@@ -7,10 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Тестирование знаний: вопрос и 4 кнопки с вариантами ответов
@@ -21,12 +20,13 @@ public class TestActivity extends Activity implements View.OnClickListener {
     private TextView tv_word;
     private DB db;
     private Cursor cursor;
-    private String eng, rus;
+    private String eng, rus;                // значения текущего слова
+    int id, counterTrue, counterFalse;
 
     private int currentID = 0;              // текущий порядковый номер ID слова в списке всех ID
     ArrayList<Integer> wordsIDList;         // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;       // массив ложных альтернативных ID
-    ArrayList<Integer> wordsIDListShowed;   // хранит рандомный список ID уже протестированных слов
+
 
 
     @Override
@@ -39,6 +39,7 @@ public class TestActivity extends Activity implements View.OnClickListener {
         tv_word = (TextView)findViewById(R.id.tv_word);
         btn_answer1 = (Button)findViewById(R.id.btn_answer1);
         btn_answer1.setOnClickListener(this);
+
 
         btn_answer2 = (Button)findViewById(R.id.btn_answer2);
         btn_answer2.setOnClickListener(this);
@@ -64,6 +65,12 @@ public class TestActivity extends Activity implements View.OnClickListener {
             case R.id.btn_next:
                 showNextWord();
                 break;
+            case R.id.btn_answer1:
+            case R.id.btn_answer2:
+            case R.id.btn_answer3:
+            case R.id.btn_answer4:
+                checkAnswer((Button)findViewById(v.getId()));
+                break;
             default:
                 break;
         }
@@ -71,18 +78,29 @@ public class TestActivity extends Activity implements View.OnClickListener {
 
     }
 
-    // формируем и отображаем следующий вопрос с тремя ложными ответами
+    /** формируем и отображаем следующий вопрос с тремя ложными ответами */
     private void showNextWord(){
+        btn_answer1.setBackgroundResource(android.R.drawable.btn_default);
+        btn_answer2.setBackgroundResource(android.R.drawable.btn_default);
+        btn_answer3.setBackgroundResource(android.R.drawable.btn_default);
+        btn_answer4.setBackgroundResource(android.R.drawable.btn_default);
+        setAnswersClickable(true);
+
+
         // получаем текущее слово
         ContentValues currentWord = db.getItem(wordsIDList.get(currentID));
         eng = currentWord.getAsString(DB.COLUMN_ENG);
-        tv_word.setText(eng);
         rus = currentWord.getAsString(DB.COLUMN_RUS);
+        id = wordsIDList.get(currentID);
+        counterTrue = currentWord.getAsInteger(DB.COLUMN_TRUE);
+        counterFalse = currentWord.getAsInteger(DB.COLUMN_FALSE);
+
+        tv_word.setText(eng);
         // список где будут хранится все варианты ответа (для рандомной подачи на экран)
         ArrayList<String> answers = new ArrayList<>();
         answers.add(rus);
 
-        // Получаем ID трех разных вариантов ложных ответов пропуская значение указаннов в currentID
+        // Получаем ID трех разных вариантов ложных ответов пропуская значение указанные в currentID
         threeFalseAnswerId = Consts.getThreeId(wordsIDList.get(currentID), wordsIDList);
         for (int i = 0; i < threeFalseAnswerId.length; i++) {
             ContentValues answerFalse = db.getItem(threeFalseAnswerId[i]);
@@ -101,5 +119,55 @@ public class TestActivity extends Activity implements View.OnClickListener {
             currentID++;
         } else
             btn_next.setEnabled(false);
+    }
+
+    /** Проверяем правильно ли выбран ответ */
+    private  void checkAnswer(Button b){
+        if (b.getText().toString().contentEquals(rus)){
+            Toast.makeText(this, "Правильно", Toast.LENGTH_SHORT).show();
+            //todo Написать метод, который будет вместо сообщения "Правильно" выводить какую-то анимацию или подарки
+            registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
+            showNextWord();
+        } else {
+            b.setBackgroundColor(getResources().getColor(R.color.colorButtonFalse));
+            Toast.makeText(this, "Не верно", Toast.LENGTH_SHORT).show();
+            if (btn_answer1.getText() == rus)
+                btn_answer1.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+            if (btn_answer2.getText() == rus)
+                btn_answer2.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+            if (btn_answer3.getText() == rus)
+                btn_answer3.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+            if (btn_answer4.getText() == rus)
+                btn_answer4.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+            registrationAnswer(false);   // отмечаем в БД, что дан ложный ответ
+            setAnswersClickable(false);
+        }
+
+
+    }
+
+    /** Включение/отключение кнопок в зависимости от того был ли выбран вариант */
+    private void setAnswersClickable(Boolean b){
+        btn_answer1.setClickable(b);
+        btn_answer2.setClickable(b);
+        btn_answer3.setClickable(b);
+        btn_answer4.setClickable(b);
+        btn_next.setEnabled(!b);
+    }
+
+
+    /** Изменяем в БД кол-во правильных и неправильны ответов по конкретному слову */
+    private void registrationAnswer(boolean answer){
+        // Если нажали ЗНАЮ, то увеличиваем кол-во правильных ответов. В противном случае - неправильных
+        if (answer)
+            counterTrue++;
+        else
+            counterFalse++;
+        ContentValues cv = new ContentValues();
+        cv.put(DB.COLUMN_ENG, eng);
+        cv.put(DB.COLUMN_RUS, rus);
+        cv.put(DB.COLUMN_TRUE, counterTrue);
+        cv.put(DB.COLUMN_FALSE, counterFalse);
+        db.changeRec(cv, Integer.toString(id));
     }
 }
