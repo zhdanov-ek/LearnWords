@@ -6,24 +6,26 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * Created by gek on 16.10.16.
+ * Режим изучения слов в котором подаются на экран слова по случайно сформированному списку
+ * Пользователь сам указывает знает он это слово или не знает. Ответы фиксируются в БД
  */
 
 public class LearnActivity extends Activity implements View.OnClickListener{
-    Button btnDontKnow, btnNext, btnKnow;
-    TextView tvLearnEng, tvLearnRus, tvLearnResult;
+    private Button btnDontKnow, btnKnow;
+    private TextView tvLearnEng, tvLearnRus, tvLearnResult;
 
-    DB db;
-    Cursor cursor;
-    String eng, rus;                        // значения текущего слова
-    int id, counterTrue, counterFalse;      // значения текущего слова
-    int nextID = 0;                         // служит для перебора по рандомногому списку ID слов
-    ArrayList<Integer> wordsIDList;         // хранит рандомный список ID слов
+    private DB db;
+    private Cursor cursor;
+    private String eng, rus;                        // значения текущего слова
+    private int id, counterTrue, counterFalse;      // значения текущего слова
+    private int nextID = 0;                         // служит для перебора по рандомногому списку ID слов
+    private ArrayList<Integer> wordsIDList;         // хранит рандомный список ID слов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,6 @@ public class LearnActivity extends Activity implements View.OnClickListener{
         btnDontKnow = (Button)findViewById(R.id.btnDontKnow);
         btnDontKnow.setOnClickListener(this);
 
-        btnNext = (Button)findViewById(R.id.btnNext);
-        btnNext.setOnClickListener(this);
-
         btnKnow = (Button)findViewById(R.id.btnKnow);
         btnKnow.setOnClickListener(this);
 
@@ -58,11 +57,13 @@ public class LearnActivity extends Activity implements View.OnClickListener{
             case R.id.btnDontKnow:
                 registrationAnswer(false);
                 break;
-            case R.id.btnNext:
-                showNextWord(wordsIDList.get(nextID));
-                break;
+            // Если на кнопке надпись ДАЛЕЕ то показываем новое слово, иначе - отрабатываем ответ
             case R.id.btnKnow:
-                registrationAnswer(true);
+                if (btnKnow.getText().toString().contentEquals(getResources().getString(R.string.next))) {
+                    showNextWord(wordsIDList.get(nextID));
+                } else {
+                    registrationAnswer(true);
+                }
                 break;
 
         }
@@ -85,9 +86,8 @@ public class LearnActivity extends Activity implements View.OnClickListener{
 
         tvLearnResult.setVisibility(View.INVISIBLE);
 
-        btnDontKnow.setVisibility(View.VISIBLE);
-        btnNext.setVisibility(View.INVISIBLE);
-        btnKnow.setVisibility(View.VISIBLE);
+        btnDontKnow.setEnabled(true);
+        btnKnow.setText(R.string.know);
     }
 
     /** Изменяем в БД кол-во правильных и неправильны ответов по конкретному слову */
@@ -105,27 +105,25 @@ public class LearnActivity extends Activity implements View.OnClickListener{
         db.changeRec(cv, Integer.toString(id));
 
         tvLearnRus.setVisibility(View.VISIBLE);
-        btnDontKnow.setVisibility(View.INVISIBLE);
-        btnKnow.setVisibility(View.INVISIBLE);
 
         // Инкрементируем указатель для выбора следующего слова в рандомном списке
         // если это еще не конец списка. Иначе - прекращаем работу в этом окне
         if (wordsIDList.size() == (nextID+1)) {
             // Если это последнее слово то блокируем кнопки и информируем юзера
-            btnNext.setVisibility(View.INVISIBLE);
+            btnKnow.setVisibility(View.INVISIBLE);
+            btnDontKnow.setVisibility(View.INVISIBLE);
         } else {
             nextID++;
-            btnNext.setVisibility(View.VISIBLE);
+            btnKnow.setText(R.string.next);
+            btnDontKnow.setEnabled(false);
         }
 
     }
 
-
-    /**  Обязательные абстрактыне методы для актвити с буфером*/
+    /**  Закрытие базы перед уничтожением активити */
     protected void onDestroy() {
         super.onDestroy();
         // закрываем подключение при выходе
         db.close();
     }
-
 }

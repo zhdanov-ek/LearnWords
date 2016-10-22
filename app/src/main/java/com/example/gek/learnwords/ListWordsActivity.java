@@ -41,12 +41,11 @@ public class ListWordsActivity extends Activity {
         lvSimple.setAdapter(scAdapter);
     }
 
-    /**  Обязательные абстрактыне методы для актвити с буфером*/
+    /**  Закрытие базы перед уничтожением активити */
     protected void onDestroy() {
         super.onDestroy();
         // закрываем подключение при выходе
         db.close();
     }
-
-
 }
+

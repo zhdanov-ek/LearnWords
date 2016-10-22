@@ -80,6 +80,7 @@ public class TestActivity extends Activity implements View.OnClickListener {
 
     /** формируем и отображаем следующий вопрос с тремя ложными ответами */
     private void showNextWord(){
+        //todo заменить стандартный селектор на свой, что бы все кнопки были одинаковые
         btn_answer1.setBackgroundResource(android.R.drawable.btn_default);
         btn_answer2.setBackgroundResource(android.R.drawable.btn_default);
         btn_answer3.setBackgroundResource(android.R.drawable.btn_default);
@@ -169,5 +170,12 @@ public class TestActivity extends Activity implements View.OnClickListener {
         cv.put(DB.COLUMN_TRUE, counterTrue);
         cv.put(DB.COLUMN_FALSE, counterFalse);
         db.changeRec(cv, Integer.toString(id));
+    }
+
+    /**  Закрытие базы перед уничтожением активити */
+    protected void onDestroy() {
+        super.onDestroy();
+        // закрываем подключение при выходе
+        db.close();
     }
 }

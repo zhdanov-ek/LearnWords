@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    /**  Обязательные абстрактыне методы для актвити с буфером*/
+    /**  Закрытие базы переду уничтожением активити */
     protected void onDestroy() {
         super.onDestroy();
         // закрываем подключение при выходе
