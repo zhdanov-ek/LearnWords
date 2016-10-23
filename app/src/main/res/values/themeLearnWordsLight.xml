@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ThemeLearnWordsLight" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/bg4</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonStyle">@style/LearnWordsButton</item>
+    </style>
+
+    <style name="LearnWordsButtonMenu" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/bg_menu_button</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="LearnWordsButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/bg_menu_button_yellow</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+</resources>

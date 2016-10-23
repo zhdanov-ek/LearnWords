@@ -1,5 +1,6 @@
 package com.example.gek.learnwords;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_number_words;
     private Button btnLearn, btnTest, btnWords, btnAddWord, btnImportExport;
     private DB db;
+    Context ctx;
 
 
     @Override
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ctx = getApplicationContext();
         tv_number_words = (TextView)findViewById(R.id.tv_number_words);
 
         btnLearn = (Button)findViewById(R.id.btnLearn);
@@ -61,27 +64,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLearn:
-                Intent intentLearn = new Intent(getBaseContext(), LearnActivity.class);
+                Intent intentLearn = new Intent(ctx, LearnActivity.class);
                 startActivity(intentLearn);
                 break;
 
             case R.id.btnTest:
-                // TODO: 21.10.16 Позволять запускать этот режим только при наличии 4 слов и более
-                Intent intentTest = new Intent(getBaseContext(), TestActivity.class);
+                Intent intentTest = new Intent(ctx, TestActivity.class);
                 startActivity(intentTest);
                 break;
 
             case R.id.btnAddWord:
-                Intent intentAddWord = new Intent(getBaseContext(), WordActivity.class);
+                Intent intentAddWord = new Intent(ctx, WordActivity.class);
                 intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_NEW);
                 startActivityForResult(intentAddWord, Consts.WORD_NEW);
                 break;
             case R.id.btnWords:
-                Intent intentList = new Intent(getBaseContext(), ListWordsActivity.class);
+                Intent intentList = new Intent(ctx, ListWordsActivity.class);
                 startActivity(intentList);
                 break;
             case R.id.btnImportExport:
-                Intent intentIE = new Intent(getBaseContext(),IEActivity.class);
+                Intent intentIE = new Intent(ctx,IEActivity.class);
                 startActivity(intentIE);
                 break;
 

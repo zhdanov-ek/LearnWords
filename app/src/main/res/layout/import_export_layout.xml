@@ -8,11 +8,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+
+    <TextView
+        android:text="@string/caption_import_export"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_caption_ie"
+        android:textSize="@dimen/text_view_big_font_size"/>
+
     <TextView
         android:text="@string/load_file_sd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvIELoadWords" />
+        android:id="@+id/tvIELoadWords"
+        android:textSize="@dimen/text_view_font_size"/>
 
     <EditText
         android:layout_width="match_parent"

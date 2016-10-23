@@ -1,17 +1,17 @@
 package com.example.gek.learnwords;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WordActivity extends Activity{
+public class WordActivity extends AppCompatActivity {
     private Context context;
     private DB db;
     private Button btnOk, btnCancel;
@@ -25,9 +25,9 @@ public class WordActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_layout);
 
-        context = getBaseContext();
+        context = getApplicationContext();
 
-        tvMode = (TextView)findViewById(R.id.tvMode);
+        tvMode = (TextView)findViewById(R.id.tv_caption_word);
         btnOk = (Button) findViewById(R.id.btnOkWord);
         btnCancel = (Button) findViewById(R.id.btnCancelWord);
         etEng = (EditText) findViewById(R.id.etEng);
@@ -39,12 +39,12 @@ public class WordActivity extends Activity{
         mode = intent.getIntExtra(Consts.WORD_MODE,0);
         switch (mode) {
             case Consts.WORD_NEW:
-                tvMode.setText(R.string.new_word);
+                tvMode.setText(R.string.caption_new_word);
                 mode = Consts.WORD_NEW;
                 break;
 
             case Consts.WORD_EDIT:
-                tvMode.setText(R.string.edit_word);
+                tvMode.setText(R.string.caption_edit_word);
                 etEng.setText(intent.getStringExtra(DB.COLUMN_ENG));
                 etRus.setText(intent.getStringExtra(DB.COLUMN_RUS));
                 mode = Consts.WORD_EDIT;

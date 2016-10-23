@@ -14,36 +14,47 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_view_font_size"
+        android:gravity="center_horizontal"
         android:id="@+id/tv_number_words"/>
 
-
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="learn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:id="@+id/btnLearn" />
 
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:id="@+id/btnTest" />
 
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:id="@+id/btnWords" />
 
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="add word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:id="@+id/btnAddWord" />
 
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="import/export"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:id="@+id/btnImportExport" />
 </LinearLayout>

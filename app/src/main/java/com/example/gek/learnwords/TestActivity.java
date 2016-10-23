@@ -1,9 +1,9 @@
 package com.example.gek.learnwords;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +15,7 @@ import java.util.Arrays;
  * Тестирование знаний: вопрос и 4 кнопки с вариантами ответов
  */
 
-public class TestActivity extends Activity implements View.OnClickListener {
+public class TestActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_next, btn_answer1, btn_answer2, btn_answer3, btn_answer4;
     private TextView tv_word;
     private DB db;

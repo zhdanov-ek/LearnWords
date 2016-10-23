@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:id="@+id/tv_word"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:textSize="@dimen/text_view_big_font_size" />
 
 
     <Button
@@ -48,6 +49,7 @@
 
 
     <Button
+        style="@style/LearnWordsButtonMenu"
         android:text="@string/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

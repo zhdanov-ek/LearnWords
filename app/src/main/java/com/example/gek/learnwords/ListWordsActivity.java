@@ -1,14 +1,14 @@
 package com.example.gek.learnwords;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 
 
-public class ListWordsActivity extends Activity {
+public class ListWordsActivity extends AppCompatActivity {
     SimpleCursorAdapter scAdapter;
     private Cursor cursor;
     DB db;
