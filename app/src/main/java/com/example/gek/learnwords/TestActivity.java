@@ -2,6 +2,9 @@ package com.example.gek.learnwords;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -80,11 +83,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     /** формируем и отображаем следующий вопрос с тремя ложными ответами */
     private void showNextWord(){
-        //todo заменить стандартный селектор на свой, что бы все кнопки были одинаковые
-        btn_answer1.setBackgroundResource(android.R.drawable.btn_default);
-        btn_answer2.setBackgroundResource(android.R.drawable.btn_default);
-        btn_answer3.setBackgroundResource(android.R.drawable.btn_default);
-        btn_answer4.setBackgroundResource(android.R.drawable.btn_default);
+        btn_answer1.setBackgroundResource(R.drawable.bg_button_grey);
+        btn_answer2.setBackgroundResource(R.drawable.bg_button_grey);
+        btn_answer3.setBackgroundResource(R.drawable.bg_button_grey);
+        btn_answer4.setBackgroundResource(R.drawable.bg_button_grey);
         setAnswersClickable(true);
 
 
@@ -130,16 +132,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
             showNextWord();
         } else {
-            b.setBackgroundColor(getResources().getColor(R.color.colorButtonFalse));
+            b.setBackgroundResource(R.drawable.bg_button_red);
             Toast.makeText(this, "Не верно", Toast.LENGTH_SHORT).show();
             if (btn_answer1.getText() == rus)
-                btn_answer1.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+                btn_answer1.setBackgroundResource(R.drawable.bg_button_green);
             if (btn_answer2.getText() == rus)
-                btn_answer2.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+                btn_answer2.setBackgroundResource(R.drawable.bg_button_green);
             if (btn_answer3.getText() == rus)
-                btn_answer3.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+                btn_answer3.setBackgroundResource(R.drawable.bg_button_green);
             if (btn_answer4.getText() == rus)
-                btn_answer4.setBackgroundColor(getResources().getColor(R.color.colorButtonTrue));
+                btn_answer4.setBackgroundResource(R.drawable.bg_button_green);
             registrationAnswer(false);   // отмечаем в БД, что дан ложный ответ
             setAnswersClickable(false);
         }

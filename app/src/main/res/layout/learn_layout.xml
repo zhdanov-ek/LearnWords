@@ -45,20 +45,21 @@
         android:id="@+id/ll_know_buttons"
         android:gravity="center_horizontal|bottom">
 
+
         <Button
+            style="@style/LearnWordsButtonRed"
             android:text="@string/dont_know"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="100"
-            android:id="@+id/btnDontKnow"
-            android:background="@color/colorButtonFalse"/>
+            android:id="@+id/btnDontKnow" />
         <Button
+            style="@style/LearnWordsButtonGreen"
             android:text="@string/know"
             android:layout_weight="100"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnKnow"
-            android:background="@color/colorButtonTrue"/>
+            android:id="@+id/btnKnow" />
     </LinearLayout>
 
 </LinearLayout>

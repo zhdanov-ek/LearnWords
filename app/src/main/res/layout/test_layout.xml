@@ -16,6 +16,7 @@
         android:gravity="center_horizontal"
         android:id="@+id/tv_word"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:textSize="@dimen/text_view_big_font_size" />
 
 
@@ -25,31 +26,31 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_answer1"
         android:layout_below="@+id/tv_word"
-        android:layout_marginTop="50dp" />
+        android:layout_margin="@dimen/button_layout_margin"/>
     <Button
         android:text="answer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_answer2"
-        android:layout_below="@+id/btn_answer1"/>
+        android:layout_below="@+id/btn_answer1"
+        android:layout_margin="@dimen/button_layout_margin"/>/>
     <Button
         android:text="answer3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_answer3"
-        android:layout_below="@+id/btn_answer2"/>
+        android:layout_below="@+id/btn_answer2"
+        android:layout_margin="@dimen/button_layout_margin"/>/>
     <Button
         android:text="answer4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_answer4"
-        android:layout_below="@+id/btn_answer3"/>
-
-
-
+        android:layout_below="@+id/btn_answer3"
+        android:layout_margin="@dimen/button_layout_margin"/>/>
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="@string/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +58,6 @@
         android:id="@+id/btn_next"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

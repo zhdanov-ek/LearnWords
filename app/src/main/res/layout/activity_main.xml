@@ -14,47 +14,48 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_view_font_size"
+        android:textSize="@dimen/text_view_middle_font_size"
         android:gravity="center_horizontal"
-        android:id="@+id/tv_number_words"/>
+        android:id="@+id/tv_number_words"
+        android:layout_margin="20dp"/>
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="learn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/button_layout_margin"
         android:id="@+id/btnLearn" />
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/button_layout_margin"
         android:id="@+id/btnTest" />
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/button_layout_margin"
         android:id="@+id/btnWords" />
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="add word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/button_layout_margin"
         android:id="@+id/btnAddWord" />
 
     <Button
-        style="@style/LearnWordsButtonMenu"
+        style="@style/LearnWordsButtonGreen"
         android:text="import/export"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="@dimen/button_layout_margin"
         android:id="@+id/btnImportExport" />
 </LinearLayout>

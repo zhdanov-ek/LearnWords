@@ -5,4 +5,5 @@
     <dimen name="text_view_font_size">16sp</dimen>
     <dimen name="text_view_middle_font_size">20sp</dimen>
     <dimen name="text_view_big_font_size">26sp</dimen>
+    <dimen name="button_layout_margin">3dp</dimen>
 </resources>
