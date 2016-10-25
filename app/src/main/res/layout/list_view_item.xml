@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100">
-        <TextView
-            android:id="@+id/tvListEng"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="English">
-        </TextView>
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100">
 
-         <TextView
+        <TextView
+            android:id="@+id/tvListEng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="English"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100">
+
+        <TextView
             android:id="@+id/tvListRus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Russian">
-        </TextView>
+            tools:text="Russian"></TextView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,22 +36,21 @@
 
         <TextView
             android:id="@+id/tvListAnswerTrue"
-            android:textColor="@color/colorGreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5">
-        </TextView>
+            android:textColor="@color/colorGreen"
+            tools:text="5"></TextView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/">
-        </TextView>
+            tools:text="/"></TextView>
+
         <TextView
             android:id="@+id/tvListAnswerFalse"
-            android:textColor="@color/colorRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3">
-        </TextView>
+            android:textColor="@color/colorRed"
+            tools:text="3"></TextView>
     </LinearLayout>
 </LinearLayout>

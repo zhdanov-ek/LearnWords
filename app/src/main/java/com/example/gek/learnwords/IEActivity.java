@@ -1,6 +1,5 @@
 package com.example.gek.learnwords;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.import_export_layout);
+        setContentView(R.layout.activity_ie);
 
         etFileLoadWords = (EditText) findViewById(R.id.etFileLoadWords);
 

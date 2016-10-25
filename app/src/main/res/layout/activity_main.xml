@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,50 +12,51 @@
     tools:context="com.example.gek.learnwords.MainActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_view_middle_font_size"
-        android:gravity="center_horizontal"
         android:id="@+id/tv_number_words"
-        android:layout_margin="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/font_size_middle"
+        tools:text="In dictionary 20 words" />
 
     <Button
+        android:id="@+id/btnLearn"
         style="@style/LearnWordsButtonGreen"
-        android:text="learn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_layout_margin"
-        android:id="@+id/btnLearn" />
+        android:text="learn" />
 
     <Button
+        android:id="@+id/btnTest"
         style="@style/LearnWordsButtonGreen"
-        android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_layout_margin"
-        android:id="@+id/btnTest" />
+        android:text="test" />
 
     <Button
+        android:id="@+id/btnWords"
         style="@style/LearnWordsButtonGreen"
-        android:text="words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_layout_margin"
-        android:id="@+id/btnWords" />
+        android:text="words" />
 
     <Button
+        android:id="@+id/btnAddWord"
         style="@style/LearnWordsButtonGreen"
-        android:text="add word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_layout_margin"
-        android:id="@+id/btnAddWord" />
+        android:text="add word" />
 
     <Button
+        android:id="@+id/btnImportExport"
         style="@style/LearnWordsButtonGreen"
-        android:text="import/export"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/button_layout_margin"
-        android:id="@+id/btnImportExport" />
+        android:text="import/export" />
 </LinearLayout>

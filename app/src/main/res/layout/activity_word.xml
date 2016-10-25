@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:text="@string/caption_new_word"
+        android:id="@+id/tv_caption_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_view_middle_font_size"
         android:gravity="center_horizontal"
-        android:id="@+id/tv_caption_word" />
+        android:textSize="@dimen/font_size_middle"
+        android:text="@string/caption_new_word" />
 
     <TextView
+        android:id="@+id/tvEng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/english"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_view_font_size"
-        android:id="@+id/tvEng" />
+        android:textSize="@dimen/font_size_small" />
 
     <EditText
+        android:id="@+id/etEng"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:hint="@string/english_hint"
-        android:id="@+id/etEng"
         android:lines="1"
-        android:maxLines="1" />
+        android:maxLines="1"/>
 
     <TextView
-        android:text="@string/russian"
+        android:id="@+id/tvRus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_view_font_size"
-        android:id="@+id/tvRus" />
+        android:text="@string/russian"
+        android:textSize="@dimen/font_size_small" />
 
     <EditText
+        android:id="@+id/etRus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/russian_hint"
-        android:id="@+id/etRus"
         android:lines="1"
         android:maxLines="1" />
 
@@ -53,20 +52,19 @@
         android:gravity="center_horizontal">
 
         <Button
-            style="@style/LearnWordsButtonGrey"
-            android:text="@string/cancel"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="100"
             android:id="@+id/btnCancelWord"
-            />
+            style="@style/LearnWordsButtonGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/btnOkWord"
             style="@style/LearnWordsButtonGrey"
-            android:text="@string/ok"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="100"
-            android:id="@+id/btnOkWord" />
+            android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>

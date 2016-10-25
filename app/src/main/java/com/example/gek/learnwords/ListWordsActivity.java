@@ -17,7 +17,7 @@ public class ListWordsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_words_layout);
+        setContentView(R.layout.activity_list_words);
 
         lvSimple = (ListView) findViewById(R.id.lvSimple);
 
@@ -36,7 +36,7 @@ public class ListWordsActivity extends AppCompatActivity {
         // массив ID View-компонентов, в которые будут вставлять данные
         int[] to = {R.id.tvListEng, R.id.tvListRus, R.id.tvListAnswerTrue, R.id.tvListAnswerFalse};
         // создаем адаптер
-        scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
+        scAdapter = new SimpleCursorAdapter(this, R.layout.list_view_item, cursor, from, to);
         // определяем список и присваиваем ему адаптер
         lvSimple.setAdapter(scAdapter);
     }

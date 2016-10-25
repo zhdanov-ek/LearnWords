@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,54 +10,57 @@
 
 
     <TextView
-        android:text="word"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:id="@+id/tv_word"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:textSize="@dimen/text_view_big_font_size" />
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="word"
+        android:textSize="@dimen/font_size_big" />
 
 
     <Button
-        android:text="answer1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/btn_answer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_word"
-        android:layout_margin="@dimen/button_layout_margin"/>
-    <Button
-        android:text="answer2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_answer2"
-        android:layout_below="@+id/btn_answer1"
-        android:layout_margin="@dimen/button_layout_margin"/>/>
-    <Button
-        android:text="answer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_answer3"
-        android:layout_below="@+id/btn_answer2"
-        android:layout_margin="@dimen/button_layout_margin"/>/>
-    <Button
-        android:text="answer4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_answer4"
-        android:layout_below="@+id/btn_answer3"
-        android:layout_margin="@dimen/button_layout_margin"/>/>
+        android:layout_margin="@dimen/button_layout_margin"
+        android:text="answer1" />
 
     <Button
-        style="@style/LearnWordsButtonGreen"
-        android:text="@string/next"
+        android:id="@+id/btn_answer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_below="@+id/btn_answer1"
+        android:layout_margin="@dimen/button_layout_margin"
+        android:text="answer2" />/>
+
+    <Button
+        android:id="@+id/btn_answer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_answer2"
+        android:layout_margin="@dimen/button_layout_margin"
+        android:text="answer3" />/>
+
+    <Button
+        android:id="@+id/btn_answer4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_answer3"
+        android:layout_margin="@dimen/button_layout_margin"
+        android:text="answer4" />/>
+
+    <Button
         android:id="@+id/btn_next"
+        style="@style/LearnWordsButtonGreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:text="@string/next" />
 
 </RelativeLayout>
