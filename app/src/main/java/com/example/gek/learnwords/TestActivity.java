@@ -120,8 +120,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         // Пока номер текущего слова меньше размера массива всех ID слов можем выводить следующее слово
         if (wordsIDList.size() > (currentID +1)) {
             currentID++;
-        } else
+        } else {
+            //todo Тут лучше скрыть кнопки и вывести сообщение или статистику по ответам
             btn_next.setEnabled(false);
+            btn_answer1.setEnabled(false);
+            btn_answer2.setEnabled(false);
+            btn_answer3.setEnabled(false);
+            btn_answer4.setEnabled(false);
+            Toast.makeText(this, "This is last word!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /** Проверяем правильно ли выбран ответ */
