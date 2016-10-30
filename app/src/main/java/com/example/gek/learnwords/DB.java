@@ -164,6 +164,17 @@ class DB {
         mDB.insert(DB_TABLE, null, cv);
     }
 
+    /** добавить запись в DB_TABLE с ответами */
+    public void addRec(String eng, String rus, int answerTrue, int answerFalse) {
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ENG, eng);
+        cv.put(COLUMN_RUS, rus);
+        cv.put(COLUMN_TRUE, answerTrue);
+        cv.put(COLUMN_FALSE, answerFalse);
+        mDB.insert(DB_TABLE, null, cv);
+    }
+
     /** Удалить запись из DB_TABLE */
     public void delRec(long id) {
         mDB.delete(DB_TABLE, COLUMN_ID + " = " + id, null);

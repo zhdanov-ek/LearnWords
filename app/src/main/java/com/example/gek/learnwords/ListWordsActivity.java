@@ -1,3 +1,5 @@
+//todo переработать красиво список и добавить возможность удаления слова
+
 package com.example.gek.learnwords;
 
 import android.database.Cursor;
@@ -28,7 +30,7 @@ public class ListWordsActivity extends AppCompatActivity {
 
 
 
-    /** Обновление данными людей в ListView*/
+    /** Обновление данными в ListView*/
     private void loadListView(){
         cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
         // массив имен атрибутов, из которых будут читаться данные

@@ -2,11 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:orientation="vertical">
 
 
     <TextView
@@ -14,27 +10,147 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/caption_import_export"
+        android:gravity="center_horizontal"
         android:textSize="@dimen/font_size_big" />
-
-    <TextView
-        android:id="@+id/tvIELoadWords"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/load_file_sd"
-        android:textSize="@dimen/font_size_small" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etFileLoadWords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_local_load_words"
-        android:inputType="textPersonName"
-        android:text="@string/name_file_load_words" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_white"
+                android:padding="@dimen/button_layout_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
 
-    <Button
-        android:id="@+id/btnLoadNewWords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/load_button_new_words" />
+                <TextView
+                    android:id="@+id/tvIELoadWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caption_read_txt_file"
+                    android:textSize="@dimen/font_size_small" />
+
+                <EditText
+                    android:id="@+id/etFileLoadWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_read_txt_file"
+                    android:inputType="textPersonName"
+                    android:text="@string/name_read_txt_file" />
+
+                <Button
+                    android:id="@+id/btnLoadNewWords"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/read" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_white"
+                android:padding="@dimen/button_layout_margin"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tvIEUnLoadWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caption_write_txt_file"
+                    android:textSize="@dimen/font_size_small" />
+
+                <EditText
+                    android:id="@+id/etFileUnLoadWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_write_txt_file"
+                    android:inputType="textPersonName"
+                    android:text="@string/name_write_txt_file" />
+
+                <Button
+                    android:id="@+id/btnUnLoadNewWords"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/write" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_white"
+                android:padding="@dimen/button_layout_margin"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tvIELoadDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caption_read_json_file"
+                    android:textSize="@dimen/font_size_small" />
+
+                <EditText
+                    android:id="@+id/etFileLoadDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_read_json_file"
+                    android:inputType="textPersonName"
+                    android:text="@string/name_read_json_file" />
+
+                <Button
+                    android:id="@+id/btnLoadNewDB"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/read" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_white"
+                android:padding="@dimen/button_layout_margin"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tvIEUnLoadDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/caption_write_json_file"
+                    android:textSize="@dimen/font_size_small" />
+
+                <EditText
+                    android:id="@+id/etFileUnLoadDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_write_json_file"
+                    android:inputType="textPersonName"
+                    android:text="@string/name_write_json_file" />
+
+                <Button
+                    android:id="@+id/btnUnLoadNewDB"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/write" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -14,7 +14,7 @@
             android:id="@+id/tvListEng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="English"></TextView>
+            tools:text="English" />
     </LinearLayout>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:id="@+id/tvListRus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Russian"></TextView>
+            tools:text="Russian" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,18 +39,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorGreen"
-            tools:text="5"></TextView>
+            tools:text="5" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="/"></TextView>
+            android:text="/" />
 
         <TextView
             android:id="@+id/tvListAnswerFalse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorRed"
-            tools:text="3"></TextView>
+            tools:text="3" />
     </LinearLayout>
 </LinearLayout>
