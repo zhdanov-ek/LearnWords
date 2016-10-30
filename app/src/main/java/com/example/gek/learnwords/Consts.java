@@ -26,6 +26,7 @@ public final class Consts {
     static final String ATT_RUS = "rus";
     static final String ATT_TRUE = "true";
     static final String ATT_FALSE = "false";
+    static final String ATT_LEVEL = "level";
 
     // for JSON file
     static final String ATT_WORDS = "words";

@@ -19,15 +19,19 @@ class DB {
     static final String COLUMN_RUS = "rus";
     static final String COLUMN_TRUE = "true";
     static final String COLUMN_FALSE = "false";
+    // коэфициент показывающий знание этого слова. Вычисляется как: COLUMN_TRUE - COLUMN_FALSE
+    static final String COLUMN_LEVEL = "level";
 
 
+    // SQL код для создания таблицы в БД. Используется один раз
     private static final String DB_CREATE =
             "create table " + DB_TABLE + "(" +
                     COLUMN_ID + " integer primary key autoincrement, " +
                     COLUMN_ENG + " text, " +
                     COLUMN_RUS + " text, " +
                     COLUMN_TRUE + " integer, " +
-                    COLUMN_FALSE + " integer " +
+                    COLUMN_FALSE + " integer, " +
+                    COLUMN_LEVEL + " integer " +
                     ");";
 
     private final Context mCtx;
@@ -36,10 +40,6 @@ class DB {
     // Объявляем вспомогательный класс для управления базой (подключение, создание, обновление и т.д.)
     private DBHelper mDBHelper;
     private SQLiteDatabase mDB;
-
-    public void setDir(String dir){
-        String DIR = dir;
-    }
 
     public DB(Context ctx) {
         mCtx = ctx;
@@ -71,7 +71,7 @@ class DB {
             return false;
     }
 
-    /** получить данные из таблицы DB_TABLE */
+    /** Получаем список всех слов или ищем по указанному значению */
     public Cursor getAllData(int listType, String searchText) {
         String orderBy = null;              // сортировка
         String selection = null;            // условие отбора
@@ -79,7 +79,8 @@ class DB {
 
         switch (listType) {
             case Consts.LIST_TYPE_ALL:
-                orderBy = COLUMN_ENG + " ASC";
+//                orderBy = COLUMN_ENG + " ASC";
+                orderBy = COLUMN_LEVEL;
                 break;
 
             // Ищем слово как в английском так и в русском и для этого вводим
@@ -113,6 +114,7 @@ class DB {
                 orderBy);
     }
 
+
     /** Возвращает количество записей в словаре */
     public int getNumberWords(){
         return getAllData(Consts.LIST_TYPE_ALL, null).getCount();
@@ -128,7 +130,7 @@ class DB {
         String having = null;
         String orderBy = null;
 
-        columns = new String[]{COLUMN_ID, COLUMN_ENG, COLUMN_RUS, COLUMN_TRUE, COLUMN_FALSE};
+        columns = new String[]{COLUMN_ID, COLUMN_ENG, COLUMN_RUS, COLUMN_TRUE, COLUMN_FALSE, COLUMN_LEVEL};
         selection = COLUMN_ID + " == " + id;
 
         Cursor c = mDB.query(DB_TABLE, columns, selection, null, null, null, null);
@@ -141,6 +143,7 @@ class DB {
             cv.put(Consts.ATT_RUS, c.getString(c.getColumnIndex(COLUMN_RUS)));
             cv.put(Consts.ATT_TRUE, c.getString(c.getColumnIndex(COLUMN_TRUE)));
             cv.put(Consts.ATT_FALSE, c.getString(c.getColumnIndex(COLUMN_FALSE)));
+            cv.put(Consts.ATT_LEVEL, c.getString(c.getColumnIndex(COLUMN_LEVEL)));
         }
         c.close();
         return cv;
@@ -154,24 +157,23 @@ class DB {
 
     /** добавить запись в DB_TABLE */
     public void addRec(String eng, String rus) {
-
-
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ENG, eng);
         cv.put(COLUMN_RUS, rus);
         cv.put(COLUMN_TRUE, 0);
         cv.put(COLUMN_FALSE, 0);
+        cv.put(COLUMN_LEVEL, 0);
         mDB.insert(DB_TABLE, null, cv);
     }
 
     /** добавить запись в DB_TABLE с ответами */
     public void addRec(String eng, String rus, int answerTrue, int answerFalse) {
-
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_ENG, eng);
         cv.put(COLUMN_RUS, rus);
         cv.put(COLUMN_TRUE, answerTrue);
         cv.put(COLUMN_FALSE, answerFalse);
+        cv.put(COLUMN_LEVEL, answerTrue - answerFalse);
         mDB.insert(DB_TABLE, null, cv);
     }
 
@@ -185,17 +187,26 @@ class DB {
         mDB.delete(DB_TABLE, null, null);
     }
 
-    /** Формируем рандомный список ID элементов БД*/
-    public ArrayList<Integer> getFullRandomListID(Cursor cursor){
+    /** Формируем список ID элементов БД*/
+    public ArrayList<Integer> getFullListID(Cursor cursor, boolean randomLogic){
         // сначала получаем весь список ID из курсора
         ArrayList<Integer> fullList = new ArrayList<>();
         cursor.moveToFirst();
         do {
             fullList.add(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_ID)));
         } while (cursor.moveToNext());
-        // тут уже перемешиваем эти значения и получаем рандомный список
-        return makeRandomList(fullList);
+        // В зависимости от второго параметра делаем рандомный список
+        if (randomLogic) {
+            return makeRandomList(fullList);
+        } else {
+            return fullList;
+        }
+
     }
+
+
+
+
 
     /** Перемещиваем список */
     public ArrayList<Integer> makeRandomList(ArrayList<Integer> wordsID){
@@ -233,6 +244,7 @@ class DB {
             cv.put(COLUMN_RUS, "программа");
             cv.put(COLUMN_TRUE, "0");
             cv.put(COLUMN_FALSE, "0");
+            cv.put(COLUMN_LEVEL, "0");
             db.insert(DB_TABLE, null, cv);
         }
 

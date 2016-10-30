@@ -1,3 +1,7 @@
+/**
+ * Тестирование знаний: вопрос и 4 кнопки с вариантами ответов
+ */
+
 package com.example.gek.learnwords;
 
 import android.content.ContentValues;
@@ -11,15 +15,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Тестирование знаний: вопрос и 4 кнопки с вариантами ответов
- */
 
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_next, btn_answer1, btn_answer2, btn_answer3, btn_answer4;
     private TextView tv_word;
     private DB db;
-    private Cursor cursor;
     private String eng, rus;                // значения текущего слова
     int id, counterTrue, counterFalse;
 
@@ -54,7 +54,9 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         btn_next.setOnClickListener(this);
 
         // Получаем полный рандомный список ID всех слов со словаря
-        wordsIDList = db.getFullRandomListID(db.getAllData(Consts.LIST_TYPE_ALL, null));
+        // wordsIDList = db.getFullRandomListID(db.getAllData(Consts.LIST_TYPE_ALL, null));
+
+        wordsIDList = db.getFullListID(db.getAllData(Consts.LIST_TYPE_ALL, null), false);
 
         showNextWord();
     }
@@ -176,6 +178,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         cv.put(DB.COLUMN_RUS, rus);
         cv.put(DB.COLUMN_TRUE, counterTrue);
         cv.put(DB.COLUMN_FALSE, counterFalse);
+        cv.put(DB.COLUMN_LEVEL, counterTrue - counterFalse);
         db.changeRec(cv, Integer.toString(id));
     }
 

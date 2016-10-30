@@ -1,3 +1,8 @@
+/**
+ * Режим изучения слов в котором подаются на экран слова по случайно сформированному списку
+ * Пользователь сам указывает знает он это слово или не знает. Ответы фиксируются в БД
+ */
+
 package com.example.gek.learnwords;
 
 import android.content.ContentValues;
@@ -10,10 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Режим изучения слов в котором подаются на экран слова по случайно сформированному списку
- * Пользователь сам указывает знает он это слово или не знает. Ответы фиксируются в БД
- */
 
 public class LearnActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnDontKnow, btnKnow;
@@ -34,7 +35,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         db = new DB(this);
         db.open();
         cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
-        wordsIDList = db.getFullRandomListID(cursor);
+        wordsIDList = db.getFullListID(cursor, false);
 
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);
         tvLearnRus = (TextView) findViewById(R.id.tvLearnRus);
@@ -101,6 +102,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         cv.put(DB.COLUMN_RUS, rus);
         cv.put(DB.COLUMN_TRUE, counterTrue);
         cv.put(DB.COLUMN_FALSE, counterFalse);
+        cv.put(DB.COLUMN_LEVEL, counterTrue - counterFalse);
         db.changeRec(cv, Integer.toString(id));
 
         tvLearnRus.setVisibility(View.VISIBLE);
