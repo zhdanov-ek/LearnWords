@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:text="TextView eng"
+        android:id="@+id/tvLearnEng"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvLearnEng"
         android:layout_marginTop="80dp"
         android:gravity="center_horizontal"
-        android:textSize="@dimen/text_view_big_font_size"/>
+        android:text="TextView eng"
+        android:textSize="@dimen/font_size_big" />
 
     <TextView
-        android:text="TextView rus"
+        android:id="@+id/tvLearnRus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvLearnRus"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:textSize="@dimen/text_view_big_font_size"
-        android:textColor="@color/colorGreen"/>
+        android:text="TextView rus"
+        android:textColor="@color/colorGreen"
+        android:textSize="@dimen/font_size_big" />
 
 
     <TextView
-        android:text="Result "
+        android:id="@+id/tvLearnResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvLearnResult"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"/>
-
+        android:gravity="center_horizontal"
+        android:text="Result " />
 
 
     <LinearLayout
+        android:id="@+id/ll_know_buttons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:id="@+id/ll_know_buttons"
-        android:gravity="center_horizontal|bottom">
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal">
 
 
         <Button
+            android:id="@+id/btnDontKnow"
             style="@style/LearnWordsButtonRed"
-            android:text="@string/dont_know"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="100"
-            android:id="@+id/btnDontKnow" />
+            android:text="@string/dont_know" />
+
         <Button
+            android:id="@+id/btnKnow"
             style="@style/LearnWordsButtonGreen"
-            android:text="@string/know"
-            android:layout_weight="100"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnKnow" />
+            android:layout_weight="100"
+            android:text="@string/know" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,3 +1,5 @@
+//todo переработать красиво список и добавить возможность удаления слова
+
 package com.example.gek.learnwords;
 
 import android.database.Cursor;
@@ -17,7 +19,7 @@ public class ListWordsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_words_layout);
+        setContentView(R.layout.activity_list_words);
 
         lvSimple = (ListView) findViewById(R.id.lvSimple);
 
@@ -28,15 +30,17 @@ public class ListWordsActivity extends AppCompatActivity {
 
 
 
-    /** Обновление данными людей в ListView*/
+    /** Обновление данными в ListView*/
     private void loadListView(){
         cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
         // массив имен атрибутов, из которых будут читаться данные
-        String[] from = {DB.COLUMN_ENG, DB.COLUMN_RUS, DB.COLUMN_TRUE, DB.COLUMN_FALSE};
+        String[] from = {DB.COLUMN_ENG, DB.COLUMN_RUS, DB.COLUMN_TRUE,
+                DB.COLUMN_FALSE, DB.COLUMN_LEVEL};
         // массив ID View-компонентов, в которые будут вставлять данные
-        int[] to = {R.id.tvListEng, R.id.tvListRus, R.id.tvListAnswerTrue, R.id.tvListAnswerFalse};
+        int[] to = {R.id.tvListEng, R.id.tvListRus, R.id.tvListAnswerTrue,
+                R.id.tvListAnswerFalse, R.id.tvListAnswerLevel};
         // создаем адаптер
-        scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, from, to);
+        scAdapter = new SimpleCursorAdapter(this, R.layout.list_view_item, cursor, from, to);
         // определяем список и присваиваем ему адаптер
         lvSimple.setAdapter(scAdapter);
     }

@@ -13,10 +13,28 @@
 
 
     <string name="caption_import_export">Import and export dictionary</string>
-    <string name="hint_local_load_words">Name of file on SD card for load</string>
-    <string name="name_file_load_words">new_words.txt</string>
-    <string name="load_file_sd">Load new words from .txt file on SD card with delimiter TAB</string>
-    <string name="load_button_new_words">Load new words</string>
+    <string name="read">Read file</string>
+    <string name="write">Write file</string>
+
+    <string name="caption_read_txt_file">Load new words from .txt file
+        on SD card with delimiter TAB</string>
+    <string name="hint_read_txt_file">Name of file on SD card for load</string>
+    <string name="name_read_txt_file">new_words.txt</string>
+
+    <string name="caption_write_txt_file">Unload my words to the file
+        on SD card with delimiter TAB</string>
+    <string name="hint_write_txt_file">Name of file on SD card for unload</string>
+    <string name="name_write_txt_file">my_words.txt</string>
+
+    <string name="caption_read_json_file">Load DB from JSON file
+        on SD card </string>
+    <string name="hint_read_json_file">Name of JSON file on SD card for load</string>
+    <string name="name_read_json_file">my_words.json</string>
+
+    <string name="caption_write_json_file">Unload my DB to the JSON file
+        on SD card </string>
+    <string name="hint_write_json_file">Name of JSON file on SD card for unload</string>
+    <string name="name_write_json_file">my_words.json</string>
 
     <string name="know">Know</string>
     <string name="dont_know">Don\'t know</string>
