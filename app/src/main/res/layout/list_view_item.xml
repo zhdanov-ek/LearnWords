@@ -1,68 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100">
 
-        <TextView
-            android:id="@+id/tvListEng"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="English" />
-    </LinearLayout>
+            android:layout_weight="100"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100">
+            <TextView
+                android:id="@+id/tvListEng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_middle"
+                tools:text="English" />
 
-        <TextView
-            android:id="@+id/tvListRus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Russian" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvListRus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_small"
+                tools:text="Russian" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="130">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="250"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_vertical|right">
 
-        <TextView
-            android:id="@+id/tvListAnswerTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGreen"
-            tools:text="5" />
+            <TextView
+                android:id="@+id/tvListAnswerTrue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreen"
+                tools:text="5" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/" />
 
-        <TextView
-            android:id="@+id/tvListAnswerFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorRed"
-            tools:text="3" />
+            <TextView
+                android:id="@+id/tvListAnswerFalse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                tools:text="3" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" : " />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : " />
 
-        <TextView
-            android:id="@+id/tvListAnswerLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            tools:text="-2" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvListAnswerLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                tools:text="-2" />
+        </LinearLayout>
+
+
 </LinearLayout>

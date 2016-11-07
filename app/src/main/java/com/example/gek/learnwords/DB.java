@@ -204,6 +204,23 @@ class DB {
 
     }
 
+    /** Формируем ArrayList всех слов со всеми полями*/
+    public ArrayList<MyWord> getFullListWords(Cursor cursor){
+        ArrayList<MyWord> listMyWords = new ArrayList<>();
+        cursor.moveToFirst();
+        do {
+            MyWord currentWord = new MyWord();
+            currentWord.setId(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_ID)));
+            currentWord.setEng(cursor.getString(cursor.getColumnIndex(DB.COLUMN_ENG)));
+            currentWord.setRus(cursor.getString(cursor.getColumnIndex(DB.COLUMN_RUS)));
+            currentWord.setAnswerTrue(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_TRUE)));
+            currentWord.setAnswerFalse(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_FALSE)));
+            currentWord.setLevel(cursor.getInt(cursor.getColumnIndex(DB.COLUMN_LEVEL)));
+            listMyWords.add(currentWord);
+        } while (cursor.moveToNext());
+        return listMyWords;
+    }
+
 
 
 
