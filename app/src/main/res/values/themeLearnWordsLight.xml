@@ -5,32 +5,37 @@
     <style name="ThemeLearnWordsLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowBackground">@drawable/bg4</item>
         <item name="android:textColor">#000000</item>
-        <item name="buttonStyle">@style/LearnWordsButtonGrey</item>
+<!-- Не применяется сюдой layout_margin.
+       <item name="buttonStyle">@style/LearnWordsButtonGrey</item> -->
     </style>
 
-    <style name="LearnWordsButtonGreen" parent="@android:style/Widget.Button">
+    <style name="LearnWordsButtonGrey" parent="@android:style/Widget.Button.Small">
+        <item name="android:background">@drawable/bg_button_grey</item>
+        <item name="android:textColor">#444400</item>
+        <item name="android:textSize">@dimen/font_size_middle</item>
+        <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:layout_margin">@dimen/button_layout_margin</item>
+    </style>
+
+    <style name="LearnWordsButtonGreen" parent="LearnWordsButtonGrey">
         <item name="android:background">@drawable/bg_button_green</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:layout_margin">@dimen/button_layout_margin</item>
     </style>
 
 
-    <style name="LearnWordsButtonRed" parent="@android:style/Widget.Button">
+    <style name="LearnWordsButtonRed" parent="LearnWordsButtonGrey">
         <item name="android:background">@drawable/bg_button_red</item>
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:layout_margin">@dimen/button_layout_margin</item>
     </style>
 
-    <style name="LearnWordsButtonGrey" parent="@android:style/Widget.Button">
-        <item name="android:background">@drawable/bg_button_grey</item>
-        <item name="android:textColor">#000000</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:layout_margin">@dimen/button_layout_margin</item>
+    <!--  -->
+    <style name="MyLayout">
+        <item name="android:background">@drawable/bg_layout</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/ll_layout_margin</item>
+        <item name="android:padding">@dimen/ll_padding</item>
     </style>
+
+
 
 </resources>

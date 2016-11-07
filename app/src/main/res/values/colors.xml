@@ -7,4 +7,7 @@
     <color name="colorGreen">#468f05</color>
     <color name="colorButtonFalse">#e64741</color>
     <color name="colorButtonTrue">#47b713</color>
+
+    <color name="colorFrameLayout">#afafb0</color>
+    <color name="colorBackgroundLayout">@null</color>
 </resources>

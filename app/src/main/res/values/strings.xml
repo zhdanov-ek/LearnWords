@@ -13,27 +13,27 @@
 
 
     <string name="caption_import_export">Import and export dictionary</string>
-    <string name="read">Read file</string>
-    <string name="write">Write file</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
 
-    <string name="caption_read_txt_file">Load new words from .txt file
-        on SD card with delimiter TAB</string>
-    <string name="hint_read_txt_file">Name of file on SD card for load</string>
+    <string name="caption_read_txt_file">Load new words from file
+        on SD card</string>
+    <string name="hint_read_txt_file">File on SD card for load</string>
     <string name="name_read_txt_file">new_words.txt</string>
 
     <string name="caption_write_txt_file">Unload my words to the file
-        on SD card with delimiter TAB</string>
-    <string name="hint_write_txt_file">Name of file on SD card for unload</string>
+        on SD card</string>
+    <string name="hint_write_txt_file">File on SD card for unload</string>
     <string name="name_write_txt_file">my_words.txt</string>
 
     <string name="caption_read_json_file">Load DB from JSON file
         on SD card </string>
-    <string name="hint_read_json_file">Name of JSON file on SD card for load</string>
+    <string name="hint_read_json_file">File on SD card for load</string>
     <string name="name_read_json_file">my_words.json</string>
 
     <string name="caption_write_json_file">Unload my DB to the JSON file
         on SD card </string>
-    <string name="hint_write_json_file">Name of JSON file on SD card for unload</string>
+    <string name="hint_write_json_file">File on SD card for unload</string>
     <string name="name_write_json_file">my_words.json</string>
 
     <string name="know">Know</string>

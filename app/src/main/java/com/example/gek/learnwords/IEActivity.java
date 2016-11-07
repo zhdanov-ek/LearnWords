@@ -34,7 +34,7 @@ import java.io.IOException;
 
 public class IEActivity extends AppCompatActivity implements View.OnClickListener{
     Button btnLoadNewWords, btnUnLoadNewWords, btnUnLoadNewDB, btnLoadNewDB;
-    private EditText etFileLoadWords, etFileUnLoadWords, etFileUnLoadDB, etFileLoadDB;
+    private EditText etFileLoadWords, etFileLoadDB;
     private File sdPathAbsolute;        // карта памяти
     final static String LOG_TAG = IEActivity.class.getSimpleName();
 
@@ -45,8 +45,6 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_ie);
 
         etFileLoadWords = (EditText) findViewById(R.id.etFileLoadWords);
-        etFileUnLoadWords = (EditText) findViewById(R.id.etFileUnLoadWords);
-        etFileUnLoadDB = (EditText) findViewById(R.id.etFileUnLoadDB);
         etFileLoadDB = (EditText) findViewById(R.id.etFileLoadDB);
 
 
@@ -110,7 +108,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             // Выгрузка словаря в файл на карте памяти с разделителями TAB
             case R.id.btnUnLoadNewWords:
                 if (checkSDCard()) {
-                    File fileUnLoadWords = new File(sdPathAbsolute, etFileUnLoadWords.getText().toString());
+                    File fileUnLoadWords = new File(sdPathAbsolute, etFileLoadWords.getText().toString());
                     BufferedWriter bw = null;
                     try {
                         // открываем поток для записи
@@ -157,7 +155,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             // Выгружаем всю базу в файл формата JSON
             case R.id.btnUnLoadNewDB:
                 if (checkSDCard()) {
-                    File fileUnLoadDB = new File(sdPathAbsolute, etFileUnLoadDB.getText().toString());
+                    File fileUnLoadDB = new File(sdPathAbsolute, etFileLoadDB.getText().toString());
                     BufferedWriter bw = null;
                     try {
                         // открываем поток для записи

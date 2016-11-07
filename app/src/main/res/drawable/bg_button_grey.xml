@@ -8,6 +8,10 @@
                 android:bottomLeftRadius="5dp"
                 android:bottomRightRadius="5dp"
                 />
+            <size
+                android:width="@dimen/button_width"
+                android:height="@dimen/button_height"
+                />
             <gradient
                 android:angle="90"
                 android:centerX="50%"
@@ -27,6 +31,10 @@
                 android:bottomLeftRadius="5dp"
                 android:bottomRightRadius="5dp"
                 />
+            <size
+                android:width="@dimen/button_width"
+                android:height="@dimen/button_height"
+                />
             <gradient
                 android:angle="90"
                 android:centerX="50%"
@@ -45,6 +53,10 @@
                 android:topRightRadius="5dp"
                 android:bottomLeftRadius="5dp"
                 android:bottomRightRadius="5dp"
+                />
+            <size
+                android:width="@dimen/button_width"
+                android:height="@dimen/button_height"
                 />
             <gradient
                 android:angle="90"
