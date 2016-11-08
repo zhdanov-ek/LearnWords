@@ -6,9 +6,9 @@
     <dimen name="font_size_middle">20sp</dimen>
     <dimen name="font_size_big">26sp</dimen>
 
-    <dimen name="button_padding">3dp</dimen>
+    <dimen name="button_padding">0dp</dimen>
     <dimen name="button_width">120dp</dimen>
-    <dimen name="button_height">10dp</dimen>
+    <dimen name="button_height">40dp</dimen>
     <dimen name="button_layout_margin">3dp</dimen>
 
     <dimen name="ll_layout_margin">3dp</dimen>

@@ -149,6 +149,17 @@ class DB {
         return cv;
     }
 
+    /** Преобразование записи с ContentValues в MyWord формат */
+    public MyWord convertCvInMyWord(ContentValues item){
+        MyWord itemWord = new MyWord();
+        itemWord.setId(item.getAsInteger(Consts.ATT_ITEM_ID));
+        itemWord.setEng(item.getAsString(Consts.ATT_ENG));
+        itemWord.setRus(item.getAsString(Consts.ATT_RUS));
+        itemWord.setAnswerTrue(item.getAsInteger(Consts.ATT_TRUE));
+        itemWord.setAnswerFalse(item.getAsInteger(Consts.ATT_FALSE));
+        itemWord.setLevel(item.getAsInteger(Consts.ATT_LEVEL));
+        return itemWord;
+    }
 
     /**  Внести изменения в запись */
     public void changeRec(ContentValues cv, String id){

@@ -56,16 +56,12 @@
                     <Button
                         style="@style/LearnWordsButtonGrey"
                         android:id="@+id/btnLoadNewWords"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/read"/>
 
                     <Button
                         style="@style/LearnWordsButtonGrey"
                         android:id="@+id/btnUnLoadNewWords"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/write" />
                 </LinearLayout>
@@ -101,16 +97,12 @@
                     <Button
                         android:id="@+id/btnLoadNewDB"
                         style="@style/LearnWordsButtonGrey"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/read" />
 
                     <Button
                         android:id="@+id/btnUnLoadNewDB"
                         style="@style/LearnWordsButtonGrey"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/write" />
                 </LinearLayout>

@@ -48,15 +48,11 @@
         <Button
             android:id="@+id/btnDontKnow"
             style="@style/LearnWordsButtonRed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/dont_know" />
 
         <Button
             android:id="@+id/btnKnow"
             style="@style/LearnWordsButtonGreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/know" />
     </LinearLayout>
 

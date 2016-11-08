@@ -19,6 +19,7 @@ public final class Consts {
     static final String WORD_MODE = "mode";
     static final int WORD_NEW = 0;
     static final int WORD_EDIT = 1;
+    static final String ITEM_POSITION = "position";
 
     // имена атрибутов для Map или Intent
     static final String ATT_ITEM_ID = "_id";

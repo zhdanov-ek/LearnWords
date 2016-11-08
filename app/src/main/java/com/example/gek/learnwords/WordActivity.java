@@ -18,13 +18,13 @@ public class WordActivity extends AppCompatActivity {
     private TextView tvMode;
     private EditText etEng, etRus;
     private int mode;
-    private long id;     //id редактируемого элемента
+    private int id;                          //id редактируемого элемента
+    private int itemPositionRecyclerView;    // позиция в списке
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
-
         context = getApplicationContext();
 
         tvMode = (TextView)findViewById(R.id.tv_caption_word);
@@ -33,10 +33,12 @@ public class WordActivity extends AppCompatActivity {
         etEng = (EditText) findViewById(R.id.etEng);
         etRus = (EditText) findViewById(R.id.etRus);
 
+        // Смотрим наш интент и заносим все данные в Bundle
+        Bundle bundle = getIntent().getExtras();
+
         // Смотрим как вызывали активити по параметру WORD_MODE
         // либо работает с новым словом либо редактируем существующее
-        Intent intent = getIntent();
-        mode = intent.getIntExtra(Consts.WORD_MODE,0);
+        mode = bundle.getInt(Consts.WORD_MODE,0);
         switch (mode) {
             case Consts.WORD_NEW:
                 tvMode.setText(R.string.caption_new_word);
@@ -44,11 +46,12 @@ public class WordActivity extends AppCompatActivity {
                 break;
 
             case Consts.WORD_EDIT:
-                tvMode.setText(R.string.caption_edit_word);
-                etEng.setText(intent.getStringExtra(DB.COLUMN_ENG));
-                etRus.setText(intent.getStringExtra(DB.COLUMN_RUS));
+                etEng.setText(bundle.getString(Consts.ATT_ENG));
+                etRus.setText(bundle.getString(Consts.ATT_RUS));
                 mode = Consts.WORD_EDIT;
-                id = intent.getLongExtra(DB.COLUMN_ID,0);
+                id = bundle.getInt(Consts.ATT_ITEM_ID,0);
+                itemPositionRecyclerView = bundle.getInt(Consts.ITEM_POSITION);
+                tvMode.setText(getString(R.string.caption_edit_word) + " Item ID = " + id);
                 break;
         }
 
@@ -84,14 +87,17 @@ public class WordActivity extends AppCompatActivity {
                             break;
                         case Consts.WORD_EDIT:
                             ContentValues cv = new ContentValues();
-                            cv.put(DB.COLUMN_ENG, etEng.getText().toString());
-                            cv.put(DB.COLUMN_RUS, etRus.getText().toString());
-                            db.changeRec(cv, Long.toString(id));
-                            intentResult.putExtra(Consts.WORD_MODE, Consts.WORD_NEW);
+                            cv.put(Consts.ATT_ENG, eng);
+                            cv.put(Consts.ATT_RUS, rus);
+                            db.changeRec(cv, Integer.toString(id));
+                            intentResult.putExtra(Consts.WORD_MODE, Consts.WORD_EDIT);
+                            intentResult.putExtra(Consts.ATT_ITEM_ID, id);
+                            // передаем назад ID position элемента, который поменяли
+                            intentResult.putExtra(Consts.ITEM_POSITION, itemPositionRecyclerView);
                             break;
                     }
-                    intentResult.putExtra(DB.COLUMN_ENG, eng);
-                    intentResult.putExtra(DB.COLUMN_RUS, rus);
+                    intentResult.putExtra(Consts.ATT_ENG, eng);
+                    intentResult.putExtra(Consts.ATT_RUS, rus);
                     setResult(RESULT_OK, intentResult);
                     db.close();
                     finish();

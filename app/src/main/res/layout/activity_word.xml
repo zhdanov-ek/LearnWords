@@ -54,15 +54,11 @@
         <Button
             android:id="@+id/btnCancelWord"
             style="@style/LearnWordsButtonGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btnOkWord"
             style="@style/LearnWordsButtonGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/ok" />
     </LinearLayout>
 </LinearLayout>
