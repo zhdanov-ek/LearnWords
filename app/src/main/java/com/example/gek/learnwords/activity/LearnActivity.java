@@ -3,7 +3,7 @@
  * Пользователь сам указывает знает он это слово или не знает. Ответы фиксируются в БД
  */
 
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.activity;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -12,6 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.gek.learnwords.R;
+import com.example.gek.learnwords.data.Consts;
+import com.example.gek.learnwords.data.DB;
 
 import java.util.ArrayList;
 

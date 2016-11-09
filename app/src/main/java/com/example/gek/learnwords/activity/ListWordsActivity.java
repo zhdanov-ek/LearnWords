@@ -1,12 +1,18 @@
 //todo переработать красиво список и добавить возможность удаления слова
 
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.gek.learnwords.R;
+import com.example.gek.learnwords.RecyclerViewAdapter;
+import com.example.gek.learnwords.data.Consts;
+import com.example.gek.learnwords.data.DB;
+import com.example.gek.learnwords.data.MyWord;
 
 import java.util.ArrayList;
 
@@ -48,7 +54,6 @@ public class ListWordsActivity extends AppCompatActivity {
                 adapter.notifyItemChanged(pos);
             }
         }
-
 
     }
 

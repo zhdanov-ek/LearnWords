@@ -1,4 +1,4 @@
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.activity;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.gek.learnwords.R;
+import com.example.gek.learnwords.data.Consts;
+import com.example.gek.learnwords.data.DB;
 
 public class WordActivity extends AppCompatActivity {
     private Context context;

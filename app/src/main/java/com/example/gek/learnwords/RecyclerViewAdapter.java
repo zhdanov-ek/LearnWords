@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gek.learnwords.activity.WordActivity;
+import com.example.gek.learnwords.data.Consts;
+import com.example.gek.learnwords.data.MyWord;
+
 import java.util.ArrayList;
 
 /**

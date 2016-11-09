@@ -8,7 +8,7 @@
 
 //todo Вынести загрузку и выгрузку данных в отдельные потоки с отображением хода загрузки
 
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +19,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.gek.learnwords.R;
+import com.example.gek.learnwords.data.Consts;
+import com.example.gek.learnwords.data.DB;
 
 import org.json.JSONArray;
 import org.json.JSONException;

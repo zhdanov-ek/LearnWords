@@ -1,4 +1,4 @@
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.data;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,25 +16,25 @@ import java.util.Random;
 public final class Consts {
 
     // Режимы работы редактирования СЛОВА
-    static final String WORD_MODE = "mode";
-    static final int WORD_NEW = 0;
-    static final int WORD_EDIT = 1;
-    static final String ITEM_POSITION = "position";
+    public static final String WORD_MODE = "mode";
+    public static final int WORD_NEW = 0;
+    public static final int WORD_EDIT = 1;
+    public static final String ITEM_POSITION = "position";
 
     // имена атрибутов для Map или Intent
-    static final String ATT_ITEM_ID = "_id";
-    static final String ATT_ENG = "eng";
-    static final String ATT_RUS = "rus";
-    static final String ATT_TRUE = "true";
-    static final String ATT_FALSE = "false";
-    static final String ATT_LEVEL = "level";
+    public static final String ATT_ITEM_ID = "_id";
+    public static final String ATT_ENG = "eng";
+    public static final String ATT_RUS = "rus";
+    public static final String ATT_TRUE = "true";
+    public static final String ATT_FALSE = "false";
+    public static final String ATT_LEVEL = "level";
 
     // for JSON file
-    static final String ATT_WORDS = "words";
+    public static final String ATT_WORDS = "words";
 
     // Варианты отображения основного списка
-    static final int LIST_TYPE_ALL = 0;
-    static final int LIST_TYPE_SEARCH = 1;
+    public static final int LIST_TYPE_ALL = 0;
+    public static final int LIST_TYPE_SEARCH = 1;
 
 
     public static String readLineFromFile(String nameFile){

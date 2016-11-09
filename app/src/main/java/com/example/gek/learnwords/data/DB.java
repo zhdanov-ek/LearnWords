@@ -1,14 +1,13 @@
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.data;
         import android.content.ContentValues;
         import android.content.Context;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
-
         import java.util.ArrayList;
         import java.util.Random;
 
-class DB {
+public class DB {
 
     private static final String DB_NAME = "learnwords";
     private static final int DB_VERSION = 1;

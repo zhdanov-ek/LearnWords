@@ -1,4 +1,4 @@
-package com.example.gek.learnwords;
+package com.example.gek.learnwords.data;
 
 /**
  * Created by gek on 07.11.2016.
