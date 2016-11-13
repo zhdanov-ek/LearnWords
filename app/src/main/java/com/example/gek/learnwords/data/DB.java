@@ -13,13 +13,13 @@ public class DB {
     private static final int DB_VERSION = 1;
     private static final String DB_TABLE = "dictionary";
 
-    static final String COLUMN_ID = "_id";
-    static final String COLUMN_ENG = "eng";
-    static final String COLUMN_RUS = "rus";
-    static final String COLUMN_TRUE = "true";
-    static final String COLUMN_FALSE = "false";
+    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ENG = "eng";
+    public static final String COLUMN_RUS = "rus";
+    public static final String COLUMN_TRUE = "true";
+    public static final String COLUMN_FALSE = "false";
     // коэфициент показывающий знание этого слова. Вычисляется как: COLUMN_TRUE - COLUMN_FALSE
-    static final String COLUMN_LEVEL = "level";
+    public static final String COLUMN_LEVEL = "level";
 
 
     // SQL код для создания таблицы в БД. Используется один раз

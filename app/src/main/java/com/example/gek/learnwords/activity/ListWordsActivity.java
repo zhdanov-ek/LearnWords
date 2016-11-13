@@ -42,16 +42,26 @@ public class ListWordsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+
+    // Если мы редактировали существующее слово то обрабатываем результат:
+    // если есть флаг о удалении то удаляем запись с массива и обновляем адаптер
+    // в другом случае обновляем ячейку массива и обновляем список
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Consts.WORD_EDIT) {
+            int pos = data.getIntExtra(Consts.ITEM_POSITION, 0);
+            int id = data.getIntExtra(Consts.ATT_ITEM_ID, 0);
+            boolean remove = data.hasExtra(Consts.WORD_REMOVED);
             if (resultCode == RESULT_OK) {
-                int pos = data.getIntExtra(Consts.ITEM_POSITION, 0);
-                int id = data.getIntExtra(Consts.ATT_ITEM_ID, 0);
-                MyWord changedWord = db.convertCvInMyWord(db.getItem(id));
-                listWords.set(pos, changedWord);
-                adapter.notifyItemChanged(pos);
+                if (remove) {
+                    listWords.remove(pos);
+                    adapter.notifyItemRemoved(pos);
+                } else {
+                    MyWord changedWord = db.convertCvInMyWord(db.getItem(id));
+                    listWords.set(pos, changedWord);
+                    adapter.notifyItemChanged(pos);
+                }
             }
         }
 

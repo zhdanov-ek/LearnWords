@@ -18,7 +18,7 @@ import com.example.gek.learnwords.data.DB;
 public class WordActivity extends AppCompatActivity {
     private Context context;
     private DB db;
-    private Button btnOk, btnCancel;
+    private Button btnOk, btnCancel, btnRemove;
     private TextView tvMode;
     private EditText etEng, etRus;
     private int mode;
@@ -34,6 +34,7 @@ public class WordActivity extends AppCompatActivity {
         tvMode = (TextView)findViewById(R.id.tv_caption_word);
         btnOk = (Button) findViewById(R.id.btnOkWord);
         btnCancel = (Button) findViewById(R.id.btnCancelWord);
+        btnRemove = (Button) findViewById(R.id.btnRemoveWord);
         etEng = (EditText) findViewById(R.id.etEng);
         etRus = (EditText) findViewById(R.id.etRus);
 
@@ -47,6 +48,7 @@ public class WordActivity extends AppCompatActivity {
             case Consts.WORD_NEW:
                 tvMode.setText(R.string.caption_new_word);
                 mode = Consts.WORD_NEW;
+                btnRemove.setEnabled(false);
                 break;
 
             case Consts.WORD_EDIT:
@@ -106,6 +108,27 @@ public class WordActivity extends AppCompatActivity {
                     db.close();
                     finish();
                 }
+            }
+        });
+
+        /** Удаляем слово в БД  */
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db = new DB(context);
+                db.open();
+                db.delRec(id);
+                Intent intentResult = new Intent();
+                intentResult.putExtra(Consts.WORD_MODE, Consts.WORD_EDIT);
+
+                // Флаг о том, что слово было удалено из словаря
+                intentResult.putExtra(Consts.WORD_REMOVED, true);
+
+                // передаем назад ID position элемента, который был удален
+                intentResult.putExtra(Consts.ITEM_POSITION, itemPositionRecyclerView);
+                setResult(RESULT_OK, intentResult);
+                db.close();
+                finish();
             }
         });
     }

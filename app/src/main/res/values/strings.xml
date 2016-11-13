@@ -3,6 +3,7 @@
 
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
+    <string name="remove">REMOVE</string>
 
     <string name="caption_new_word">New word</string>
     <string name="caption_edit_word">Edit word</string>

@@ -61,4 +61,18 @@
             style="@style/LearnWordsButtonGrey"
             android:text="@string/ok" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            style="@style/LearnWordsButtonRed"
+            android:id="@+id/btnRemoveWord"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/remove"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp" />
+    </RelativeLayout>
 </LinearLayout>
