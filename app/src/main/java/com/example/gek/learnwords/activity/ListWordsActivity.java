@@ -26,7 +26,6 @@ public class ListWordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_words);
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // Задаем стандартный менеджер макетов
@@ -35,36 +34,48 @@ public class ListWordsActivity extends AppCompatActivity {
         // Получаем из БД все слова и загружаем в список
         db = new DB(this);
         db.open();
-
         listWords = db.getFullListWords(db.getAllData(Consts.LIST_TYPE_ALL, null));
+
         // Создаем адаптер и подаем ему на вход активити для запуска startActivityForResult и список
         adapter = new RecyclerViewAdapter(this, listWords);
         recyclerView.setAdapter(adapter);
     }
 
 
-    // Если мы редактировали существующее слово то обрабатываем результат:
-    // если есть флаг о удалении то удаляем запись с массива и обновляем адаптер
-    // в другом случае обновляем ячейку массива и обновляем список
+    // Смотрим наш ли ответ и анализируем WORD_RESULT_OPERATION, который содержит значение
+    // состояния что именно сделали с записью: изменили, удалили, отменили (просто посмотрев)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Consts.WORD_EDIT) {
-            int pos = data.getIntExtra(Consts.ITEM_POSITION, 0);
-            int id = data.getIntExtra(Consts.ATT_ITEM_ID, 0);
-            boolean remove = data.hasExtra(Consts.WORD_REMOVED);
-            if (resultCode == RESULT_OK) {
-                if (remove) {
-                    listWords.remove(pos);
-                    adapter.notifyItemRemoved(pos);
-                } else {
-                    MyWord changedWord = db.convertCvInMyWord(db.getItem(id));
-                    listWords.set(pos, changedWord);
-                    adapter.notifyItemChanged(pos);
-                }
+
+        // Нажата кнопка CANCEL или аппаратная кнопка BACK (нет интента ответного)
+        if (data == null) {
+            return;
+        }
+        if ((requestCode == Consts.WORD_MODE_EDIT) && resultCode == RESULT_OK) {
+            int result = data.getIntExtra(Consts.WORD_RESULT_OPERATION, 0);
+            switch (result){
+                //todo добавить плавающую кнопку материал для добавления слова прямо в списке
+                case Consts.WORD_ADD:
+                    break;
+
+                case Consts.WORD_CHANGE:
+                case Consts.WORD_REMOVE:
+                    int pos = data.getIntExtra(Consts.ITEM_POSITION, 0);
+                    int id = data.getIntExtra(Consts.ATT_ITEM_ID, 0);
+                    if (result == Consts.WORD_REMOVE) {
+                        listWords.remove(pos);
+                        adapter.notifyItemRemoved(pos);
+                    } else {
+                        MyWord changedWord = db.convertCvInMyWord(db.getItem(id));
+                        listWords.set(pos, changedWord);
+                        adapter.notifyItemChanged(pos);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-
     }
 
 

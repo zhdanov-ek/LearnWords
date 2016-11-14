@@ -63,14 +63,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View view) {
             MyWord editWord = listWords.get(getAdapterPosition());
             Intent intentEditWord = new Intent(ctx, WordActivity.class);
-            intentEditWord.putExtra(Consts.WORD_MODE, Consts.WORD_EDIT);
+            intentEditWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_EDIT);
             intentEditWord.putExtra(Consts.ATT_ENG, editWord.getEng());
             intentEditWord.putExtra(Consts.ATT_RUS, editWord.getRus());
             intentEditWord.putExtra(Consts.ATT_ITEM_ID, editWord.getId());
 
             // запоминаем номер позиции айтема
             intentEditWord.putExtra(Consts.ITEM_POSITION, getAdapterPosition());
-            activity.startActivityForResult(intentEditWord, Consts.WORD_EDIT);
+            activity.startActivityForResult(intentEditWord, Consts.WORD_MODE_EDIT);
         }
     }
 

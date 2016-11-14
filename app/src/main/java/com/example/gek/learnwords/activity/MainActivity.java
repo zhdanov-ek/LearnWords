@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (num < 5)
             btnTest.setEnabled(false);
         else btnTest.setEnabled(true);
-
         tv_number_words.setText("In dictionary " + num + " words" );
     }
 
@@ -71,16 +70,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentLearn = new Intent(ctx, LearnActivity.class);
                 startActivity(intentLearn);
                 break;
-
             case R.id.btnTest:
                 Intent intentTest = new Intent(ctx, TestActivity.class);
                 startActivity(intentTest);
                 break;
-
             case R.id.btnAddWord:
                 Intent intentAddWord = new Intent(ctx, WordActivity.class);
-                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_NEW);
-                startActivityForResult(intentAddWord, Consts.WORD_NEW);
+                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW);
+                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW);
                 break;
             case R.id.btnWords:
                 Intent intentList = new Intent(ctx, ListWordsActivity.class);
@@ -90,10 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentIE = new Intent(ctx,IEActivity.class);
                 startActivity(intentIE);
                 break;
-
-
         }
-
     }
 
     /**  Закрытие базы переду уничтожением активити */

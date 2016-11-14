@@ -15,12 +15,18 @@ import java.util.Random;
 // final запрещает создавать классы основанные на нашем
 public final class Consts {
 
-    // Режимы работы редактирования СЛОВА
+    // Режимы работы редактирования СЛОВА и варианты завершения
     public static final String WORD_MODE = "mode";
-    public static final int WORD_NEW = 0;
-    public static final int WORD_EDIT = 1;
+    public static final int WORD_MODE_NEW = 1;
+    public static final int WORD_MODE_EDIT = 2;
 
-    public static final String WORD_REMOVED = "word_removed";
+
+    public static final String WORD_RESULT_OPERATION = "word_result_operation";
+    public static final int WORD_CANCEL = 0;
+    public static final int WORD_ADD = 1;
+    public static final int WORD_CHANGE = 2;
+    public static final int WORD_REMOVE = 3;
+
     public static final String ITEM_POSITION = "position";
 
     // имена атрибутов для Map или Intent
