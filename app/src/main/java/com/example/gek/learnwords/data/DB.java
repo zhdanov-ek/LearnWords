@@ -78,8 +78,8 @@ public class DB {
 
         switch (listType) {
             case Consts.LIST_TYPE_ALL:
-//                orderBy = COLUMN_ENG + " ASC";
-                orderBy = COLUMN_LEVEL;
+                orderBy = COLUMN_ENG + " ASC";
+//                orderBy = COLUMN_LEVEL;
                 break;
 
             // Ищем слово как в английском так и в русском и для этого вводим
@@ -114,11 +114,25 @@ public class DB {
     }
 
 
-    /** Возвращает количество записей в словаре */
+    /** Возвращает количество записей в словаре
+     * todo заменить запрос на функцию SQL Count()*/
     public int getNumberWords(){
         return getAllData(Consts.LIST_TYPE_ALL, null).getCount();
 
     }
+
+    /** Определяет минимальное значение поля COLUMN_LEVEL */
+    public int getMinLevel(){
+        String[] columns = {COLUMN_LEVEL};
+        String selectionArgs = "min(" + COLUMN_LEVEL + ")";
+
+//        Cursor c = mDB.query(DB_TABLE, columns, selectionArgs, null, null, null, null);
+        String query = "SELECT MIN(" + COLUMN_LEVEL + ") FROM " + DB_TABLE;
+        Cursor c = mDB.rawQuery(query,  null);
+        c.moveToFirst();
+        return c.getInt(c.getColumnIndex(DB.COLUMN_LEVEL));
+    }
+
     /** Получить одну конкретную запись из таблицы DB_TABLE */
     public ContentValues getItem(int id){
         // стандартные переменные для query где задаются все ключи запроса

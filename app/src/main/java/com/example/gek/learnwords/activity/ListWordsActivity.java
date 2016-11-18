@@ -1,4 +1,4 @@
-//todo переработать красиво список и добавить возможность удаления слова
+//todo переработать красиво список
 
 package com.example.gek.learnwords.activity;
 

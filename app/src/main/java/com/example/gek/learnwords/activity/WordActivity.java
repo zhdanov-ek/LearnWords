@@ -48,7 +48,7 @@ public class WordActivity extends AppCompatActivity {
             case Consts.WORD_MODE_NEW:
                 tvMode.setText(R.string.caption_new_word);
                 mode = Consts.WORD_MODE_NEW;
-                btnRemove.setEnabled(false);
+                btnRemove.setVisibility(View.GONE);
                 break;
 
             case Consts.WORD_MODE_EDIT:

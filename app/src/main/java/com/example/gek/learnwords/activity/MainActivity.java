@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
@@ -57,10 +58,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onResume(){
         super.onResume();
         int num = db.getNumberWords();
-        if (num < 5)
+        if (num < 5) {
             btnTest.setEnabled(false);
-        else btnTest.setEnabled(true);
+        }
+        else {
+            btnTest.setEnabled(true);
+        }
         tv_number_words.setText("In dictionary " + num + " words" );
+
+        int min = db.getMinLevel();
+        Toast.makeText(this, "MINIMUM = " + min,Toast.LENGTH_SHORT ).show();
+
+
     }
 
     @Override
