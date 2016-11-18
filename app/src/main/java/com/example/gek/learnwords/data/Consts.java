@@ -43,6 +43,8 @@ public final class Consts {
     // Варианты отображения основного списка
     public static final int LIST_TYPE_ALL = 0;
     public static final int LIST_TYPE_SEARCH = 1;
+    public static final int ORDER_BY_ABC = 0;
+    public static final int ORDER_BY_RATING = 1;
 
 
     public static String readLineFromFile(String nameFile){

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.gek.learnwords.activity.WordActivity;
@@ -46,6 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tvListAnswerTrue;
         private TextView tvListAnswerFalse;
         private TextView tvListAnswerLevel;
+        private RatingBar rbLevel;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tvListAnswerTrue = (TextView) itemView.findViewById(R.id.tvListAnswerTrue);
             tvListAnswerFalse = (TextView) itemView.findViewById(R.id.tvListAnswerFalse);
             tvListAnswerLevel = (TextView) itemView.findViewById(R.id.tvListAnswerLevel);
+            rbLevel = (RatingBar) itemView.findViewById(R.id.rbLevel);
         }
 
         // По клику на айтеме открываем окно с его редактированием.
@@ -96,6 +99,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.tvListAnswerTrue.setText(Integer.toString(myWord.getAnswerTrue()));
         holder.tvListAnswerFalse.setText(Integer.toString(myWord.getAnswerFalse()));
         holder.tvListAnswerLevel.setText(Integer.toString(myWord.getLevel()));
+        int rating = myWord.getLevel();
+        if (rating < 0) {
+            rating = 0;
+        }
+        holder.rbLevel.setRating(rating);
     }
 
     @Override

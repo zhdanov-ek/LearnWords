@@ -5,65 +5,78 @@
     android:id="@+id/llItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="100"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/tvListEng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_middle"
-                tools:text="English" />
+                tools:text="English"
+                android:gravity="top"/>
 
-            <TextView
-                android:id="@+id/tvListRus"
+            <RatingBar
+                android:id="@+id/rbLevel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_small"
-                tools:text="Russian" />
-        </LinearLayout>
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:numStars="5"
+                android:rating="5"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="400"
-            android:gravity="center_vertical|right">
-
-            <TextView
-                android:id="@+id/tvListAnswerTrue"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGreen"
-                tools:text="5" />
+                android:orientation="horizontal"
+                android:layout_alignBottom="@+id/rbLevel"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/" />
+                <TextView
+                    android:id="@+id/tvListAnswerTrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorGreen"
+                    tools:text="5" />
 
-            <TextView
-                android:id="@+id/tvListAnswerFalse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorRed"
-                tools:text="3" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" : " />
+                <TextView
+                    android:id="@+id/tvListAnswerFalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorRed"
+                    tools:text="3" />
 
-            <TextView
-                android:id="@+id/tvListAnswerLevel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                tools:text="-2" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : " />
+
+                <TextView
+                    android:id="@+id/tvListAnswerLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    tools:text="-2" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvListRus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_small"
+        tools:text="Russian"
+        android:layout_gravity="start"/>
+
 
 </LinearLayout>

@@ -65,6 +65,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //todo ДОбавить прогресс бар для отображения хода загрузки/выгрузки
             // Добавляем слова с локального текстового файла в корне флешки.
             // формат записи в файле:"cat   кот". Количество табов любое
             case R.id.btnLoadNewWords:
@@ -121,7 +122,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                         DB db = new DB(this);
                         db.open();
                         int counter = 0;        //считаем сколько выгрузили в файл слов
-                        Cursor cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
+                        Cursor cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null);
                         String str;
                         String eng;
                         String rus;
@@ -168,7 +169,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                         DB db = new DB(this);
                         db.open();
                         int counter = 0;        //считаем сколько выгрузили в файл слов
-                        Cursor cursor = db.getAllData(Consts.LIST_TYPE_ALL, null);
+                        Cursor cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null);
                         String eng;
                         String rus;
                         String answer_true;

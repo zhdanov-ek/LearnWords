@@ -4,10 +4,14 @@ package com.example.gek.learnwords.data;
         import android.database.Cursor;
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
+        import android.util.Log;
+
         import java.util.ArrayList;
         import java.util.Random;
 
 public class DB {
+
+    private static final String TAG = "MY_LOG:";
 
     private static final String DB_NAME = "learnwords";
     private static final int DB_VERSION = 1;
@@ -71,15 +75,18 @@ public class DB {
     }
 
     /** Получаем список всех слов или ищем по указанному значению */
-    public Cursor getAllData(int listType, String searchText) {
+    public Cursor getAllData(int listType, int orderByWant, String searchText) {
         String orderBy = null;              // сортировка
         String selection = null;            // условие отбора
         String[] selectionArgs = null;      // параметры испольуемые в отборе
 
         switch (listType) {
             case Consts.LIST_TYPE_ALL:
-                orderBy = COLUMN_ENG + " ASC";
-//                orderBy = COLUMN_LEVEL;
+                if (orderByWant == Consts.ORDER_BY_ABC) {
+                    orderBy = COLUMN_ENG + " ASC";
+                } else {
+                    orderBy = COLUMN_LEVEL;
+                }
                 break;
 
             // Ищем слово как в английском так и в русском и для этого вводим
@@ -117,21 +124,10 @@ public class DB {
     /** Возвращает количество записей в словаре
      * todo заменить запрос на функцию SQL Count()*/
     public int getNumberWords(){
-        return getAllData(Consts.LIST_TYPE_ALL, null).getCount();
+        return getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null).getCount();
 
     }
 
-    /** Определяет минимальное значение поля COLUMN_LEVEL */
-    public int getMinLevel(){
-        String[] columns = {COLUMN_LEVEL};
-        String selectionArgs = "min(" + COLUMN_LEVEL + ")";
-
-//        Cursor c = mDB.query(DB_TABLE, columns, selectionArgs, null, null, null, null);
-        String query = "SELECT MIN(" + COLUMN_LEVEL + ") FROM " + DB_TABLE;
-        Cursor c = mDB.rawQuery(query,  null);
-        c.moveToFirst();
-        return c.getInt(c.getColumnIndex(DB.COLUMN_LEVEL));
-    }
 
     /** Получить одну конкретную запись из таблицы DB_TABLE */
     public ContentValues getItem(int id){

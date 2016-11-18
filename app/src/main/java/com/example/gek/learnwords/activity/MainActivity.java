@@ -66,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         tv_number_words.setText("In dictionary " + num + " words" );
 
-        int min = db.getMinLevel();
-        Toast.makeText(this, "MINIMUM = " + min,Toast.LENGTH_SHORT ).show();
 
 
     }

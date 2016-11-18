@@ -60,7 +60,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         // Получаем полный рандомный список ID всех слов со словаря
         // wordsIDList = db.getFullRandomListID(db.getAllData(Consts.LIST_TYPE_ALL, null));
 
-        wordsIDList = db.getFullListID(db.getAllData(Consts.LIST_TYPE_ALL, null), false);
+        wordsIDList = db.getFullListID(db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null), false);
 
         showNextWord();
     }

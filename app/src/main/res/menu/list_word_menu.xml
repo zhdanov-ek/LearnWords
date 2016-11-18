@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/ab_search"
+        android:title="@string/menu_search"
+        android:icon="@android:drawable/ic_search_category_default"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <group
+        android:id="@+id/groupContact"
+        android:visible="true"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/ab_sort_abc"
+            android:title="@string/menu_order_by_abc"
+            app:showAsAction="never"
+            android:checked="true"/>
+        <item
+            android:id="@+id/ab_sort_rating"
+            android:title="@string/menu_order_by_rating"
+            app:showAsAction="never" />
+    </group>
+
+</menu>

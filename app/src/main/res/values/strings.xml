@@ -4,6 +4,9 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="remove">REMOVE</string>
+    <string name="menu_order_by_abc">Order by Abc</string>
+    <string name="menu_order_by_rating">Order by Rating</string>
+    <string name="menu_search">Search</string>
 
     <string name="caption_new_word">New word</string>
     <string name="caption_edit_word">Edit word</string>
