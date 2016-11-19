@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gek.learnwords">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,25 +17,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.WordActivity">
-        </activity>
-
-        <activity android:name=".activity.ListWordsActivity">
-        </activity>
-
-        <activity android:name=".activity.IEActivity">
-        </activity>
-
-        <activity android:name=".activity.LearnActivity">
-        </activity>
-
-        <activity android:name=".activity.TestActivity">
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".activity.WordActivity"/>
+        <activity android:name=".activity.ListWordsActivity"/>
+        <activity android:name=".activity.IEActivity"/>
+        <activity android:name=".activity.LearnActivity"/>
+        <activity android:name=".activity.TestActivity"/>
+        <activity android:name=".activity.SettingsActivity"/>
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

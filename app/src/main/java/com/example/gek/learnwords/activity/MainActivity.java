@@ -16,7 +16,7 @@ import com.example.gek.learnwords.data.DB;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tv_number_words;
-    private Button btnLearn, btnTest, btnWords, btnAddWord, btnImportExport;
+    Button btnLearn, btnTest, btnWords, btnAddWord, btnImportExport, btnSettings;
     private DB db;
     Context ctx;
 
@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnImportExport = (Button)findViewById(R.id.btnImportExport);
         btnImportExport.setOnClickListener(this);
+
+        btnSettings = (Button)findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(this);
 
         // открываем подключение к БД
         db = new DB(this);
@@ -94,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentIE = new Intent(ctx,IEActivity.class);
                 startActivity(intentIE);
                 break;
+            case R.id.btnSettings:
+                Intent intentSet = new Intent(ctx,SettingsActivity.class);
+                startActivity(intentSet);
+                break;
+
         }
     }
 

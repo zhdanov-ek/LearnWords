@@ -38,6 +38,11 @@
         <item name="android:padding">@dimen/ll_padding</item>
     </style>
 
+    <style name="TextCaption">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">normal|bold</item>
+    </style>
+
 
 
 </resources>

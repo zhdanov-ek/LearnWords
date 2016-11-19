@@ -9,7 +9,7 @@
         android:id="@+id/tbListWord"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/common_action_bar_splitter"/>
+        android:background="@color/bg_white"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

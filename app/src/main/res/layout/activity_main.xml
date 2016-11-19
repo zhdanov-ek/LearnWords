@@ -13,6 +13,13 @@
     tools:context="com.example.gek.learnwords.activity.MainActivity">
 
     <TextView
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        />
+
+    <TextView
         android:id="@+id/tv_number_words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,12 +88,12 @@
             android:layout_margin="@dimen/button_layout_margin"
             android:text="import/export"/>
         <Button
-            android:id="@+id/btnPreference"
+            android:id="@+id/btnSettings"
             style="@style/LearnWordsButtonGreen"
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="Preference"/>
+            android:text="Settings"/>
     </LinearLayout>
 
 
