@@ -11,6 +11,9 @@
     <dimen name="button_height">40dp</dimen>
     <dimen name="button_layout_margin">3dp</dimen>
 
+    <dimen name="button_menu_height">100dp</dimen>
+    <dimen name="button_menu_width">110dp</dimen>
+
     <dimen name="ll_layout_margin">3dp</dimen>
     <dimen name="ll_padding">5dp</dimen>
 </resources>

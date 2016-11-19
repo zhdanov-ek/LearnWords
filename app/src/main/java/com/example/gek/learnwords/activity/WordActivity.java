@@ -51,13 +51,19 @@ public class WordActivity extends AppCompatActivity {
                 btnRemove.setVisibility(View.GONE);
                 break;
 
+            case Consts.WORD_MODE_NEW_FROM_LIST:
+                tvMode.setText(R.string.caption_new_word);
+                mode = Consts.WORD_MODE_NEW_FROM_LIST;
+                btnRemove.setVisibility(View.GONE);
+                break;
+
             case Consts.WORD_MODE_EDIT:
                 etEng.setText(bundle.getString(Consts.ATT_ENG));
                 etRus.setText(bundle.getString(Consts.ATT_RUS));
                 mode = Consts.WORD_MODE_EDIT;
                 id = bundle.getInt(Consts.ATT_ITEM_ID,0);
                 itemPositionRecyclerView = bundle.getInt(Consts.ITEM_POSITION);
-                tvMode.setText(getString(R.string.caption_edit_word) + " Item ID = " + id);
+                tvMode.setText(getString(R.string.caption_edit_word));
                 break;
         }
 
@@ -93,6 +99,15 @@ public class WordActivity extends AppCompatActivity {
                             intentResult.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW);
                             intentResult.putExtra(Consts.WORD_RESULT_OPERATION, Consts.WORD_ADD);
                             break;
+
+                        case Consts.WORD_MODE_NEW_FROM_LIST:
+                            db.addRec(eng, rus);
+                            // результат в окно со списком всех слов словаря
+                            intentResult.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
+                            intentResult.putExtra(Consts.WORD_RESULT_OPERATION, Consts.WORD_ADD);
+                            break;
+
+
                         case Consts.WORD_MODE_EDIT:
                             ContentValues cv = new ContentValues();
                             cv.put(Consts.ATT_ENG, eng);

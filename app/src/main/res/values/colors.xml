@@ -9,5 +9,7 @@
     <color name="colorButtonTrue">#47b713</color>
 
     <color name="colorFrameLayout">#afafb0</color>
+    <color name="colorFrameLayoutPress">#747474</color>
     <color name="colorBackgroundLayout">@null</color>
+    <color name="colorBackgroundLayoutPress">#ffffff</color>
 </resources>

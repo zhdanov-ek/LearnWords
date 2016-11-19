@@ -1,5 +1,3 @@
-//todo переработать красиво список
-
 package com.example.gek.learnwords.activity;
 
 import android.app.Activity;
@@ -33,8 +31,6 @@ public class ListWordsActivity extends AppCompatActivity {
     Context mCtx;
     RecyclerViewAdapter mAdapter;
     RecyclerView mRrecyclerView;
-
-
     ArrayList<MyWord> mListWords;
 
     @Override
@@ -47,7 +43,6 @@ public class ListWordsActivity extends AppCompatActivity {
         // Добавляем тулбар бар
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tbListWord);
         setSupportActionBar(myToolbar);
-
 
         mRrecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -140,6 +135,10 @@ public class ListWordsActivity extends AppCompatActivity {
                     item.setChecked(true);
                 }
                 break;
+            case R.id.ab_new_word:
+                Intent intentAddWord = new Intent(mCtx, WordActivity.class);
+                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
+                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
             default:
                 break;
         }
@@ -157,11 +156,16 @@ public class ListWordsActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        if ((requestCode == Consts.WORD_MODE_EDIT) && resultCode == RESULT_OK) {
+        if ((requestCode == Consts.WORD_MODE_EDIT)|| (requestCode == Consts.WORD_MODE_NEW_FROM_LIST)
+                && resultCode == RESULT_OK) {
             int result = data.getIntExtra(Consts.WORD_RESULT_OPERATION, 0);
             switch (result){
-                //todo добавить плавающую кнопку материал для добавления слова прямо в списке
+                //todo добавить плавающую кнопку вместо кнопки в меню для добавления слова прямо в списке
                 case Consts.WORD_ADD:
+                    mListWords = db.getFullListWords(
+                            db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null));
+                    mAdapter = new RecyclerViewAdapter(this, mListWords);
+                    mRrecyclerView.setAdapter(mAdapter);
                     break;
 
                 case Consts.WORD_CHANGE:

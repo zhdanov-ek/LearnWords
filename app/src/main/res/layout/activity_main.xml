@@ -21,43 +21,73 @@
         android:textSize="@dimen/font_size_middle"
         tools:text="In dictionary 20 words" />
 
-    <Button
-        android:id="@+id/btnLearn"
-        style="@style/LearnWordsButtonGreen"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_layout_margin"
-        android:text="learn" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical">
+        <Button
+            android:id="@+id/btnLearn"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="learn" />
 
-    <Button
-        android:id="@+id/btnTest"
-        style="@style/LearnWordsButtonGreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_layout_margin"
-        android:text="test" />
+        <Button
+            android:id="@+id/btnTest"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="test" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnWords"
-        style="@style/LearnWordsButtonGreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_layout_margin"
-        android:text="words" />
 
-    <Button
-        android:id="@+id/btnAddWord"
-        style="@style/LearnWordsButtonGreen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_layout_margin"
-        android:text="add word" />
 
-    <Button
-        android:id="@+id/btnImportExport"
-        style="@style/LearnWordsButtonGreen"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/button_layout_margin"
-        android:text="import/export" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical">
+        <Button
+            android:id="@+id/btnWords"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="words" />
+        <Button
+            android:id="@+id/btnAddWord"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="add word" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical">
+        <Button
+            android:id="@+id/btnImportExport"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="import/export"/>
+        <Button
+            android:id="@+id/btnPreference"
+            style="@style/LearnWordsButtonGreen"
+            android:layout_width="@dimen/button_menu_width"
+            android:layout_height="@dimen/button_menu_height"
+            android:layout_margin="@dimen/button_layout_margin"
+            android:text="Preference"/>
+    </LinearLayout>
+
+
 </LinearLayout>

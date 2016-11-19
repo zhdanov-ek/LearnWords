@@ -6,9 +6,14 @@ package com.example.gek.learnwords.activity;
 
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +28,7 @@ import java.util.Arrays;
 public class TestActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_next, btn_answer1, btn_answer2, btn_answer3, btn_answer4;
     private TextView tv_word;
+    private ImageView iv_correctly;
     private DB db;
     private String eng, rus;                // значения текущего слова
     int id, counterTrue, counterFalse;
@@ -31,6 +37,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Integer> wordsIDList;         // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;       // массив ложных альтернативных ID
 
+    private Animation anim;
 
 
     @Override
@@ -41,9 +48,11 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         db.open();
 
         tv_word = (TextView)findViewById(R.id.tv_word);
+        iv_correctly = (ImageView) findViewById(R.id.iv_correctly);
+        anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+
         btn_answer1 = (Button)findViewById(R.id.btn_answer1);
         btn_answer1.setOnClickListener(this);
-
 
         btn_answer2 = (Button)findViewById(R.id.btn_answer2);
         btn_answer2.setOnClickListener(this);
@@ -86,6 +95,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     /** формируем и отображаем следующий вопрос с тремя ложными ответами */
     private void showNextWord(){
+        iv_correctly.setVisibility(View.INVISIBLE);
         btn_answer1.setBackgroundResource(R.drawable.bg_button_grey);
         btn_answer2.setBackgroundResource(R.drawable.bg_button_grey);
         btn_answer3.setBackgroundResource(R.drawable.bg_button_grey);
@@ -138,13 +148,22 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     /** Проверяем правильно ли выбран ответ */
     private  void checkAnswer(Button b){
         if (b.getText().toString().contentEquals(rus)){
-            Toast.makeText(this, "Правильно", Toast.LENGTH_SHORT).show();
-            //todo Написать метод, который будет вместо сообщения "Правильно" выводить какую-то анимацию или подарки
+            iv_correctly.setVisibility(View.VISIBLE);
+            iv_correctly.startAnimation(anim);
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
-            showNextWord();
+
+            // todo сделать возможность указывать задержку через параметры
+            // Показываем следующее слово через 1.5 секунды
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showNextWord();
+                }
+            }, 1500);
+
         } else {
             b.setBackgroundResource(R.drawable.bg_button_red);
-            Toast.makeText(this, "Не верно", Toast.LENGTH_SHORT).show();
             if (btn_answer1.getText() == rus)
                 btn_answer1.setBackgroundResource(R.drawable.bg_button_green);
             if (btn_answer2.getText() == rus)
