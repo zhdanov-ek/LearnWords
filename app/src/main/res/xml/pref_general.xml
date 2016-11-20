@@ -1,16 +1,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference
-        android:key="@string/pref_location_key"
-        android:title="@string/pref_location_label"
-        android:defaultValue="@string/pref_location_default"
-        android:inputType="text"
-        android:singleLine="true"/>
 
     <ListPreference
-        android:title="@string/pref_units_label"
-        android:key="@string/pref_units_key"
-        android:defaultValue="@string/pref_units_metric"
-        android:entryValues="@array/pref_units_values"
-        android:entries="@array/pref_units_options" />
+        android:defaultValue="@string/pref_theme_default"
+        android:entries="@array/list_theme_entries"
+        android:entryValues="@array/list_theme_values"
+        android:key="@string/pref_theme_key"
+        android:title="@string/pref_theme_title" />
+
+    <ListPreference
+        android:defaultValue="@string/pref_delay_default"
+        android:entries="@array/list_delay_entries"
+        android:entryValues="@array/list_delay_values"
+        android:key="@string/pref_delay_key"
+        android:title="@string/pref_delay_title" />
 
 </PreferenceScreen>

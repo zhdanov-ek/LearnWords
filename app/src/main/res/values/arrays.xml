@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="pref_units_options">
-        <item>@string/pref_units_label_metric</item>
-        <item>@string/pref_units_label_imperial</item>
+    <string-array name="list_delay_entries">
+        <item>none</item>
+        <item>1 second</item>
+        <item>1.5 seconds</item>
+        <item>2 seconds</item>
+    </string-array>
+    <string-array name="list_delay_values">
+        <item>0</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
     </string-array>
 
-    <string-array name="pref_units_values">
-        <item>@string/pref_units_metric</item>
-        <item>@string/pref_units_imperial</item>
+    <string-array name="list_theme_entries">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+    <string-array name="list_theme_values">
+        <item>theme_dark</item>
+        <item>theme_light</item>
     </string-array>
 </resources>

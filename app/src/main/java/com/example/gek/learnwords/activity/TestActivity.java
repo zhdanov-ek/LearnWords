@@ -1,13 +1,17 @@
 /**
  * Тестирование знаний: вопрос и 4 кнопки с вариантами ответов
+ * Слова подаются на экран в порядке основанном на кол-ве правильных и не правильных ответов.
+ * Первыми появляются слова с наибольшим кол-вом не правильных ответов
+ * Каждый ответ фиксируется в БД
  */
 
 package com.example.gek.learnwords.activity;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -33,11 +37,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private String eng, rus;                // значения текущего слова
     int id, counterTrue, counterFalse;
 
+    private Animation anim;
+    private int prefDelay;                  // задержка до показа следующего слова
+    private Handler handler;
+    private Boolean hasRunCallback;            // состояние есть колбек
+
     private int currentID = 0;              // текущий порядковый номер ID слова в списке всех ID
     ArrayList<Integer> wordsIDList;         // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;       // массив ложных альтернативных ID
 
-    private Animation anim;
+
 
 
     @Override
@@ -69,9 +78,18 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         // Получаем полный рандомный список ID всех слов со словаря
         // wordsIDList = db.getFullRandomListID(db.getAllData(Consts.LIST_TYPE_ALL, null));
 
-        wordsIDList = db.getFullListID(db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null), false);
+        wordsIDList = db.getFullListID(db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_RATING, null), false);
 
         showNextWord();
+    }
+
+    /** Получаем с настроек значение задержки до появления нового слова */
+    @Override
+    protected void onStart() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String delay = prefs.getString(getResources().getString(R.string.pref_delay_key), "1500");
+        prefDelay = Integer.parseInt(delay);
+        super.onStart();
     }
 
     @Override
@@ -142,26 +160,31 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             btn_answer4.setEnabled(false);
             Toast.makeText(this, "This is last word!", Toast.LENGTH_SHORT).show();
         }
-
+        // Callback отработал
+        hasRunCallback = false;
     }
+
+    Runnable runnableShowNextWord = new Runnable() {
+        @Override
+        public void run() {
+            showNextWord();
+        }
+    };
 
     /** Проверяем правильно ли выбран ответ */
     private  void checkAnswer(Button b){
         if (b.getText().toString().contentEquals(rus)){
-            iv_correctly.setVisibility(View.VISIBLE);
-            iv_correctly.startAnimation(anim);
+            if (prefDelay != 0) {
+                iv_correctly.startAnimation(anim);
+                iv_correctly.setVisibility(View.VISIBLE);
+            }
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
 
             // todo сделать возможность указывать задержку через параметры
-            // Показываем следующее слово через 1.5 секунды
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showNextWord();
-                }
-            }, 1500);
-
+            // Показываем следующее слово через задержку mDelay взятую в параметрах ранее
+            handler = new Handler();
+            handler.postDelayed(runnableShowNextWord, prefDelay);
+            hasRunCallback = true;
         } else {
             b.setBackgroundResource(R.drawable.bg_button_red);
             if (btn_answer1.getText() == rus)
@@ -207,8 +230,14 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     /**  Закрытие базы перед уничтожением активити */
     protected void onDestroy() {
-        super.onDestroy();
-        // закрываем подключение при выходе
+        // Проверяем не начат-ли показ следующего слова (с задержкой)
+        // уничтожаем колбек если начат и закрываем базу
+        if (hasRunCallback){
+            handler.removeCallbacks(runnableShowNextWord);
+        }
+
         db.close();
-    }
+        super.onDestroy();
+        }
+
 }

@@ -38,7 +38,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
 
         db = new DB(this);
         db.open();
-        cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null);
+        cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_RATING, null);
         wordsIDList = db.getFullListID(cursor, false);
 
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);

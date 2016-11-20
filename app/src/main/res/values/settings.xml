@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_location_label">Location</string>
+    <!-- OPTIONS THEME  -->
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_key" translatable="false">theme_key</string>
+    <string name="pref_theme_default" translatable="false">theme_light</string>
+    <!-- not used -->
+    <string name="pref_theme_dark">Dark</string>
+    <string name="pref_theme_light">Light</string>
 
-    <!-- Ключ для доступа к опции -->
-    <string name="pref_location_key" translatable="false">location</string>
 
-    <!-- Значение по умолчанию -->
-    <string name="pref_location_default" translatable="false">Cherkassy</string>
-
-
-    <!-- Label for the temperature units preference [CHAR LIMIT=30] -->
-    <string name="pref_units_label">Temperature Units</string>
-
-    <!-- Label for metric option in temperature unit preference [CHAR LIMIT=25] -->
-    <string name="pref_units_label_metric">Metric</string>
-
-    <!-- Label for imperial option in temperature unit preference [CHAR LIMIT=25] -->
-    <string name="pref_units_label_imperial">Imperial</string>
-
-    <!-- Key name for temperature unit preference in SharedPreferences [CHAR LIMIT=NONE] -->
-    <string name="pref_units_key" translatable="false">units</string>
-
-    <!-- Value in SharedPreferences for metric temperature unit option [CHAR LIMIT=NONE] -->
-    <string name="pref_units_metric" translatable="false">metric</string>
-
-    <!-- Value in SharedPreferences for imperial temperature unit option [CHAR LIMIT=NONE] -->
-    <string name="pref_units_imperial" translatable="false">imperial</string>
-
+    <!-- DELAY on show next word preference  -->
+    <string name="pref_delay_title">Delay for show next word</string>
+    <string name="pref_delay_key" translatable="false">delay_key</string>
+    <string name="pref_delay_default" translatable="false">1500</string>
 
 </resources>
