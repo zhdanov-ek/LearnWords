@@ -3,13 +3,34 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
-    <color name="colorRed">#e70518</color>
-    <color name="colorGreen">#468f05</color>
-    <color name="colorButtonFalse">#e64741</color>
-    <color name="colorButtonTrue">#47b713</color>
 
     <color name="colorFrameLayout">#afafb0</color>
     <color name="colorFrameLayoutPress">#747474</color>
     <color name="colorBackgroundLayout">@null</color>
     <color name="colorBackgroundLayoutPress">#ffffff</color>
+
+
+    <color name="colorTextDark">#4e4d4d</color>
+    <color name="colorTextLight">#FFFFFF</color>
+
+    <color name="colorRed">#e53935</color>
+    <color name="colorDarkRed">#b71c1c</color>
+    <color name="colorLightRed">#ffcdd2</color>
+
+    <color name="colorGreen">#43a047</color>
+    <color name="colorDarkGreen">#1b5e20</color>
+    <color name="colorLightGreen">#c8e6c9</color>
+
+    <color name="colorGrey">#bdbdbd</color>
+    <color name="colorDarkGrey">#757575</color>
+    <color name="colorLightGrey">#f5f5f5</color>
+
+    <color name="colorBlue">#1e88e5</color>
+    <color name="colorDarkBlue">#0d47a1</color>
+    <color name="colorLightBlue">#bbdefb</color>
+
+    <color name="colorOrange">#fb8c00</color>
+    <color name="colorDarkOrange">#e65100</color>
+    <color name="colorLightOrange">#ffe0b2</color>
+
 </resources>

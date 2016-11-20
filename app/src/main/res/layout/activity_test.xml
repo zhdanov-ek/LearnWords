@@ -32,30 +32,30 @@
             android:visibility="invisible"/>
 
         <Button
+            style="@style/ButtonGrey"
             android:id="@+id/btn_answer1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer1" />
 
         <Button
+            style="@style/ButtonGrey"
             android:id="@+id/btn_answer2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer2"/>
 
         <Button
+            style="@style/ButtonGrey"
             android:id="@+id/btn_answer3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer3" />
 
         <Button
+            style="@style/ButtonGrey"
             android:id="@+id/btn_answer4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer4" />
     </LinearLayout>
@@ -67,11 +67,10 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/btn_next"
-            style="@style/LearnWordsButtonGreen"
+            style="@style/ButtonGreen"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:text="@string/next" />
-
     </LinearLayout>
 
 

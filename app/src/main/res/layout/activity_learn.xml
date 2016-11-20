@@ -55,12 +55,12 @@
 
         <Button
             android:id="@+id/btnDontKnow"
-            style="@style/LearnWordsButtonRed"
+            style="@style/ButtonRed"
             android:text="@string/dont_know" />
 
         <Button
             android:id="@+id/btnKnow"
-            style="@style/LearnWordsButtonGreen"
+            style="@style/ButtonGreen"
             android:text="@string/know" />
     </LinearLayout>
 

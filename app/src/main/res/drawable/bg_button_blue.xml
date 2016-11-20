@@ -10,12 +10,12 @@
                 android:height="@dimen/button_height"
                 />
             <solid
-                android:color="@color/colorDarkRed"
+                android:color="@color/colorDarkBlue"
                 />
 
             <stroke
                 android:width="3dp"
-                android:color="@color/colorDarkRed"
+                android:color="@color/colorDarkBlue"
                 />
         </shape>
     </item>
@@ -30,12 +30,12 @@
                 android:height="@dimen/button_height"
                 />
             <solid
-                android:color="@color/colorLightRed"
+                android:color="@color/colorLightBlue"
                 />
 
             <stroke
                 android:width="3dp"
-                android:color="@color/colorLightRed"
+                android:color="@color/colorLightBlue"
                 />
         </shape>
     </item>
@@ -50,12 +50,12 @@
                 android:height="@dimen/button_height"
                 />
             <solid
-                android:color="@color/colorRed"
+                android:color="@color/colorBlue"
                 />
 
             <stroke
                 android:width="3dp"
-                android:color="@color/colorRed"
+                android:color="@color/colorBlue"
                 />
         </shape>
     </item>
