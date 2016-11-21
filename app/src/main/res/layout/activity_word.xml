@@ -53,12 +53,12 @@
 
         <Button
             android:id="@+id/btnCancelWord"
-            style="@style/ButtonBlue"
+            style="@style/ButtonGrey"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btnOkWord"
-            style="@style/ButtonBlue"
+            style="@style/ButtonGrey"
             android:text="@string/ok" />
     </LinearLayout>
     <RelativeLayout

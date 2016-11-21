@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/ThemeLearnWordsLight">
+        android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.WordActivity"/>
-        <activity android:name=".activity.ListWordsActivity"/>
-        <activity android:name=".activity.IEActivity"/>
-        <activity android:name=".activity.LearnActivity"/>
-        <activity android:name=".activity.TestActivity"/>
-        <activity android:name=".activity.SettingsActivity"/>
+
+        <activity android:name=".activity.WordActivity"
+            android:label="@string/app_name"/>
+
+        <activity android:name=".activity.ListWordsActivity"
+            android:label="@string/caption_list_word"
+            android:theme="@style/AppThemeNoActionBar"/>
+
+        <activity android:name=".activity.IEActivity"
+            android:label="@string/caption_ie"/>
+
+        <activity android:name=".activity.LearnActivity"
+            android:label="@string/caption_learn"/>
+
+        <activity android:name=".activity.TestActivity"
+            android:label="@string/caption_test"/>
+
+        <activity android:name=".activity.SettingsActivity"
+            android:label="@string/caption_settings"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

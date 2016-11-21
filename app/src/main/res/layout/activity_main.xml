@@ -39,7 +39,7 @@
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="learn" />
+            android:text="Learn" />
 
         <Button
             android:id="@+id/btnTest"
@@ -47,7 +47,7 @@
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="test" />
+            android:text="Test" />
     </LinearLayout>
 
 
@@ -63,14 +63,14 @@
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="words" />
+            android:text="Words" />
         <Button
             android:id="@+id/btnAddWord"
             style="@style/ButtonOrange"
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="add word" />
+            android:text="Add word" />
     </LinearLayout>
 
 
@@ -86,7 +86,7 @@
             android:layout_width="@dimen/button_menu_width"
             android:layout_height="@dimen/button_menu_height"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="import/export"/>
+            android:text="Import/Export"/>
         <Button
             android:id="@+id/btnSettings"
             style="@style/ButtonOrange"
