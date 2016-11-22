@@ -3,8 +3,8 @@
 
     <string name="caption_new_word">New word</string>
     <string name="caption_edit_word">Edit word</string>
-    <string name="caption_learn">Learn words</string>
-    <string name="caption_test">Test</string>
+    <string name="caption_learn">Learning</string>
+    <string name="caption_test">Testing</string>
     <string name="caption_list_word">Dictionary</string>
     <string name="caption_ie">Import/export</string>
     <string name="caption_settings">Settings</string>

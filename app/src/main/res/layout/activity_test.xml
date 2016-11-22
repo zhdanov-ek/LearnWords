@@ -32,28 +32,28 @@
             android:visibility="invisible"/>
 
         <Button
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:id="@+id/btn_answer1"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer1" />
 
         <Button
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:id="@+id/btn_answer2"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer2"/>
 
         <Button
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:id="@+id/btn_answer3"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer3" />
 
         <Button
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:id="@+id/btn_answer4"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"

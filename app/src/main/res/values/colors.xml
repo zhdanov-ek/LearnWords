@@ -8,10 +8,10 @@
     <color name="colorTextDark">#4e4d4d</color>
     <color name="colorTextLight">#ffe0b2</color>
 
-    <color name="colorFrameLayout">#afafb0</color>
-    <color name="colorFrameLayoutPress">#747474</color>
+    <color name="colorFrameLayout">#ffb74d</color>
+    <color name="colorFrameLayoutPress">#ff9800</color>
     <color name="colorBackgroundLayout">@null</color>
-    <color name="colorBackgroundLayoutPress">#ffcc80</color>
+    <color name="colorBackgroundLayoutPress">#f9d39c</color>
 
 
     <color name="colorRed">#e53935</color>
@@ -26,9 +26,9 @@
     <color name="colorDarkGrey">#9e9e9e</color>
     <color name="colorLightGrey">#e0e0e0</color>
 
-    <color name="colorBlue">#1e88e5</color>
-    <color name="colorDarkBlue">#0d47a1</color>
-    <color name="colorLightBlue">#64b5f6</color>
+    <color name="colorBlue">#80cbc4</color>
+    <color name="colorDarkBlue">#4db6ac</color>
+    <color name="colorLightBlue">#e0f2f1</color>
 
     <color name="colorOrange">#fb8c00</color>
     <color name="colorDarkOrange">#ef6c00</color>

@@ -9,14 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/tv_caption_word"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/font_size_middle"
-        android:text="@string/caption_new_word" />
-
-    <TextView
         android:id="@+id/tvEng"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,12 +45,12 @@
 
         <Button
             android:id="@+id/btnCancelWord"
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btnOkWord"
-            style="@style/ButtonGrey"
+            style="@style/ButtonSimple"
             android:text="@string/ok" />
     </LinearLayout>
     <RelativeLayout

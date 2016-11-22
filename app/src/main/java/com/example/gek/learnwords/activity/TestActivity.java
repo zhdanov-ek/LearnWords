@@ -114,10 +114,10 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     /** формируем и отображаем следующий вопрос с тремя ложными ответами */
     private void showNextWord(){
         iv_correctly.setVisibility(View.INVISIBLE);
-        btn_answer1.setBackgroundResource(R.drawable.bg_button_grey);
-        btn_answer2.setBackgroundResource(R.drawable.bg_button_grey);
-        btn_answer3.setBackgroundResource(R.drawable.bg_button_grey);
-        btn_answer4.setBackgroundResource(R.drawable.bg_button_grey);
+        btn_answer1.setBackgroundResource(R.drawable.bg_button_simple);
+        btn_answer2.setBackgroundResource(R.drawable.bg_button_simple);
+        btn_answer3.setBackgroundResource(R.drawable.bg_button_simple);
+        btn_answer4.setBackgroundResource(R.drawable.bg_button_simple);
         setAnswersClickable(true);
 
 
@@ -173,6 +173,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
     /** Проверяем правильно ли выбран ответ */
     private  void checkAnswer(Button b){
+        setAnswersClickable(false);
         if (b.getText().toString().contentEquals(rus)){
             if (prefDelay != 0) {
                 iv_correctly.startAnimation(anim);
@@ -196,7 +197,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             if (btn_answer4.getText() == rus)
                 btn_answer4.setBackgroundResource(R.drawable.bg_button_green);
             registrationAnswer(false);   // отмечаем в БД, что дан ложный ответ
-            setAnswersClickable(false);
         }
 
 

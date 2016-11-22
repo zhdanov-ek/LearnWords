@@ -54,13 +54,13 @@
                     android:padding="2dp">
 
                     <Button
-                        style="@style/ButtonGrey"
+                        style="@style/ButtonSimple"
                         android:id="@+id/btnLoadNewWords"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/read"/>
 
                     <Button
-                        style="@style/ButtonGrey"
+                        style="@style/ButtonSimple"
                         android:id="@+id/btnUnLoadNewWords"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/write" />
@@ -96,13 +96,13 @@
                     android:gravity="center_horizontal|center_vertical">
                     <Button
                         android:id="@+id/btnLoadNewDB"
-                        style="@style/ButtonGrey"
+                        style="@style/ButtonSimple"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/read" />
 
                     <Button
                         android:id="@+id/btnUnLoadNewDB"
-                        style="@style/ButtonGrey"
+                        style="@style/ButtonSimple"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/write" />
                 </LinearLayout>

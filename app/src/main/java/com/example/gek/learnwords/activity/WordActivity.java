@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +20,8 @@ public class WordActivity extends AppCompatActivity {
     private Context context;
     private DB db;
     private Button btnOk, btnCancel, btnRemove;
-    private TextView tvMode;
     private EditText etEng, etRus;
+    private ActionBar actionBar;
     private int mode;
     private int id;                          //id редактируемого элемента
     private int itemPositionRecyclerView;    // позиция в списке
@@ -30,8 +31,8 @@ public class WordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
         context = getApplicationContext();
+        actionBar = getSupportActionBar();
 
-        tvMode = (TextView)findViewById(R.id.tv_caption_word);
         btnOk = (Button) findViewById(R.id.btnOkWord);
         btnCancel = (Button) findViewById(R.id.btnCancelWord);
         btnRemove = (Button) findViewById(R.id.btnRemoveWord);
@@ -46,13 +47,13 @@ public class WordActivity extends AppCompatActivity {
         mode = bundle.getInt(Consts.WORD_MODE,0);
         switch (mode) {
             case Consts.WORD_MODE_NEW:
-                tvMode.setText(R.string.caption_new_word);
+                actionBar.setTitle(R.string.caption_new_word);
                 mode = Consts.WORD_MODE_NEW;
                 btnRemove.setVisibility(View.GONE);
                 break;
 
             case Consts.WORD_MODE_NEW_FROM_LIST:
-                tvMode.setText(R.string.caption_new_word);
+                actionBar.setTitle(R.string.caption_new_word);
                 mode = Consts.WORD_MODE_NEW_FROM_LIST;
                 btnRemove.setVisibility(View.GONE);
                 break;
@@ -63,7 +64,7 @@ public class WordActivity extends AppCompatActivity {
                 mode = Consts.WORD_MODE_EDIT;
                 id = bundle.getInt(Consts.ATT_ITEM_ID,0);
                 itemPositionRecyclerView = bundle.getInt(Consts.ITEM_POSITION);
-                tvMode.setText(getString(R.string.caption_edit_word));
+                actionBar.setTitle(R.string.caption_edit_word);
                 break;
         }
 

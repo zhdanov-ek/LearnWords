@@ -28,18 +28,14 @@
         <item name="android:layout_margin">@dimen/button_layout_margin</item>
     </style>
 
-    <style name="ButtonBlue" parent="ButtonBase">
-        <item name="android:background">@drawable/bg_button_blue</item>
-        <item name="android:textColor">@color/colorTextLight</item>
-    </style>
 
     <style name="ButtonGreen" parent="ButtonBase">
         <item name="android:background">@drawable/bg_button_green</item>
         <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
-    <style name="ButtonGrey" parent="ButtonBase">
-        <item name="android:background">@drawable/bg_button_grey</item>
+    <style name="ButtonSimple" parent="ButtonBase">
+        <item name="android:background">@drawable/bg_button_simple</item>
         <item name="android:textColor">@color/colorTextDark</item>
     </style>
 
