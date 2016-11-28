@@ -176,6 +176,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         setAnswersClickable(false);
         if (b.getText().toString().contentEquals(rus)){
             if (prefDelay != 0) {
+                b.setBackgroundResource(R.drawable.bg_button_green);
                 iv_correctly.startAnimation(anim);
                 iv_correctly.setVisibility(View.VISIBLE);
             }
