@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#ef6c00</color>
     <color name="colorAccent">#ff4081</color>
 
+    <color name="colorLogoBook">#0097a7</color>
+
     <color name="colorBack">#ffe0b2</color>
     <color name="colorTextDark">#4e4d4d</color>
     <color name="colorTextLight">#ffe0b2</color>
