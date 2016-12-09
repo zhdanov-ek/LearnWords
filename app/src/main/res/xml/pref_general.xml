@@ -14,4 +14,11 @@
         android:key="@string/pref_delay_key"
         android:title="@string/pref_delay_title" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_direction_default"
+        android:entries="@array/list_direction_entries"
+        android:entryValues="@array/list_direction_values"
+        android:key="@string/pref_direction_key"
+        android:title="@string/pref_direction_title" />
+
 </PreferenceScreen>

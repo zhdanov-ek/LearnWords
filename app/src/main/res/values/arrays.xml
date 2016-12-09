@@ -21,4 +21,15 @@
         <item>theme_dark</item>
         <item>theme_light</item>
     </string-array>
+
+    <string-array name="list_direction_entries">
+        <item>English</item>
+        <item>Russian</item>
+        <item>Mixed</item>
+    </string-array>
+    <string-array name="list_direction_values">
+        <item>direction_eng</item>
+        <item>direction_rus</item>
+        <item>direction_mix</item>
+    </string-array>
 </resources>

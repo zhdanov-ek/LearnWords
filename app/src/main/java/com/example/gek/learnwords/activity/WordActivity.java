@@ -23,7 +23,7 @@ public class WordActivity extends AppCompatActivity {
     private EditText etEng, etRus;
     private ActionBar actionBar;
     private int mode;
-    private int id;                          //id редактируемого элемента
+    private int id;                          //mId редактируемого элемента
     private int itemPositionRecyclerView;    // позиция в списке
 
     @Override

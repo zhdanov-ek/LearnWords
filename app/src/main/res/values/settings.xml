@@ -14,4 +14,9 @@
     <string name="pref_delay_key" translatable="false">delay_key</string>
     <string name="pref_delay_default" translatable="false">1500</string>
 
+    <!-- Direction for showing translate preference  -->
+    <string name="pref_direction_title">Mode for translate direction</string>
+    <string name="pref_direction_key" translatable="false">direction_key</string>
+    <string name="pref_direction_default" translatable="false">direction_rus</string>
+
 </resources>

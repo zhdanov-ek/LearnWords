@@ -20,6 +20,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         // updated when the preference changes.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_theme_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_delay_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_direction_key)));
 
     }
 
