@@ -7,10 +7,10 @@
         <item>2 seconds</item>
     </string-array>
     <string-array name="list_delay_values">
-        <item>0</item>
-        <item>1000</item>
-        <item>1500</item>
-        <item>2000</item>
+        <item translatable="false">0</item>
+        <item translatable="false">1000</item>
+        <item translatable="false">1500</item>
+        <item translatable="false">2000</item>
     </string-array>
 
     <string-array name="list_theme_entries">
@@ -18,8 +18,8 @@
         <item>Light</item>
     </string-array>
     <string-array name="list_theme_values">
-        <item>theme_dark</item>
-        <item>theme_light</item>
+        <item translatable="false">theme_dark</item>
+        <item translatable="false">theme_light</item>
     </string-array>
 
     <string-array name="list_direction_entries">
@@ -28,8 +28,8 @@
         <item>Mixed</item>
     </string-array>
     <string-array name="list_direction_values">
-        <item>direction_eng</item>
-        <item>direction_rus</item>
-        <item>direction_mix</item>
+        <item translatable="false">direction_eng</item>
+        <item translatable="false">direction_rus</item>
+        <item translatable="false">direction_mix</item>
     </string-array>
 </resources>

@@ -19,7 +19,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
@@ -35,6 +34,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tv_word;
     private ImageView iv_correctly;
     private DB mDb;
+
     private String mWordOriginal, mWordTranslate;                // значения текущего слова
     int mId, mCounterTrue, mCounterFalse;
 
@@ -42,8 +42,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private int mPrefDelay;                  // задержка до показа следующего слова
     private String mPrefDirection;           // направление перевода
 
-    private String mColumnWordOriginal;      // Переменные хранят значения выбираемых полей
-    private String mColumnWordTranslate;     // в зависимости от настроек
+    private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
 
     private Handler handler;
     private Boolean mHasRunCallback;         // состояние есть ли колбек
@@ -51,6 +50,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     private int mCurrentID = 0;              // текущий порядковый номер ID слова в списке всех ID
     ArrayList<Integer> wordsIDList;          // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;        // массив ложных альтернативных ID
+    private int mTotalTrueAnswers, mTotalFalseAnswers;
 
 
 
@@ -108,25 +108,21 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    // В зависисости от режима перевода слов определяем столбцы значений для выбора слов из БД
+    // В зависисости от режима перевода слов определяем какое поле будет базовым
     private void setDirectionTranslate(){
         switch (mPrefDirection){
             case "direction_rus":
                 mColumnWordOriginal = DB.COLUMN_ENG;
-                mColumnWordTranslate = DB.COLUMN_RUS;
                 break;
             case "direction_eng":
                 mColumnWordOriginal = DB.COLUMN_RUS;
-                mColumnWordTranslate = DB.COLUMN_ENG;
                 break;
             case "direction_mix":
                 Random random = new Random();
                 if (random.nextBoolean()){
                     mColumnWordOriginal = DB.COLUMN_ENG;
-                    mColumnWordTranslate = DB.COLUMN_RUS;
                 } else {
                     mColumnWordOriginal = DB.COLUMN_RUS;
-                    mColumnWordTranslate = DB.COLUMN_ENG;
                 }
                 break;
         }
@@ -161,8 +157,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         btn_answer3.setBackgroundResource(R.drawable.bg_button_simple);
         btn_answer4.setBackgroundResource(R.drawable.bg_button_simple);
         setAnswersClickable(true);
-
-
 
         // получаем текущее слово
         ContentValues currentWord = mDb.getItem(wordsIDList.get(mCurrentID));
@@ -208,13 +202,15 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
         if (wordsIDList.size() > (mCurrentID +1)) {
             mCurrentID++;
         } else {
-            //todo Тут лучше скрыть кнопки и вывести сообщение или статистику по ответам
-            btn_next.setEnabled(false);
-            btn_answer1.setEnabled(false);
-            btn_answer2.setEnabled(false);
-            btn_answer3.setEnabled(false);
-            btn_answer4.setEnabled(false);
-            Toast.makeText(this, "This is last word!", Toast.LENGTH_SHORT).show();
+            btn_next.setVisibility(View.GONE);
+            btn_answer1.setVisibility(View.GONE);
+            btn_answer2.setVisibility(View.GONE);
+            btn_answer3.setVisibility(View.GONE);
+            btn_answer4.setVisibility(View.GONE);
+            String message = getResources().getString(R.string.end_of_testing) + "\n\n" +
+                    getResources().getString(R.string.answers_true) + " = " + mTotalTrueAnswers + "\n" +
+                    getResources().getString(R.string.answers_false) + " = " + mTotalFalseAnswers;
+            tv_word.setText(message);
         }
         // Callback отработал
         mHasRunCallback = false;
@@ -238,7 +234,6 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
             }
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
 
-            // todo сделать возможность указывать задержку через параметры
             // Показываем следующее слово через задержку mDelay взятую в параметрах ранее
             handler = new Handler();
             handler.postDelayed(runnableShowNextWord, mPrefDelay);
@@ -272,13 +267,16 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     /** Изменяем в БД кол-во правильных и неправильны ответов по конкретному слову */
     private void registrationAnswer(boolean answer){
         // Если нажали ЗНАЮ, то увеличиваем кол-во правильных ответов. В противном случае - неправильных
-        if (answer)
+        if (answer) {
             mCounterTrue++;
-        else
+            mTotalTrueAnswers++;
+        }
+        else {
             mCounterFalse++;
+            mTotalFalseAnswers++;
+        }
+
         ContentValues cv = new ContentValues();
-        cv.put(DB.COLUMN_ENG, mWordOriginal);
-        cv.put(DB.COLUMN_RUS, mWordTranslate);
         cv.put(DB.COLUMN_TRUE, mCounterTrue);
         cv.put(DB.COLUMN_FALSE, mCounterFalse);
         cv.put(DB.COLUMN_LEVEL, mCounterTrue - mCounterFalse);

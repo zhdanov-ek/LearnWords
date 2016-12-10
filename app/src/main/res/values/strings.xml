@@ -12,9 +12,14 @@
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
     <string name="remove">REMOVE</string>
+    <string name="close">CLOSE</string>
     <string name="menu_order_by_abc">Order by Abc</string>
     <string name="menu_order_by_rating">Order by Rating</string>
     <string name="menu_search">Search</string>
+
+    <string name="end_of_testing">No more words</string>
+    <string name="answers_true">Total true answers</string>
+    <string name="answers_false">Total false answers</string>
 
     <string name="english">English</string>
     <string name="english_hint">English word</string>
