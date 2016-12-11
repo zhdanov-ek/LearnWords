@@ -11,14 +11,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
-import com.example.gek.learnwords.RecyclerViewAdapter;
+import com.example.gek.learnwords.data.RecyclerViewAdapter;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
 import com.example.gek.learnwords.data.MyWord;

@@ -6,21 +6,28 @@
  *
  * */
 
-//todo Вынести загрузку и выгрузку данных в отдельные потоки с отображением хода загрузки
+//todo Подумать над тем, что бы переделать загрузку слов с файла через BufferReader (как выгрузка)
 
 package com.example.gek.learnwords.activity;
 
-import android.app.ProgressDialog;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
@@ -42,11 +49,22 @@ import java.io.IOException;
 public class IEActivity extends AppCompatActivity implements View.OnClickListener{
     Button btnLoadNewWords, btnUnLoadNewWords, btnUnLoadNewDB, btnLoadNewDB;
     private EditText etFileLoadWords, etFileLoadDB;
+    private ScrollView svContent;
+
+    private LinearLayout llProgressContent;
+    private TextView tvStatus;
+
     private File sdPathAbsolute;        // карта памяти
-    final static String LOG_TAG = IEActivity.class.getSimpleName();
+    final static String TAG = IEActivity.class.getSimpleName();
     private Handler mHandler;
-    ProgressDialog mProgressDialog;
     Context mCtx;
+
+    private String mResultDatail;           // полный журнал последней операции по импорту/экспорту
+    private String mResultTotal;
+
+
+    private int mShortAnimationDuration;
+
 
 
     @Override
@@ -55,11 +73,13 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_ie);
         mCtx = this;
 
+
         mHandler = new Handler();
+
+        svContent = (ScrollView)findViewById(R.id.svContent);
 
         etFileLoadWords = (EditText) findViewById(R.id.etFileLoadWords);
         etFileLoadDB = (EditText) findViewById(R.id.etFileLoadDB);
-
 
         btnLoadNewWords = (Button)findViewById(R.id.btnLoadNewWords);
         btnLoadNewWords.setOnClickListener(this);
@@ -69,30 +89,34 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         btnUnLoadNewDB.setOnClickListener(this);
         btnLoadNewDB = (Button)findViewById(R.id.btnLoadDB);
         btnLoadNewDB.setOnClickListener(this);
+
+
+        llProgressContent = (LinearLayout)findViewById(R.id.llProgressContent);
+        tvStatus = (TextView)findViewById(R.id.tvStatus);
+
+        // Retrieve and cache the system's default "short" animation time.
+        mShortAnimationDuration = 1000;
+//                getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            //todo Добавить прогресс бар для отображения хода загрузки/выгрузки
-
+            // Загрузка слов идет в отдельном потоке с отображением хода загрузки
+            // Выгрузка происходит в основном потоке - очень быстро
 
             case R.id.btnLoadNewWords:
                 if (checkSDCard()) {
-                    mProgressDialog = new ProgressDialog(this);
-                    mProgressDialog.setCancelable(false);
-                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    mProgressDialog.isIndeterminate();
-                    mProgressDialog.setTitle("Reading new words");
-                    mProgressDialog.setMessage("Starting process...");
-                    mProgressDialog.show();
+                    // Скрываем основной интерфейс
+                    svContent.setVisibility(View.GONE);
+
+                    // Загружаем в другом потоке слова и отображаем с него текущее состояние
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             loadNewWords();
                         }
                     }).start();
-
                 }
                 break;
             case R.id.btnUnLoadNewWords:
@@ -109,7 +133,16 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
 
             case R.id.btnLoadDB:
                 if (checkSDCard()) {
-                    loadDB();
+                    // Скрываем основной интерфейс,
+                    svContent.setVisibility(View.GONE);
+
+                    // Загружаем в другом потоке БД и отображаем с него текущее состояние
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadDB();
+                        }
+                    }).start();
                 }
                 break;
 
@@ -139,6 +172,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     // Слово добавляется только если его еще нет в базе
     private void loadNewWords(){
         File fileLoadWords = new File(sdPathAbsolute, etFileLoadWords.getText().toString());
+        String result = "";
         BufferedReader br = null;
         try {
             // открываем поток для чтения
@@ -151,49 +185,42 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             // читаем содержимое файл и парсим каждую строку методом String.split
             while (((str = br.readLine()) != null) && (str.length()>5)) {
                 String delimiter = "[\t]+";
-                final String[] words = str.split(delimiter);
+                String[] words = str.split(delimiter);
                 // Проверяем нет ли такого слова уже в словаре и после этого добавляем
                 if (!db.checkIsPresentWord(words[0])) {
                     db.addRec(words[0], words[1]);
-                    counter++;
-                    // Обновляем прогресбар
+                    final String status = words[0] + " - " + words[1];
                     mHandler.post(new Runnable() {
+                        @Override
                         public void run() {
-                            mProgressDialog.setMessage(words[0] + " - " + words[1]);
+                            tvStatus.setText(status);
                         }
                     });
+                    result = result + ++counter + ") " + words[0] + " - " + words[1] +"\n";
                 }
             }
             db.close();
-            // Обновляем прогресбар
-            final String totalResult = "Total new words added = " + counter;
-            mHandler.post(new Runnable() {
-                public void run() {
-                    mProgressDialog.setMessage(totalResult);
-                    Toast.makeText(mCtx, totalResult, Toast.LENGTH_LONG).show();
-                }
-            });
-
+            mResultDatail = result;
+            mResultTotal = counter +" new words added from \n" + fileLoadWords.getName();
         } catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             e.printStackTrace();
-            mProgressDialog.setMessage("Error reading file " + e);
         }
         finally {
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mProgressDialog.setCancelable(true);
-                }
-            }, 500);
-
             if (br != null ) {
                 try {
                     br.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                    Log.e(TAG, "Error closing stream", e);
                 }
             }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    showAnimation();
+                    showSnackBar();
+                }
+            });
         }
     }
 
@@ -214,21 +241,24 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             String rus;
             cursor.moveToFirst();
 
+            String result = "";
             // Перебираем каждую запись, формируем строку и пишем в файл
             while (cursor.moveToNext()) {
                 eng = cursor.getString(cursor.getColumnIndex(DB.COLUMN_ENG));
                 rus = cursor.getString(cursor.getColumnIndex(DB.COLUMN_RUS));
                 str = eng + "\t\t" + rus + "\n";
                 bw.write(str);
+                result += str;
                 counter++;
             }
-            Toast.makeText(this, counter + " unloaded words in file \n" +
-                            fileUnLoadWords.getAbsolutePath(),
-                    Toast.LENGTH_LONG).show();
+            mResultTotal = counter + " unloaded words in file \n" +
+                    fileUnLoadWords.getName();
+            mResultDatail = result;
+            showSnackBar();
             db.close();
         }
         catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             e.printStackTrace();
         }
         finally {
@@ -236,7 +266,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 try {
                     bw.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                    Log.e(TAG, "Error closing stream", e);
                 }
             }
         }
@@ -259,6 +289,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             String rus;
             String answer_true;
             String answer_false;
+            String result = "";
 
             // Работаем если вообще есть первый элемент в базе данных
             if (cursor.moveToFirst()) {
@@ -278,6 +309,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
 
                     // ДОбавляем слово
                     jsonWords.put(jsonWord);
+                    result += eng + "\t\t" + rus + "\n";
                     counter++;
                 } while (cursor.moveToNext());
 
@@ -285,23 +317,23 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 jsonBase.put(Consts.ATT_WORDS, jsonWords);
                 bw.write(jsonBase.toString());
             }
-            Toast.makeText(this, counter + " unloaded words in file \n" +
-                            fileUnLoadDB.getAbsolutePath(),
-                    Toast.LENGTH_LONG).show();
+            mResultTotal = counter + " unloaded words in file \n" + fileUnLoadDB.getName();
+            mResultDatail = result;
+            showSnackBar();
             db.close();
 
         } catch (JSONException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             e.printStackTrace();
         } catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             e.printStackTrace();
         } finally {
             if (bw != null) {
                 try {
                     bw.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                    Log.e(TAG, "Error closing stream", e);
                 }
             }
         }
@@ -346,19 +378,34 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                     answer_false = jsonWord.getInt((Consts.ATT_FALSE));
                     if (!db.checkIsPresentWord(eng)) {
                         db.addRec(eng, rus, answer_true, answer_false);
+
+                        // показываем ход загрузки
+                        final String status = eng + " - " + rus;
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                tvStatus.setText(status);
+                            }
+                        });
                         counter++;
                     }
                 }
 
             } catch (JSONException e){
-                Log.e(LOG_TAG, e.toString());
+                Log.e(TAG, e.toString());
                 e.printStackTrace();
             }
             db.close();
-            Toast.makeText(this, counter +" new words added from \n" +
-                    fileLoadDB.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            mResultTotal = counter +" new words added from \n" + fileLoadDB.getName();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    showAnimation();
+                    showSnackBar();
+                }
+            });
         } catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             e.printStackTrace();
         }
         finally {
@@ -366,10 +413,54 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 try {
                     br.close();
                 } catch (final IOException e) {
-                    Log.e(LOG_TAG, "Error closing stream", e);
+                    Log.e(TAG, "Error closing stream", e);
                 }
             }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    showAnimation();
+                }
+            });
         }
     }
 
+    // Показываем плавно контент активити и скрыавем прогресбар
+    private void showAnimation(){
+        //todo пересмотреть тип анимации и задержку
+        svContent.setAlpha(0f);
+        svContent.setVisibility(View.VISIBLE);
+        // Animate the content view to 100% opacity, and clear any animation
+        // listener set on the view.
+        svContent.animate()
+                .alpha(1f)
+                .setDuration(mShortAnimationDuration)
+                .setListener(null);
+
+        // Animate the loading view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        llProgressContent.animate()
+                .alpha(0f)
+                .setDuration(mShortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        llProgressContent.setVisibility(View.GONE);
+                    }
+                });
+
+    }
+
+    private void showSnackBar(){
+        Snackbar snackbar = Snackbar.make(svContent, mResultTotal, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.details, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO показать диалоговое окно со списком слов, прокруткой и т.д.
+                Toast.makeText(getBaseContext(), mResultDatail, Toast.LENGTH_LONG).show();
+            }
+        });
+        snackbar.show();
+    }
 }

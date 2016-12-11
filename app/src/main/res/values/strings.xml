@@ -13,6 +13,7 @@
     <string name="cancel">CANCEL</string>
     <string name="remove">REMOVE</string>
     <string name="close">CLOSE</string>
+    <string name="details">DETAILS</string>
     <string name="menu_order_by_abc">Order by Abc</string>
     <string name="menu_order_by_rating">Order by Rating</string>
     <string name="menu_search">Search</string>
@@ -30,6 +31,8 @@
     <string name="caption_import_export"></string>
     <string name="read">Read</string>
     <string name="write">Write</string>
+    <string name="total_loaded">Total new words added</string>
+    <string name="total_unloaded">Total words unloaded</string>
 
     <string name="caption_read_txt_file">Load new words from file
         on SD card</string>
