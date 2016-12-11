@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
+import com.example.gek.learnwords.dialog.ResultDialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -458,7 +460,11 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 //TODO показать диалоговое окно со списком слов, прокруткой и т.д.
-                Toast.makeText(getBaseContext(), mResultDatail, Toast.LENGTH_LONG).show();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                ResultDialogFragment resultDialogFragment =
+                        ResultDialogFragment.newInstance(mResultTotal + "\n\n" + mResultDatail);
+                resultDialogFragment.show(fragmentManager, "results");
+//                Toast.makeText(getBaseContext(), mResultDatail, Toast.LENGTH_LONG).show();
             }
         });
         snackbar.show();

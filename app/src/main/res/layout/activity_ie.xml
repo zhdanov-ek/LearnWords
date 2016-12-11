@@ -9,11 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
-
     <ScrollView
+        android:id="@+id/svContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/svContent">
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,22 +40,23 @@
                     android:hint="@string/hint_read_txt_file"
                     android:inputType="textPersonName"
                     android:text="@string/name_read_txt_file" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center_horizontal|center_vertical"
+                    android:orientation="horizontal"
                     android:padding="2dp">
 
                     <Button
-                        style="@style/ButtonSimple"
                         android:id="@+id/btnLoadNewWords"
+                        style="@style/ButtonSimple"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/read"/>
+                        android:text="@string/read" />
 
                     <Button
-                        style="@style/ButtonSimple"
                         android:id="@+id/btnUnLoadNewWords"
+                        style="@style/ButtonSimple"
                         android:layout_gravity="center_horizontal"
                         android:text="@string/write" />
                 </LinearLayout>
@@ -65,8 +66,8 @@
                 style="@style/MyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvIELoadDB"
@@ -83,11 +84,13 @@
                     android:hint="@string/hint_read_json_file"
                     android:inputType="textPersonName"
                     android:text="@string/name_read_json_file" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal|center_vertical">
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="horizontal">
+
                     <Button
                         android:id="@+id/btnLoadDB"
                         style="@style/ButtonSimple"
@@ -106,22 +109,26 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/llProgressContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/llProgressContent"
-        android:gravity="center_horizontal|center_vertical">
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
 
-        <ProgressBar android:id="@+id/progressBar"
+        <ProgressBar
+            android:id="@+id/progressBar"
             style="?android:progressBarStyleLarge"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
+
         <TextView
+            android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvStatus"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
+
+
 
 </LinearLayout>
