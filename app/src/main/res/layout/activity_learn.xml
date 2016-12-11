@@ -32,14 +32,19 @@
         android:textColor="@color/colorGreen"
         android:textSize="@dimen/font_size_big" />
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/tvLearnResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="Result " />
+            <EditText
+                android:id="@+id/etTranslate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/translate"
+                android:lines="1"
+                android:maxLines="1"/>
+
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
@@ -59,9 +64,9 @@
             android:text="@string/dont_know" />
 
         <Button
-            android:id="@+id/btnKnow"
+            android:id="@+id/btnCheck"
             style="@style/ButtonGreen"
-            android:text="@string/know" />
+            android:text="@string/ok" />
     </LinearLayout>
 
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.gek.learnwords.R;
@@ -19,10 +20,13 @@ import com.example.gek.learnwords.data.DB;
 
 import java.util.ArrayList;
 
+//todo ДОбавить возможность переводить в направлении согласно  настроек программы. Отладить работу
+
 
 public class LearnActivity extends AppCompatActivity implements View.OnClickListener{
-    private Button btnDontKnow, btnKnow;
-    private TextView tvLearnEng, tvLearnRus, tvLearnResult;
+    private Button btnDontKnow, btnCheck;
+    private TextView tvLearnEng, tvLearnRus;
+    private EditText etTranslate;
 
     private DB db;
     private Cursor cursor;
@@ -43,13 +47,14 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
 
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);
         tvLearnRus = (TextView) findViewById(R.id.tvLearnRus);
-        tvLearnResult = (TextView) findViewById(R.id.tvLearnResult);
+
+        etTranslate = (EditText) findViewById(R.id.etTranslate);
 
         btnDontKnow = (Button)findViewById(R.id.btnDontKnow);
         btnDontKnow.setOnClickListener(this);
 
-        btnKnow = (Button)findViewById(R.id.btnKnow);
-        btnKnow.setOnClickListener(this);
+        btnCheck = (Button)findViewById(R.id.btnCheck);
+        btnCheck.setOnClickListener(this);
 
         // показываем первое слово
         showNextWord(wordsIDList.get(nextID));
@@ -62,21 +67,37 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
                 registrationAnswer(false);
                 break;
             // Если на кнопке надпись ДАЛЕЕ то показываем новое слово, иначе - отрабатываем ответ
-            case R.id.btnKnow:
-                if (btnKnow.getText().toString().contentEquals(getResources().getString(R.string.next))) {
+            case R.id.btnCheck:
+                if (btnCheck.getText().toString().contentEquals(getResources().getString(R.string.next))) {
                     showNextWord(wordsIDList.get(nextID));
                 } else {
-                    registrationAnswer(true);
+                    if (checkAnswer()) {
+                        registrationAnswer(true);
+                    } else {
+                        registrationAnswer(false);
+                    }
+
                 }
                 break;
-
         }
     }
 
+    /** Проверяем правильный ли дал пользователь ответ */
+    private boolean checkAnswer(){
+        String answer = etTranslate.getText().toString();
+        if (rus.contains(answer)) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
 
 
     /** Выводим следующее слово на экран */
     private void showNextWord(int idWord){
+        etTranslate.setText("");
         ContentValues cv = db.getItem(idWord);
         id = idWord;
         eng = cv.getAsString(DB.COLUMN_ENG);
@@ -88,10 +109,8 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         tvLearnRus.setText(rus);
         tvLearnRus.setVisibility(View.INVISIBLE);
 
-        tvLearnResult.setVisibility(View.INVISIBLE);
-
         btnDontKnow.setEnabled(true);
-        btnKnow.setText(R.string.know);
+        btnCheck.setText(R.string.ok);
     }
 
     /** Изменяем в БД кол-во правильных и неправильны ответов по конкретному слову */
@@ -115,11 +134,11 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         // если это еще не конец списка. Иначе - прекращаем работу в этом окне
         if (wordsIDList.size() == (nextID+1)) {
             // Если это последнее слово то блокируем кнопки и информируем юзера
-            btnKnow.setVisibility(View.INVISIBLE);
+            btnCheck.setVisibility(View.INVISIBLE);
             btnDontKnow.setVisibility(View.INVISIBLE);
         } else {
             nextID++;
-            btnKnow.setText(R.string.next);
+            btnCheck.setText(R.string.next);
             btnDontKnow.setEnabled(false);
         }
 

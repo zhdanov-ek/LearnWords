@@ -57,5 +57,6 @@
     <string name="know">Know</string>
     <string name="dont_know">Don\'t know</string>
     <string name="next">Next</string>
+    <string name="translate">Translate</string>
 
 </resources>
