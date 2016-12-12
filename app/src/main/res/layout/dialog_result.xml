@@ -3,15 +3,11 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <ScrollView android:id="@+id/svResult"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/ll_padding">
+        android:id="@+id/recyclerView">
 
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

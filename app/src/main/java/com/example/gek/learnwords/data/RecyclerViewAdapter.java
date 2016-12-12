@@ -43,9 +43,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private LinearLayout llItem;
         private TextView tvListEng;
         private TextView tvListRus;
-        private TextView tvListAnswerTrue;
-        private TextView tvListAnswerFalse;
-        private TextView tvListAnswerLevel;
         private RatingBar rbLevel;
 
         public ViewHolder(View itemView) {
@@ -54,9 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             llItem.setOnClickListener(this);
             tvListEng = (TextView) itemView.findViewById(R.id.tvListEng);
             tvListRus = (TextView) itemView.findViewById(R.id.tvListRus);
-            tvListAnswerTrue = (TextView) itemView.findViewById(R.id.tvListAnswerTrue);
-            tvListAnswerFalse = (TextView) itemView.findViewById(R.id.tvListAnswerFalse);
-            tvListAnswerLevel = (TextView) itemView.findViewById(R.id.tvListAnswerLevel);
             rbLevel = (RatingBar) itemView.findViewById(R.id.rbLevel);
         }
 
@@ -95,9 +89,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final MyWord myWord = listWords.get(position);
         holder.tvListEng.setText(myWord.getEng());
         holder.tvListRus.setText(myWord.getRus());
-        holder.tvListAnswerTrue.setText(Integer.toString(myWord.getAnswerTrue()));
-        holder.tvListAnswerFalse.setText(Integer.toString(myWord.getAnswerFalse()));
-        holder.tvListAnswerLevel.setText(Integer.toString(myWord.getLevel()));
         int rating = myWord.getLevel();
         if (rating < 0) {
             rating = 0;

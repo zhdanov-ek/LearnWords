@@ -49,7 +49,6 @@ public class ListWordsActivity extends AppCompatActivity {
         // Получаем из БД все слова и загружаем в список
         db = new DB(this);
         db.open();
-        //todo Добавить порядок сортировки, который будет изыматся из настроек программы
         mListWords = db.getFullListWords(
                 db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null));
 

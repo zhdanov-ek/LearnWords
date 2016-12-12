@@ -12,7 +12,6 @@ package com.example.gek.learnwords.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,12 +20,12 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +33,8 @@ import android.widget.Toast;
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
+import com.example.gek.learnwords.data.MyWord;
+import com.example.gek.learnwords.data.SimpleWord;
 import com.example.gek.learnwords.dialog.ResultDialogFragment;
 
 import org.json.JSONArray;
@@ -46,6 +47,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class IEActivity extends AppCompatActivity implements View.OnClickListener{
@@ -56,14 +59,13 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     private LinearLayout llProgressContent;
     private TextView tvStatus;
 
-    private File sdPathAbsolute;        // карта памяти
+    private File sdPathAbsolute;                     // карта памяти
     final static String TAG = IEActivity.class.getSimpleName();
     private Handler mHandler;
     Context mCtx;
 
-    private String mResultDatail;           // полный журнал последней операции по импорту/экспорту
+    private ArrayList<SimpleWord> mResultDetail;          // полный журнал последней операции по импорту/экспорту
     private String mResultTotal;
-
 
     private int mShortAnimationDuration;
 
@@ -75,6 +77,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_ie);
         mCtx = this;
 
+        mResultDetail = new ArrayList<>();
 
         mHandler = new Handler();
 
@@ -174,7 +177,8 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     // Слово добавляется только если его еще нет в базе
     private void loadNewWords(){
         File fileLoadWords = new File(sdPathAbsolute, etFileLoadWords.getText().toString());
-        String result = "";
+//        String result = "";
+        mResultDetail.clear();
         BufferedReader br = null;
         try {
             // открываем поток для чтения
@@ -198,11 +202,11 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                             tvStatus.setText(status);
                         }
                     });
-                    result = result + ++counter + ") " + words[0] + " - " + words[1] +"\n";
+                    counter++;
+                    mResultDetail.add(new SimpleWord(words[0], words[1]));
                 }
             }
             db.close();
-            mResultDatail = result;
             mResultTotal = counter +" new words added from \n" + fileLoadWords.getName();
         } catch (IOException e) {
             Log.e(TAG, e.toString());
@@ -241,21 +245,21 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             String str;
             String eng;
             String rus;
-            cursor.moveToFirst();
 
-            String result = "";
+            mResultDetail.clear();
             // Перебираем каждую запись, формируем строку и пишем в файл
-            while (cursor.moveToNext()) {
-                eng = cursor.getString(cursor.getColumnIndex(DB.COLUMN_ENG));
-                rus = cursor.getString(cursor.getColumnIndex(DB.COLUMN_RUS));
-                str = eng + "\t\t" + rus + "\n";
-                bw.write(str);
-                result += str;
-                counter++;
+            if (cursor.moveToFirst()){
+                do {
+                    eng = cursor.getString(cursor.getColumnIndex(DB.COLUMN_ENG));
+                    rus = cursor.getString(cursor.getColumnIndex(DB.COLUMN_RUS));
+                    str = eng + "\t\t" + rus + "\n";
+                    bw.write(str);
+                    mResultDetail.add(new SimpleWord(eng, rus));
+                    counter++;
+                } while  (cursor.moveToNext());
             }
             mResultTotal = counter + " unloaded words in file \n" +
                     fileUnLoadWords.getName();
-            mResultDatail = result;
             showSnackBar();
             db.close();
         }
@@ -291,7 +295,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             String rus;
             String answer_true;
             String answer_false;
-            String result = "";
+            mResultDetail.clear();
 
             // Работаем если вообще есть первый элемент в базе данных
             if (cursor.moveToFirst()) {
@@ -311,7 +315,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
 
                     // ДОбавляем слово
                     jsonWords.put(jsonWord);
-                    result += eng + "\t\t" + rus + "\n";
+                    mResultDetail.add(new SimpleWord(eng, rus));
                     counter++;
                 } while (cursor.moveToNext());
 
@@ -320,7 +324,6 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 bw.write(jsonBase.toString());
             }
             mResultTotal = counter + " unloaded words in file \n" + fileUnLoadDB.getName();
-            mResultDatail = result;
             showSnackBar();
             db.close();
 
@@ -360,6 +363,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
             DB db = new DB(this);
             db.open();
             int counter = 0;
+            mResultDetail.clear();
 
             try {
                 // Создаем объект Json и получаем массив слов. Перебираем каждое слово
@@ -371,7 +375,6 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 int answer_true;
                 int answer_false;
 
-
                 for (int i = 0; i < jsonWords.length(); i++) {
                     jsonWord = jsonWords.getJSONObject(i);
                     eng = jsonWord.getString(Consts.ATT_ENG);
@@ -380,6 +383,7 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                     answer_false = jsonWord.getInt((Consts.ATT_FALSE));
                     if (!db.checkIsPresentWord(eng)) {
                         db.addRec(eng, rus, answer_true, answer_false);
+                        mResultDetail.add(new SimpleWord(eng, rus));
 
                         // показываем ход загрузки
                         final String status = eng + " - " + rus;
@@ -462,9 +466,9 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
                 //TODO показать диалоговое окно со списком слов, прокруткой и т.д.
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 ResultDialogFragment resultDialogFragment =
-                        ResultDialogFragment.newInstance(mResultTotal + "\n\n" + mResultDatail);
+                        ResultDialogFragment.newInstance(mResultTotal, mResultDetail);
                 resultDialogFragment.show(fragmentManager, "results");
-//                Toast.makeText(getBaseContext(), mResultDatail, Toast.LENGTH_LONG).show();
+
             }
         });
         snackbar.show();
