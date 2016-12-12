@@ -3,8 +3,8 @@
 
     <string name="caption_new_word">New word</string>
     <string name="caption_edit_word">Edit word</string>
-    <string name="caption_learn">Learning</string>
-    <string name="caption_test">Testing</string>
+    <string name="caption_variant">Learning</string>
+    <string name="caption_input">Testing</string>
     <string name="caption_list_word">Dictionary</string>
     <string name="caption_ie">Import/export</string>
     <string name="caption_settings">Settings</string>
@@ -27,8 +27,6 @@
     <string name="russian">Russian</string>
     <string name="russian_hint">Russian word</string>
 
-
-    <string name="caption_import_export"></string>
     <string name="read">Read</string>
     <string name="write">Write</string>
     <string name="total_loaded">Total new words added</string>

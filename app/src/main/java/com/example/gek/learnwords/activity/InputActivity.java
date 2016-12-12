@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gek.learnwords.R;
@@ -23,10 +24,13 @@ import java.util.ArrayList;
 //todo ДОбавить возможность переводить в направлении согласно  настроек программы. Отладить работу
 
 
-public class LearnActivity extends AppCompatActivity implements View.OnClickListener{
+public class InputActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnDontKnow, btnCheck;
     private TextView tvLearnEng, tvLearnRus;
     private EditText etTranslate;
+    private ImageView ivResult;
+
+    private static final String TAG = "GEK";
 
     private DB db;
     private Cursor cursor;
@@ -38,13 +42,14 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learn);
+        setContentView(R.layout.activity_input);
 
         db = new DB(this);
         db.open();
         cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_RATING, null);
         wordsIDList = db.getFullListID(cursor, false);
 
+        ivResult = (ImageView) findViewById(R.id.ivResult);
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);
         tvLearnRus = (TextView) findViewById(R.id.tvLearnRus);
 
@@ -89,6 +94,7 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
             return true;
         } else {
             return false;
+
         }
 
 
@@ -111,15 +117,19 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
 
         btnDontKnow.setEnabled(true);
         btnCheck.setText(R.string.ok);
+        ivResult.setVisibility(View.INVISIBLE);
     }
 
     /** Изменяем в БД кол-во правильных и неправильны ответов по конкретному слову */
     private void registrationAnswer(boolean answer){
+        showIcon(answer);
         // Если нажали ЗНАЮ, то увеличиваем кол-во правильных ответов. В противном случае - неправильных
-        if (answer)
+        if (answer) {
             counterTrue++;
-        else
+        }
+        else {
             counterFalse++;
+        }
         ContentValues cv = new ContentValues();
         cv.put(DB.COLUMN_ENG, eng);
         cv.put(DB.COLUMN_RUS, rus);
@@ -149,5 +159,16 @@ public class LearnActivity extends AppCompatActivity implements View.OnClickList
         super.onDestroy();
         // закрываем подключение при выходе
         db.close();
+    }
+
+
+    /**  Отображение иконки  */
+    private void showIcon(Boolean answer){
+        if (answer) {
+            ivResult.setImageResource(R.drawable.correctly_icon);
+        } else {
+            ivResult.setImageResource(R.drawable.not_correctly_icon);
+        }
+        ivResult.setVisibility(View.VISIBLE);
     }
 }

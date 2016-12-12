@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,10 +56,8 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
     Button btnLoadNewWords, btnUnLoadNewWords, btnUnLoadNewDB, btnLoadNewDB;
     private EditText etFileLoadWords, etFileLoadDB;
     private ScrollView svContent;
-
     private LinearLayout llProgressContent;
     private TextView tvStatus;
-
     private File sdPathAbsolute;                     // карта памяти
     final static String TAG = IEActivity.class.getSimpleName();
     private Handler mHandler;
@@ -82,7 +81,6 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         mHandler = new Handler();
 
         svContent = (ScrollView)findViewById(R.id.svContent);
-
         etFileLoadWords = (EditText) findViewById(R.id.etFileLoadWords);
         etFileLoadDB = (EditText) findViewById(R.id.etFileLoadDB);
 

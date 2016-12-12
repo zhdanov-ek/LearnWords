@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
@@ -29,11 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ctx = getApplicationContext();
         tv_number_words = (TextView)findViewById(R.id.tv_number_words);
 
-        btnLearn = (Button)findViewById(R.id.btnLearn);
+        btnLearn = (Button)findViewById(R.id.btnInput);
         btnLearn.setOnClickListener(this);
 
 
-        btnTest = (Button)findViewById(R.id.btnTest);
+        btnTest = (Button)findViewById(R.id.btnVariant);
         btnTest.setOnClickListener(this);
 
         btnWords = (Button)findViewById(R.id.btnWords);
@@ -76,12 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btnLearn:
-                Intent intentLearn = new Intent(ctx, LearnActivity.class);
+            case R.id.btnInput:
+                Intent intentLearn = new Intent(ctx, InputActivity.class);
                 startActivity(intentLearn);
                 break;
-            case R.id.btnTest:
-                Intent intentTest = new Intent(ctx, TestActivity.class);
+            case R.id.btnVariant:
+                Intent intentTest = new Intent(ctx, VariantActivity.class);
                 startActivity(intentTest);
                 break;
             case R.id.btnAddWord:

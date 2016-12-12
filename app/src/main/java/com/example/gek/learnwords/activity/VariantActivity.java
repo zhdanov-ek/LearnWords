@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 
-public class TestActivity extends AppCompatActivity implements View.OnClickListener {
+public class VariantActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_next, btn_answer1, btn_answer2, btn_answer3, btn_answer4;
     private TextView tv_word;
     private ImageView iv_correctly;
@@ -58,7 +58,7 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_variant);
         mDb = new DB(this);
         mDb.open();
 
