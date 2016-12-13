@@ -461,7 +461,6 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         snackbar.setAction(R.string.details, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO показать диалоговое окно со списком слов, прокруткой и т.д.
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 ResultDialogFragment resultDialogFragment =
                         ResultDialogFragment.newInstance(mResultTotal, mResultDetail);

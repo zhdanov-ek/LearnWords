@@ -172,14 +172,17 @@ public class DB {
 
     /**  Внести изменения в запись */
     public void changeRec(ContentValues cv, String id){
+        // приводим слова к нижнему регистру
+        cv.put(COLUMN_ENG, cv.getAsString(COLUMN_ENG).toLowerCase());
+        cv.put(COLUMN_RUS, cv.getAsString(COLUMN_RUS).toLowerCase());
         mDB.update(DB_TABLE, cv, COLUMN_ID + " = ?", new String[]{id});
     }
 
     /** добавить запись в DB_TABLE */
     public void addRec(String eng, String rus) {
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ENG, eng);
-        cv.put(COLUMN_RUS, rus);
+        cv.put(COLUMN_ENG, eng.toLowerCase());
+        cv.put(COLUMN_RUS, rus.toLowerCase());
         cv.put(COLUMN_TRUE, 0);
         cv.put(COLUMN_FALSE, 0);
         cv.put(COLUMN_LEVEL, 0);
@@ -189,8 +192,8 @@ public class DB {
     /** добавить запись в DB_TABLE с ответами */
     public void addRec(String eng, String rus, int answerTrue, int answerFalse) {
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ENG, eng);
-        cv.put(COLUMN_RUS, rus);
+        cv.put(COLUMN_ENG, eng.toLowerCase());
+        cv.put(COLUMN_RUS, rus.toLowerCase());
         cv.put(COLUMN_TRUE, answerTrue);
         cv.put(COLUMN_FALSE, answerFalse);
         cv.put(COLUMN_LEVEL, answerTrue - answerFalse);

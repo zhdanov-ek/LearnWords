@@ -34,11 +34,11 @@
 
         <activity android:name=".activity.InputActivity"
             android:screenOrientation="portrait"
-            android:label="@string/caption_variant"/>
+            android:label="@string/caption_input"/>
 
         <activity android:name=".activity.VariantActivity"
             android:screenOrientation="portrait"
-            android:label="@string/caption_input"/>
+            android:label="@string/caption_variant"/>
 
         <activity android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait"
