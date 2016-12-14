@@ -33,8 +33,6 @@ import com.example.gek.learnwords.data.RecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.Random;
 
-//todo ДОбавить возможность переводить в направлении согласно  настроек программы. Отладить работу
-
 
 public class InputActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnDontKnow, btnCheck;
@@ -46,13 +44,16 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     private String mPrefDirection;           // направление перевода
     private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
+
+    //todo выводить статистику правильных и неправильных ответов в конце
     private int mTotalTrueAnswers, mTotalFalseAnswers;
 
     private Context ctx;
 
     private DB db;
     private Cursor cursor;
-    private String eng, rus;                        // значения текущего слова
+
+    private String mWordOriginal, mWordTranslate;                // значения текущего слова
     private int id, counterTrue, counterFalse;      // значения текущего слова
     private int nextID = 0;                         // служит для перебора по рандомногому списку ID слов
     private ArrayList<Integer> wordsIDList;         // хранит рандомный список ID слов
@@ -77,23 +78,16 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         ivResult = (ImageView) findViewById(R.id.ivResult);
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);
         tvLearnRus = (TextView) findViewById(R.id.tvLearnRus);
-
         etTranslate = (EditText) findViewById(R.id.etTranslate);
-
         btnDontKnow = (Button)findViewById(R.id.btnDontKnow);
         btnDontKnow.setOnClickListener(this);
-
         btnCheck = (Button)findViewById(R.id.btnCheck);
         btnCheck.setOnClickListener(this);
-
-        // показываем первое слово
-        showNextWord(wordsIDList.get(nextID));
     }
 
     // Указываем как нам формировать меню
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
@@ -114,17 +108,17 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
-    /** Получаем с настроек значение направления перевода */
+    /** Получаем с настроек значение направления перевода и показываем первое слово*/
     @Override
     protected void onStart() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         mPrefDirection = prefs.getString(
                 getResources().getString(R.string.pref_direction_key),
                 getResources().getString(R.string.pref_direction_default));
-
         setDirectionTranslate();
 
-//        showNextWord();
+        // показываем первое слово
+        showNextWord(wordsIDList.get(nextID));
         super.onStart();
     }
 
@@ -164,7 +158,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
                     } else {
                         registrationAnswer(false);
                     }
-
                 }
                 break;
         }
@@ -173,29 +166,33 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     /** Проверяем правильный ли дал пользователь ответ */
     private boolean checkAnswer(){
         String answer = etTranslate.getText().toString();
-        if (rus.contains(answer)) {
+        if (mWordOriginal.contains(answer)) {
             return true;
         } else {
             return false;
-
         }
-
-
     }
 
 
     /** Выводим следующее слово на экран */
     private void showNextWord(int idWord){
+        setDirectionTranslate();
         etTranslate.setText("");
         ContentValues cv = db.getItem(idWord);
         id = idWord;
-        eng = cv.getAsString(DB.COLUMN_ENG);
-        rus = cv.getAsString(DB.COLUMN_RUS);
+        if (mColumnWordOriginal.contentEquals(DB.COLUMN_ENG)){
+            mWordOriginal = cv.getAsString(DB.COLUMN_ENG);
+            mWordTranslate = cv.getAsString(DB.COLUMN_RUS);
+        } else {
+            mWordOriginal = cv.getAsString(DB.COLUMN_RUS);
+            mWordTranslate = cv.getAsString(DB.COLUMN_ENG);
+        }
+
         counterTrue = cv.getAsInteger(DB.COLUMN_TRUE);
         counterFalse = cv.getAsInteger(DB.COLUMN_FALSE);
 
-        tvLearnEng.setText(eng);
-        tvLearnRus.setText(rus);
+        tvLearnEng.setText(mWordOriginal);
+        tvLearnRus.setText(mWordTranslate);
         tvLearnRus.setVisibility(View.INVISIBLE);
 
         btnDontKnow.setEnabled(true);
@@ -214,8 +211,6 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             counterFalse++;
         }
         ContentValues cv = new ContentValues();
-        cv.put(DB.COLUMN_ENG, eng);
-        cv.put(DB.COLUMN_RUS, rus);
         cv.put(DB.COLUMN_TRUE, counterTrue);
         cv.put(DB.COLUMN_FALSE, counterFalse);
         cv.put(DB.COLUMN_LEVEL, counterTrue - counterFalse);

@@ -6,7 +6,6 @@
     <!-- Размещаем тулбар, который наполним уже в коде с помощью отдельного шаблона  -->
     <include layout="@layout/toolbar"/>
 
-
     <ScrollView
         android:id="@+id/svContent"
         android:layout_width="match_parent"
@@ -49,6 +48,7 @@
                     <Button
                         android:id="@+id/btnLoadNewWords"
                         style="@style/ButtonSimple"
+
                         android:layout_gravity="center_horizontal"
                         android:text="@string/read" />
 
