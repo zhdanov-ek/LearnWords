@@ -4,63 +4,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <!-- Размещаем тулбар, который наполним уже в коде с помощью отдельного шаблона  -->
-    <include layout="@layout/toolbar"/>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/etEng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/english_hint"
-            android:lines="1"
-            android:maxLines="1"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/etRus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/russian_hint"
-            android:lines="1"
-            android:maxLines="1" />
-
-    </android.support.design.widget.TextInputLayout>
+    <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/ll_padding">
 
-        <Button
-            android:id="@+id/btnCancelWord"
-            style="@style/ButtonSimple"
-            android:text="@string/cancel" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnOkWord"
-            style="@style/ButtonSimple"
-            android:text="@string/ok" />
+            <EditText
+                android:id="@+id/etEng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/english_hint"
+                android:lines="1"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etRus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/russian_hint"
+                android:lines="1"
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnCancelWord"
+                style="@style/ButtonSimple"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/btnOkWord"
+                style="@style/ButtonSimple"
+                android:text="@string/ok" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnRemoveWord"
+                style="@style/ButtonRed"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="13dp"
+                android:text="@string/remove" />
+        </RelativeLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            style="@style/ButtonRed"
-            android:id="@+id/btnRemoveWord"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:text="@string/remove"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="13dp" />
-    </RelativeLayout>
 </LinearLayout>

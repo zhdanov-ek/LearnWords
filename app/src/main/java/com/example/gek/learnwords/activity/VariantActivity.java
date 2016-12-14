@@ -197,6 +197,7 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
         btn_answer3.setBackgroundResource(R.drawable.bg_button_simple);
         btn_answer4.setBackgroundResource(R.drawable.bg_button_simple);
         setAnswersClickable(true);
+        btn_next.setEnabled(false);
 
         // получаем текущее слово
         ContentValues currentWord = mDb.getItem(wordsIDList.get(mCurrentID));
@@ -271,6 +272,7 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
                 b.setBackgroundResource(R.drawable.bg_button_green);
                 iv_correctly.startAnimation(mAnim);
                 iv_correctly.setVisibility(View.VISIBLE);
+                btn_next.setEnabled(false);
             }
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
 
@@ -289,6 +291,7 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
             if (btn_answer4.getText() == mWordTranslate)
                 btn_answer4.setBackgroundResource(R.drawable.bg_button_green);
             registrationAnswer(false);   // отмечаем в БД, что дан ложный ответ
+            btn_next.setEnabled(true);
         }
 
 
@@ -300,7 +303,6 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
         btn_answer2.setClickable(b);
         btn_answer3.setClickable(b);
         btn_answer4.setClickable(b);
-        btn_next.setEnabled(!b);
     }
 
 

@@ -4,14 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <!-- Размещаем тулбар, который наполним уже в коде с помощью отдельного шаблона  -->
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="100"
-        android:gravity="center_horizontal|center_vertical">
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:padding="@dimen/ll_padding">
 
         <TextView
             android:id="@+id/tv_word"
@@ -25,44 +26,46 @@
             android:id="@+id/iv_correctly"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/correctly_icon"
             android:layout_marginBottom="11dp"
-            android:visibility="invisible"/>
+            android:src="@drawable/correctly_icon"
+            android:visibility="invisible" />
 
         <Button
-            style="@style/ButtonSimple"
             android:id="@+id/btn_answer1"
+            style="@style/ButtonSimple"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer1" />
 
         <Button
-            style="@style/ButtonSimple"
             android:id="@+id/btn_answer2"
+            style="@style/ButtonSimple"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
-            android:text="answer2"/>
+            android:text="answer2" />
 
         <Button
-            style="@style/ButtonSimple"
             android:id="@+id/btn_answer3"
+            style="@style/ButtonSimple"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer3" />
 
         <Button
-            style="@style/ButtonSimple"
             android:id="@+id/btn_answer4"
+            style="@style/ButtonSimple"
             android:layout_width="match_parent"
             android:layout_margin="@dimen/button_layout_margin"
             android:text="answer4" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical">
+        android:layout_height="@dimen/ll_height_for_button"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:padding="@dimen/ll_padding">
+
         <Button
             android:id="@+id/btn_next"
             style="@style/ButtonGreen"
@@ -70,8 +73,6 @@
             android:layout_gravity="bottom"
             android:text="@string/next" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

@@ -5,7 +5,6 @@
 
 package com.example.gek.learnwords.activity;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +12,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +25,6 @@ import android.widget.TextView;
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
-import com.example.gek.learnwords.data.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
