@@ -4,12 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
@@ -21,7 +20,6 @@ public class WordActivity extends AppCompatActivity {
     private DB db;
     private Button btnOk, btnCancel, btnRemove;
     private EditText etEng, etRus;
-    private ActionBar actionBar;
     private int mode;
     private int id;                          //mId редактируемого элемента
     private int itemPositionRecyclerView;    // позиция в списке
@@ -31,7 +29,12 @@ public class WordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
         context = getApplicationContext();
-        actionBar = getSupportActionBar();
+
+        // Добавляем наш тулбар. Для того, что бы нормально изменить тайтл нужно подать пустое значение
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
+        myToolbar.setTitle("");
+        setSupportActionBar(myToolbar);
+
 
         btnOk = (Button) findViewById(R.id.btnOkWord);
         btnCancel = (Button) findViewById(R.id.btnCancelWord);
@@ -47,13 +50,13 @@ public class WordActivity extends AppCompatActivity {
         mode = bundle.getInt(Consts.WORD_MODE,0);
         switch (mode) {
             case Consts.WORD_MODE_NEW:
-                actionBar.setTitle(R.string.caption_new_word);
+                myToolbar.setTitle(R.string.caption_new_word);
                 mode = Consts.WORD_MODE_NEW;
                 btnRemove.setVisibility(View.GONE);
                 break;
 
             case Consts.WORD_MODE_NEW_FROM_LIST:
-                actionBar.setTitle(R.string.caption_new_word);
+                myToolbar.setTitle(R.string.caption_new_word);
                 mode = Consts.WORD_MODE_NEW_FROM_LIST;
                 btnRemove.setVisibility(View.GONE);
                 break;
@@ -64,7 +67,7 @@ public class WordActivity extends AppCompatActivity {
                 mode = Consts.WORD_MODE_EDIT;
                 id = bundle.getInt(Consts.ATT_ITEM_ID,0);
                 itemPositionRecyclerView = bundle.getInt(Consts.ITEM_POSITION);
-                actionBar.setTitle(R.string.caption_edit_word);
+                myToolbar.setTitle(R.string.caption_edit_word);
                 break;
         }
 

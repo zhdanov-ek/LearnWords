@@ -20,13 +20,11 @@
         </activity>
 
         <activity android:name=".activity.WordActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"/>
+            android:screenOrientation="portrait" />
 
         <activity android:name=".activity.ListWordsActivity"
             android:screenOrientation="portrait"
-            android:label="@string/caption_list_word"
-            android:theme="@style/AppThemeNoActionBar"/>
+            android:label="@string/caption_list_word" />
 
         <activity android:name=".activity.IEActivity"
             android:screenOrientation="portrait"

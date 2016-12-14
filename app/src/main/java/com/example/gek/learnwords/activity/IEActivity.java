@@ -20,7 +20,7 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +75,11 @@ public class IEActivity extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ie);
         mCtx = this;
+
+        // Добавляем тулбар бар
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
+//        myToolbar.setLogo(R.drawable.ic_smile);
+        setSupportActionBar(myToolbar);
 
         mResultDetail = new ArrayList<>();
 

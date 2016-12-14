@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 
 import com.example.gek.learnwords.R;
 

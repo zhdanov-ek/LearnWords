@@ -6,8 +6,7 @@
     <item android:id="@+id/ab_new_word"
         android:icon="@drawable/ic_action_add"
         android:title="@string/caption_new_word"
-        android:checkable="false"
-        app:showAsAction="always" />
+        android:checkable="false" />
 
     <item android:id="@+id/ab_search"
         android:title="@string/menu_search"

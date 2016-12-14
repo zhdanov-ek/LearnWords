@@ -5,10 +5,20 @@
 
 package com.example.gek.learnwords.activity;
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,8 +28,10 @@ import android.widget.TextView;
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
+import com.example.gek.learnwords.data.RecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 //todo ДОбавить возможность переводить в направлении согласно  настроек программы. Отладить работу
 
@@ -32,6 +44,12 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String TAG = "GEK";
 
+    private String mPrefDirection;           // направление перевода
+    private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
+    private int mTotalTrueAnswers, mTotalFalseAnswers;
+
+    private Context ctx;
+
     private DB db;
     private Cursor cursor;
     private String eng, rus;                        // значения текущего слова
@@ -43,6 +61,13 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+
+        ctx = getBaseContext();
+
+        // Добавляем тулбар бар
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setTitle(R.string.caption_input);
 
         db = new DB(this);
         db.open();
@@ -63,6 +88,64 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
         // показываем первое слово
         showNextWord(wordsIDList.get(nextID));
+    }
+
+    // Указываем как нам формировать меню
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    // Реакция на нажатие кнопок в меню
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ab_settings:
+                if (!item.isChecked()) {
+                    Intent intentSet = new Intent(ctx,SettingsActivity.class);
+                    startActivity(intentSet);
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /** Получаем с настроек значение направления перевода */
+    @Override
+    protected void onStart() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        mPrefDirection = prefs.getString(
+                getResources().getString(R.string.pref_direction_key),
+                getResources().getString(R.string.pref_direction_default));
+
+        setDirectionTranslate();
+
+//        showNextWord();
+        super.onStart();
+    }
+
+    /** В зависисости от режима перевода слов определяем какое поле будет базовым */
+    private void setDirectionTranslate(){
+        switch (mPrefDirection){
+            case "direction_rus":
+                mColumnWordOriginal = DB.COLUMN_ENG;
+                break;
+            case "direction_eng":
+                mColumnWordOriginal = DB.COLUMN_RUS;
+                break;
+            case "direction_mix":
+                Random random = new Random();
+                if (random.nextBoolean()){
+                    mColumnWordOriginal = DB.COLUMN_ENG;
+                } else {
+                    mColumnWordOriginal = DB.COLUMN_RUS;
+                }
+                break;
+        }
     }
 
     @Override

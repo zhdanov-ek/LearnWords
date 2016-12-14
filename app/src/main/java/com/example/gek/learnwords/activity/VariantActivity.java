@@ -8,11 +8,16 @@
 package com.example.gek.learnwords.activity;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -43,6 +48,7 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
     private String mPrefDirection;           // направление перевода
 
     private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
+    private int mTotalTrueAnswers, mTotalFalseAnswers;
 
     private Handler handler;
     private Boolean mHasRunCallback;         // состояние есть ли колбек
@@ -50,15 +56,21 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
     private int mCurrentID = 0;              // текущий порядковый номер ID слова в списке всех ID
     ArrayList<Integer> wordsIDList;          // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;        // массив ложных альтернативных ID
-    private int mTotalTrueAnswers, mTotalFalseAnswers;
-
-
+    private Context ctx;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_variant);
+
+        ctx = getBaseContext();
+
+        // Добавляем тулбар бар
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setTitle(R.string.caption_input);
+
         mDb = new DB(this);
         mDb.open();
 
@@ -88,6 +100,32 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
+    // Указываем как нам формировать меню
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    // Реакция на нажатие кнопок в меню
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.ab_settings:
+                if (!item.isChecked()) {
+                    Intent intentSet = new Intent(ctx, SettingsActivity.class);
+                    startActivity(intentSet);
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     /** Получаем с настроек значение задержки до появления нового слова */
     @Override
     protected void onStart() {
@@ -103,6 +141,8 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
 
         setDirectionTranslate();
 
+        // выводим очередное слово. Нужно если меняется язык через настройки.
+        // todo Поставить проверку на случай сворачивания и разворачивания приложения
         showNextWord();
         super.onStart();
     }

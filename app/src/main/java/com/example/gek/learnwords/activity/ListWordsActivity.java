@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.RecyclerViewAdapter;
@@ -38,7 +41,7 @@ public class ListWordsActivity extends AppCompatActivity {
         mCtx = this;
 
         // Добавляем тулбар бар
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.tbListWord);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(myToolbar);
 
         mRrecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -55,6 +58,19 @@ public class ListWordsActivity extends AppCompatActivity {
         // Создаем адаптер и подаем ему на вход активити для запуска startActivityForResult и список
         mAdapter = new RecyclerViewAdapter(this, mListWords);
         mRrecyclerView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intentAddWord = new Intent(mCtx, WordActivity.class);
+                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
+                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
     }
 
 

@@ -173,8 +173,13 @@ public class DB {
     /**  Внести изменения в запись */
     public void changeRec(ContentValues cv, String id){
         // приводим слова к нижнему регистру
-        cv.put(COLUMN_ENG, cv.getAsString(COLUMN_ENG).toLowerCase());
-        cv.put(COLUMN_RUS, cv.getAsString(COLUMN_RUS).toLowerCase());
+        if (cv.containsKey(COLUMN_ENG)){
+            String englishLower = cv.getAsString(COLUMN_ENG).toLowerCase();
+            String russianLower = cv.getAsString(COLUMN_RUS).toLowerCase();
+            cv.put(COLUMN_ENG, englishLower );
+            cv.put(COLUMN_RUS, russianLower);
+        }
+
         mDB.update(DB_TABLE, cv, COLUMN_ID + " = ?", new String[]{id});
     }
 
