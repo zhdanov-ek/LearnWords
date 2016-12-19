@@ -162,7 +162,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     /** Проверяем правильный ли дал пользователь ответ */
     private boolean checkAnswer(){
         String answer = etTranslate.getText().toString();
-        if (mWordOriginal.contains(answer)) {
+        if (mWordTranslate.contains(answer)) {
             return true;
         } else {
             return false;
