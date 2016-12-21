@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Добавляем тулбар бар
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
-        myToolbar.setLogo(R.drawable.ic_smile);
+        myToolbar.setLogo(R.mipmap.icon);
         setSupportActionBar(myToolbar);
 
         ctx = getApplicationContext();

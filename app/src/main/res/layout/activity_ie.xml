@@ -45,12 +45,13 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
+
                     <Button
                         android:id="@+id/btnLoadNewWords"
                         style="@style/ButtonSimple"
-
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/read" />
+                        android:text="@string/read"
+                        />
 
                     <Button
                         android:id="@+id/btnUnLoadNewWords"
@@ -81,7 +82,8 @@
                     android:ems="10"
                     android:hint="@string/hint_read_json_file"
                     android:inputType="textPersonName"
-                    android:text="@string/name_read_json_file" />
+                    android:text="@string/name_read_json_file" >
+                </EditText>
 
                 <LinearLayout
                     android:layout_width="match_parent"
