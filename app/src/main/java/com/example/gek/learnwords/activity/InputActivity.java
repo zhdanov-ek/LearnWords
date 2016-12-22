@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -57,6 +58,8 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     private int id, counterTrue, counterFalse;      // значения текущего слова
     private int nextID = 0;                         // служит для перебора по рандомногому списку ID слов
     private ArrayList<Integer> wordsIDList;         // хранит рандомный список ID слов
+
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,12 +179,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     private boolean checkAnswer(){
         String answer = etTranslate.getText().toString();
         if (mWordTranslate.contains(answer)) {
+            playResult(true);
             return true;
         } else {
             if (mVibration){
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(300);
             }
+            playResult(false);
             return false;
         }
     }
@@ -261,5 +266,22 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
             ivResult.setImageResource(R.drawable.not_correctly_icon);
         }
         ivResult.setVisibility(View.VISIBLE);
+    }
+
+    /** Произываем семпл в зависимости от настроек и корректрости ответа */
+    private void playResult(boolean answer){
+        // проигрываем если в настройках звук включен
+        if (mSound) {
+            if (mMediaPlayer != null) {
+                mMediaPlayer.release();
+            }
+            if (answer) {
+                mMediaPlayer = MediaPlayer.create(ctx, R.raw.correct);
+                mMediaPlayer.start();
+            } else {
+                mMediaPlayer = MediaPlayer.create(ctx, R.raw.incorrect);
+                mMediaPlayer.start();
+            }
+        }
     }
 }

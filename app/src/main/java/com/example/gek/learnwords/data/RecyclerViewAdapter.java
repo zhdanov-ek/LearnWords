@@ -4,6 +4,11 @@ package com.example.gek.learnwords.data;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +83,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_item, parent, false);
 
         // тут можно программно менять атрибуты лэйаута (size, margins, paddings и др.)
+        // меняем цвет звездочкам
+        RatingBar ratingBar = (RatingBar) v.findViewById(R.id.rbLevel);
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(
+                ContextCompat.getColor(v.getContext(), R.color.colorLogoBook),
+                PorterDuff.Mode.SRC_ATOP);
+
         ViewHolder vh = new ViewHolder(v);
+
+
+
         return vh;
     }
 
