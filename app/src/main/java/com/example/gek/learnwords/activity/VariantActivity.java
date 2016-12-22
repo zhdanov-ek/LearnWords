@@ -11,11 +11,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,12 +34,15 @@ import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
 import com.example.gek.learnwords.data.DB;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 
-public class VariantActivity extends AppCompatActivity implements View.OnClickListener {
+public class VariantActivity extends AppCompatActivity
+        implements View.OnClickListener, MediaPlayer.OnPreparedListener {
     private Button btn_next, btn_answer1, btn_answer2, btn_answer3, btn_answer4;
     private TextView tv_word;
     private ImageView iv_correctly;
@@ -46,6 +54,8 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
     private Animation mAnim;
     private int mPrefDelay;                  // задержка до показа следующего слова
     private String mPrefDirection;           // направление перевода
+    private Boolean mSound;
+    private Boolean mVibration;
 
     private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
     private int mTotalTrueAnswers, mTotalFalseAnswers;
@@ -57,6 +67,10 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
     ArrayList<Integer> wordsIDList;          // хранит рандомный список ID еще не протестированных слов
     private int[] threeFalseAnswerId;        // массив ложных альтернативных ID
     private Context ctx;
+    private MediaPlayer mMediaPlayer;
+
+
+    private  static final String TAG = "VariantActivity - ";
 
 
     @Override
@@ -64,7 +78,11 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_variant);
 
-        ctx = getBaseContext();
+        ctx = this;
+
+        // с этого момента регулировка звука относится к указанному звуковому потоку
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
 
         // Добавляем тулбар бар
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
@@ -139,6 +157,14 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
                 getResources().getString(R.string.pref_direction_key),
                 getResources().getString(R.string.pref_direction_default));
 
+        mVibration = prefs.getBoolean(
+                getResources().getString(R.string.pref_vibration_key),
+                false);
+
+        mSound = prefs.getBoolean(
+                getResources().getString(R.string.pref_sound_key),
+                false);
+
         setDirectionTranslate();
 
         // выводим очередное слово. Нужно если меняется язык через настройки.
@@ -183,8 +209,6 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
-
-
     }
 
     /** формируем и отображаем следующий вопрос с тремя ложными ответами */
@@ -276,11 +300,24 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
             }
             registrationAnswer(true);   // отмечаем в БД, что дан правильный ответ
 
+            playResult(true);
+
+
+
             // Показываем следующее слово через задержку mDelay взятую в параметрах ранее
             handler = new Handler();
             handler.postDelayed(runnableShowNextWord, mPrefDelay);
             mHasRunCallback = true;
         } else {
+
+            // вибро если оно включенно в настройках
+            if (mVibration){
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(300);
+            }
+
+            playResult(false);
+
             b.setBackgroundResource(R.drawable.bg_button_red);
             if (btn_answer1.getText() == mWordTranslate)
                 btn_answer1.setBackgroundResource(R.drawable.bg_button_green);
@@ -325,7 +362,8 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
         mDb.changeRec(cv, Integer.toString(mId));
     }
 
-    /**  Закрытие базы перед уничтожением активити */
+
+    /**  Закрытие базы и плеера перед уничтожением активити */
     protected void onDestroy() {
         // Проверяем не начат-ли показ следующего слова (с задержкой)
         // уничтожаем колбек если начат и закрываем базу
@@ -337,4 +375,26 @@ public class VariantActivity extends AppCompatActivity implements View.OnClickLi
         super.onDestroy();
         }
 
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        mediaPlayer.start();
+    }
+
+    /** Произываем семпл в зависимости от настроек и корректрости ответа */
+    private void playResult(boolean answer){
+        // проигрываем если в настройках звук включен
+        if (mSound) {
+            if (mMediaPlayer != null) {
+                mMediaPlayer.release();
+            }
+            if (answer) {
+                mMediaPlayer = MediaPlayer.create(ctx, R.raw.correct);
+                mMediaPlayer.start();
+            } else {
+                mMediaPlayer = MediaPlayer.create(ctx, R.raw.incorrect);
+                mMediaPlayer.start();
+            }
+        }
+
+    }
 }

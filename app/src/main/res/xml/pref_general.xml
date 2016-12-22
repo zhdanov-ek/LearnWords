@@ -21,4 +21,16 @@
         android:key="@string/pref_direction_key"
         android:title="@string/pref_direction_title" />
 
+    <SwitchPreference
+        android:key="@string/pref_vibration_key"
+        android:title="@string/pref_vibration_title"
+        android:switchTextOn=""
+        android:switchTextOff=""/>
+
+    <SwitchPreference
+        android:key="@string/pref_sound_key"
+        android:title="@string/pref_sound_title"
+        android:switchTextOn=""
+        android:switchTextOff="" />
+
 </PreferenceScreen>

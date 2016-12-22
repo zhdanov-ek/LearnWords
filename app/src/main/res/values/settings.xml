@@ -19,4 +19,10 @@
     <string name="pref_direction_key" translatable="false">direction_key</string>
     <string name="pref_direction_default" translatable="false">direction_rus</string>
 
+    <string name="pref_vibration_title">Vibration</string>
+    <string name="pref_vibration_key" translatable="false">vibration_key</string>
+
+    <string name="pref_sound_title">Sound</string>
+    <string name="pref_sound_key" translatable="false">sound_key</string>
+
 </resources>

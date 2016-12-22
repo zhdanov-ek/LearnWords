@@ -1,18 +1,30 @@
 package com.example.gek.learnwords.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.example.gek.learnwords.R;
 
+
+
+//todo нормально разобраться с настройками
+
 public class SettingsActivity extends AppCompatPreferenceActivity
     implements Preference.OnPreferenceChangeListener{
+
+    private final static String TAG = "Preferences: ";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Подгружаем описанные в ХМЛ опции
         addPreferencesFromResource(R.xml.pref_general);
@@ -22,6 +34,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_theme_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_delay_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_direction_key)));
+
+
+        // Получаем вибратор и если его нет то блокируем опцию в меню
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (!v.hasVibrator()) {
+            getPreferenceScreen().findPreference(getResources().getString(R.string.pref_vibration_key)).setEnabled(false);
+            getPreferenceScreen().findPreference(getResources().getString(R.string.pref_vibration_key)).setDefaultValue(false);
+            Log.i(TAG, "No vibrator on device ");
+        } else {
+            getPreferenceScreen().findPreference(getResources().getString(R.string.pref_vibration_key)).setEnabled(true);
+        }
 
     }
 

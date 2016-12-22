@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +40,9 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "GEK";
 
     private String mPrefDirection;           // направление перевода
+    private Boolean mSound;
+    private Boolean mVibration;
+
     private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
 
     //todo выводить статистику правильных и неправильных ответов в конце
@@ -111,6 +115,15 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         mPrefDirection = prefs.getString(
                 getResources().getString(R.string.pref_direction_key),
                 getResources().getString(R.string.pref_direction_default));
+
+        mVibration = prefs.getBoolean(
+                getResources().getString(R.string.pref_vibration_key),
+                false);
+
+        mSound = prefs.getBoolean(
+                getResources().getString(R.string.pref_sound_key),
+                false);
+
         setDirectionTranslate();
 
         // показываем первое слово
@@ -165,6 +178,10 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         if (mWordTranslate.contains(answer)) {
             return true;
         } else {
+            if (mVibration){
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(300);
+            }
             return false;
         }
     }
