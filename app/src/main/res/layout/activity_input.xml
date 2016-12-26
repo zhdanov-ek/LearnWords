@@ -42,7 +42,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/etTranslateLayout">
 
             <EditText
                 android:id="@+id/etTranslate"
@@ -72,7 +73,8 @@
         <Button
             android:id="@+id/btnCheck"
             style="@style/ButtonGreen"
-            android:text="@string/ok" />
+            android:text="@string/ok"
+            android:enabled="false"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -12,10 +12,13 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
@@ -46,7 +50,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     private String mColumnWordOriginal;      // Значение поля (rus/eng) с которого переводим текущее слово
 
-    //todo выводить статистику правильных и неправильных ответов в конце
+    //todo выводить статистику правильных и неправильных ответов в конце или перед выходом из режима
     private int mTotalTrueAnswers, mTotalFalseAnswers;
 
     private Context ctx;
@@ -82,6 +86,22 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         tvLearnEng = (TextView) findViewById(R.id.tvLearnEng);
         tvLearnRus = (TextView) findViewById(R.id.tvLearnRus);
         etTranslate = (EditText) findViewById(R.id.etTranslate);
+        etTranslate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (etTranslate.getText().length() == 0) {
+                    btnCheck.setEnabled(false);
+                } else {
+                    btnCheck.setEnabled(true);
+                }
+            }
+            });
         btnDontKnow = (Button)findViewById(R.id.btnDontKnow);
         btnDontKnow.setOnClickListener(this);
         btnCheck = (Button)findViewById(R.id.btnCheck);
@@ -159,6 +179,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btnDontKnow:
                 registrationAnswer(false);
+                btnCheck.setEnabled(true);
                 break;
             // Если на кнопке надпись ДАЛЕЕ то показываем новое слово, иначе - отрабатываем ответ
             case R.id.btnCheck:
@@ -180,12 +201,14 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         String answer = etTranslate.getText().toString();
         if (mWordTranslate.contains(answer)) {
             playResult(true);
+            mTotalTrueAnswers++;
             return true;
         } else {
             if (mVibration){
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(300);
             }
+            mTotalFalseAnswers++;
             playResult(false);
             return false;
         }
@@ -239,9 +262,21 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         // Инкрементируем указатель для выбора следующего слова в рандомном списке
         // если это еще не конец списка. Иначе - прекращаем работу в этом окне
         if (wordsIDList.size() == (nextID+1)) {
-            // Если это последнее слово то блокируем кнопки и информируем юзера
+            // Если это последнее слово то скрываем интерфейс и показываем результат через 2 с
             btnCheck.setVisibility(View.INVISIBLE);
             btnDontKnow.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ivResult.setVisibility(View.INVISIBLE);
+                    etTranslate.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.etTranslateLayout).setVisibility(View.INVISIBLE);
+                    tvLearnRus.setVisibility(View.INVISIBLE);
+                    tvLearnEng.setText(showResult());
+                }
+            }, 2000);
+
         } else {
             nextID++;
             btnCheck.setText(R.string.next);
@@ -252,9 +287,23 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
 
     /**  Закрытие базы перед уничтожением активити */
     protected void onDestroy() {
-        super.onDestroy();
+        // Если результаты есть и они не показывались при переборе всех слов то показываем итоги
+        if (!(mTotalTrueAnswers == 0) && (mTotalFalseAnswers == 0)){
+            Toast.makeText(ctx, showResult(), Toast.LENGTH_LONG).show();
+        }
+
         // закрываем подключение при выходе
         db.close();
+        super.onDestroy();
+    }
+
+    /** Формируем итоги */
+    private String showResult(){
+        String message = getResources().getString(R.string.answers_true) + " = " + mTotalTrueAnswers + "\n" +
+                getResources().getString(R.string.answers_false) + " = " + mTotalFalseAnswers;
+        mTotalFalseAnswers = 0;
+        mTotalTrueAnswers = 0;
+        return message;
     }
 
 
@@ -268,7 +317,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         ivResult.setVisibility(View.VISIBLE);
     }
 
-    /** Произываем семпл в зависимости от настроек и корректрости ответа */
+    /** Проигрываем семпл в зависимости от настроек и корректрости ответа */
     private void playResult(boolean answer){
         // проигрываем если в настройках звук включен
         if (mSound) {

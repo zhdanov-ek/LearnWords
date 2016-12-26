@@ -29,6 +29,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.Consts;
@@ -272,10 +273,7 @@ public class VariantActivity extends AppCompatActivity
             btn_answer2.setVisibility(View.GONE);
             btn_answer3.setVisibility(View.GONE);
             btn_answer4.setVisibility(View.GONE);
-            String message = getResources().getString(R.string.end_of_testing) + "\n\n" +
-                    getResources().getString(R.string.answers_true) + " = " + mTotalTrueAnswers + "\n" +
-                    getResources().getString(R.string.answers_false) + " = " + mTotalFalseAnswers;
-            tv_word.setText(message);
+            tv_word.setText(showResult());
         }
         // Callback отработал
         mHasRunCallback = false;
@@ -287,6 +285,17 @@ public class VariantActivity extends AppCompatActivity
             showNextWord();
         }
     };
+
+
+    /** Формируем итоги */
+    private String showResult(){
+        String message = getResources().getString(R.string.answers_true) + " = " + mTotalTrueAnswers + "\n" +
+                getResources().getString(R.string.answers_false) + " = " + mTotalFalseAnswers;
+        mTotalFalseAnswers = 0;
+        mTotalTrueAnswers = 0;
+        return message;
+    }
+
 
     /** Проверяем правильно ли выбран ответ */
     private  void checkAnswer(Button b){
@@ -369,6 +378,11 @@ public class VariantActivity extends AppCompatActivity
         // уничтожаем колбек если начат и закрываем базу
         if (mHasRunCallback){
             handler.removeCallbacks(runnableShowNextWord);
+        }
+
+        // Если результаты есть и они не показывались при переборе всех слов то показываем итоги
+        if (!(mTotalTrueAnswers == 0) && (mTotalFalseAnswers == 0)){
+            Toast.makeText(ctx, showResult(), Toast.LENGTH_LONG).show();
         }
 
         mDb.close();
