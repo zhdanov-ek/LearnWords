@@ -201,14 +201,12 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         String answer = etTranslate.getText().toString();
         if (mWordTranslate.contains(answer)) {
             playResult(true);
-            mTotalTrueAnswers++;
             return true;
         } else {
             if (mVibration){
                 Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(300);
             }
-            mTotalFalseAnswers++;
             playResult(false);
             return false;
         }
@@ -247,9 +245,11 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
         // Если нажали ЗНАЮ, то увеличиваем кол-во правильных ответов. В противном случае - неправильных
         if (answer) {
             counterTrue++;
+            mTotalTrueAnswers++;
         }
         else {
             counterFalse++;
+            mTotalFalseAnswers++;
         }
         ContentValues cv = new ContentValues();
         cv.put(DB.COLUMN_TRUE, counterTrue);
@@ -288,7 +288,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     /**  Закрытие базы перед уничтожением активити */
     protected void onDestroy() {
         // Если результаты есть и они не показывались при переборе всех слов то показываем итоги
-        if (!(mTotalTrueAnswers == 0) && (mTotalFalseAnswers == 0)){
+        if ((mTotalTrueAnswers != 0) || (mTotalFalseAnswers != 0)){
             Toast.makeText(ctx, showResult(), Toast.LENGTH_LONG).show();
         }
 
