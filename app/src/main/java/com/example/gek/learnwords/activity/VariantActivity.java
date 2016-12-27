@@ -381,7 +381,7 @@ public class VariantActivity extends AppCompatActivity
         }
 
         // Если результаты есть и они не показывались при переборе всех слов то показываем итоги
-        if (!(mTotalTrueAnswers == 0) && (mTotalFalseAnswers == 0)){
+        if ((mTotalTrueAnswers != 0) || (mTotalFalseAnswers != 0)){
             Toast.makeText(ctx, showResult(), Toast.LENGTH_LONG).show();
         }
 
