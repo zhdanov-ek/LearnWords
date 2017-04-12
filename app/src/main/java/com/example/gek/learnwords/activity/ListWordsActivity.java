@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.gek.learnwords.R;
 import com.example.gek.learnwords.data.RecyclerViewAdapter;
@@ -28,9 +28,10 @@ import java.util.ArrayList;
 
 public class ListWordsActivity extends AppCompatActivity {
     DB db;
-    Context mCtx;
+    Context ctx;
     RecyclerViewAdapter mAdapter;
-    RecyclerView mRrecyclerView;
+    RecyclerView recyclerView;
+    TextView tvEmpty;
     ArrayList<MyWord> mListWords;
 
     @Override
@@ -38,16 +39,17 @@ public class ListWordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_words);
 
-        mCtx = this;
+        ctx = this;
 
         // Добавляем тулбар бар
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(myToolbar);
 
-        mRrecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        tvEmpty = (TextView) findViewById(R.id.tvEmpty);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // Задаем стандартный менеджер макетов
-        mRrecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Получаем из БД все слова и загружаем в список
         db = new DB(this);
@@ -57,18 +59,16 @@ public class ListWordsActivity extends AppCompatActivity {
 
         // Создаем адаптер и подаем ему на вход активити для запуска startActivityForResult и список
         mAdapter = new RecyclerViewAdapter(this, mListWords);
-        mRrecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intentAddWord = new Intent(mCtx, WordActivity.class);
+                Intent intentAddWord = new Intent(ctx, WordActivity.class);
                 intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
                 startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
     }
@@ -91,19 +91,28 @@ public class ListWordsActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-            // Непосредственно событие смены содержимого. Делаем запрос к БД по каждому изменению
-            // в окне поиска
+
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Делаем выборку из БД после чего проверяем есть ли результат. Если нет то
-                // делаем выборку всех слов
+                // Делаем выборку из БД после чего проверяем есть ли результат.
+                // Если нет показываем сообщение
                 Cursor cursor = db.getAllData(Consts.LIST_TYPE_SEARCH, Consts.ORDER_BY_ABC, newText);
-                if ((cursor == null) || (cursor.getCount() == 0)) {
-                    cursor = db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null);
+                if (cursor.getCount() == 0) {
+                    mListWords = new ArrayList<MyWord>();
+                } else {
+                    mListWords = db.getFullListWords(cursor);
                 }
-                mListWords = db.getFullListWords(cursor);
-                mAdapter = new RecyclerViewAdapter((Activity)mCtx, mListWords);
-                mRrecyclerView.setAdapter(mAdapter);
+
+                if (mListWords.size() > 0) {
+                    mAdapter = new RecyclerViewAdapter((Activity) ctx, mListWords);
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvEmpty.setVisibility(View.GONE);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    tvEmpty.setVisibility(View.VISIBLE);
+                }
+
                 return false;
             }
         });
@@ -133,7 +142,7 @@ public class ListWordsActivity extends AppCompatActivity {
                     mListWords = db.getFullListWords(
                             db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null));
                     mAdapter = new RecyclerViewAdapter(this, mListWords);
-                    mRrecyclerView.setAdapter(mAdapter);
+                    recyclerView.setAdapter(mAdapter);
                     item.setChecked(true);
                 }
                 break;
@@ -143,12 +152,12 @@ public class ListWordsActivity extends AppCompatActivity {
                     mListWords = db.getFullListWords(
                             db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_RATING, null));
                     mAdapter = new RecyclerViewAdapter(this, mListWords);
-                    mRrecyclerView.setAdapter(mAdapter);
+                    recyclerView.setAdapter(mAdapter);
                     item.setChecked(true);
                 }
                 break;
             case R.id.ab_new_word:
-                Intent intentAddWord = new Intent(mCtx, WordActivity.class);
+                Intent intentAddWord = new Intent(this, WordActivity.class);
                 intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
                 startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
             default:
@@ -177,7 +186,7 @@ public class ListWordsActivity extends AppCompatActivity {
                     mListWords = db.getFullListWords(
                             db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null));
                     mAdapter = new RecyclerViewAdapter(this, mListWords);
-                    mRrecyclerView.setAdapter(mAdapter);
+                    recyclerView.setAdapter(mAdapter);
                     break;
 
                 case Consts.WORD_CHANGE:
