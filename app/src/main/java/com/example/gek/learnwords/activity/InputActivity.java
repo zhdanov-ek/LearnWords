@@ -42,7 +42,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     private EditText etTranslate;
     private ImageView ivResult;
 
-    private static final String TAG = "GEK";
+    private static final String TAG = "INPUT_ACTIVITY";
 
     private String mPrefDirection;           // направление перевода
     private Boolean mSound;
@@ -111,7 +111,7 @@ public class InputActivity extends AppCompatActivity implements View.OnClickList
     // Указываем как нам формировать меню
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu, menu);
+        getMenuInflater().inflate(R.menu.simple_menu, menu);
         return true;
     }
 

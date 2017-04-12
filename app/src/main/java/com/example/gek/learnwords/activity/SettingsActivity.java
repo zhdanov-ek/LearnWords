@@ -24,7 +24,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
 
+        // Добавляем тулбар бар
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolBar);
+        myToolbar.setLogo(R.mipmap.icon);
+        myToolbar.setTitle(R.string.caption_settings);
+        setSupportActionBar(myToolbar);
 
         // Подгружаем описанные в ХМЛ опции
         addPreferencesFromResource(R.xml.pref_general);
