@@ -181,7 +181,6 @@ public class ListWordsActivity extends AppCompatActivity {
                 && resultCode == RESULT_OK) {
             int result = data.getIntExtra(Consts.WORD_RESULT_OPERATION, 0);
             switch (result){
-                //todo добавить плавающую кнопку вместо кнопки в меню для добавления слова прямо в списке
                 case Consts.WORD_ADD:
                     mListWords = db.getFullListWords(
                             db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, null));
