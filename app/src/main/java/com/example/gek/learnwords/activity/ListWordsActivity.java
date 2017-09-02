@@ -67,8 +67,8 @@ public class ListWordsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intentAddWord = new Intent(ctx, WordActivity.class);
-                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
-                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
+                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW);
+                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW);
             }
         });
     }
@@ -158,8 +158,8 @@ public class ListWordsActivity extends AppCompatActivity {
                 break;
             case R.id.ab_new_word:
                 Intent intentAddWord = new Intent(this, WordActivity.class);
-                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW_FROM_LIST);
-                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW_FROM_LIST);
+                intentAddWord.putExtra(Consts.WORD_MODE, Consts.WORD_MODE_NEW);
+                startActivityForResult(intentAddWord, Consts.WORD_MODE_NEW);
             default:
                 break;
         }
@@ -177,7 +177,7 @@ public class ListWordsActivity extends AppCompatActivity {
         if (data == null) {
             return;
         }
-        if ((requestCode == Consts.WORD_MODE_EDIT)|| (requestCode == Consts.WORD_MODE_NEW_FROM_LIST)
+        if ((requestCode == Consts.WORD_MODE_EDIT)|| (requestCode == Consts.WORD_MODE_NEW)
                 && resultCode == RESULT_OK) {
             int result = data.getIntExtra(Consts.WORD_RESULT_OPERATION, 0);
             switch (result){

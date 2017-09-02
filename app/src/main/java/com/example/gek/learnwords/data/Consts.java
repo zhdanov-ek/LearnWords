@@ -18,8 +18,7 @@ public final class Consts {
     // Режимы работы редактирования СЛОВА и варианты завершения
     public static final String WORD_MODE = "mode";
     public static final int WORD_MODE_NEW = 1;
-    public static final int WORD_MODE_NEW_FROM_LIST = 2;
-    public static final int WORD_MODE_EDIT = 3;
+    public static final int WORD_MODE_EDIT = 2;
 
 
     public static final String WORD_RESULT_OPERATION = "word_result_operation";
