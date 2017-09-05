@@ -162,11 +162,7 @@ public class WordActivity extends AppCompatActivity {
     }
 
     private List<MyWord> findWord(String newWord){
-        db = new DB(context);
-        db.open();
-        List<MyWord> results = db.getFullListWords(db.getAllData(Consts.LIST_TYPE_ALL, Consts.ORDER_BY_ABC, newWord));
-        db.close();
-        return results;
+        return db.getFullListWords(db.getAllData(Consts.LIST_TYPE_SEARCH, Consts.ORDER_BY_ABC, newWord));
     }
 
 }
